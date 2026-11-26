@@ -1,863 +1,1010 @@
 <!DOCTYPE html>
-<html lang="ko" style="color-scheme: light;">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="color-scheme" content="light only">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light only">
-  <title>THE PILOTI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Space+Grotesk:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root { color-scheme: light only; }
-
-    @media (prefers-color-scheme: dark) {
-      html { filter: none !important; }
-      body { background: #ffffff !important; color: #3c3c3c !important; }
-    }
-
-    :root {
-      --black: #3c3c3c;
-      --white: #ffffff;
-      --gray: #a0a0a0;
-      --line: #e8e8e8;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: #ffffff;
-      color: var(--black);
-      color-scheme: light;
-      font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
-      font-weight: 400;
-      font-size: 1.05rem;
-      line-height: 1.5;
-      letter-spacing: 0em;
-      cursor: none;
-    }
-
-    /* 커스텀 커서 */
-    .cursor {
-      position: fixed;
-      width: 8px; height: 8px;
-      background: var(--black);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s;
-    }
-    .cursor.hover {
-      width: 40px; height: 40px;
-      background: transparent;
-      border: 1px solid var(--black);
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 28px;
-      border-bottom: 1px solid var(--line);
-      background: #ffffff;
-    }
-
-    .nav-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .nav-left { display: flex; gap: 28px; }
-    .nav-right { text-align: right; }
-
-    nav a {
-      text-decoration: none;
-      color: #999;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.02em;
-      font-weight: 400;
-      transition: opacity 0.2s;
-    }
-    nav a:hover { opacity: 0.4; }
-
-    .nav-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      color: var(--gray);
-    }
-
-    /* HERO */
-    #hero {
-      padding-top: 61px;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero-photo {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center center;
-      display: block;
-      background: var(--white);
-      animation: heroZoom 8s ease forwards;
-    }
-
-    @keyframes heroZoom {
-      from { transform: scale(1.06); }
-      to   { transform: scale(1.00); }
-    }
-
-    .hero-photo-caption {
-      position: absolute;
-      bottom: 16px;
-      right: 20px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.04em;
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border-top: 1px solid var(--line);
-      background: #ffffff;
-    }
-
-    .hero-meta-item {
-      padding: 16px 28px;
-      border-right: 1px solid var(--line);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.05em;
-      color: var(--gray);
-    }
-    .hero-meta-item:last-child { border-right: none; }
-    .hero-meta-item strong {
-      display: block;
-      color: #999;
-      font-weight: 500;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    /* PORTFOLIO */
-    #portfolio {
-      padding-top: 0;
-      background: #ffffff;
-    }
-
-    /* 필터 */
-    .filter-bar {
-      background: #ffffff !important;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 61px;
-      background: #ffffff;
-      z-index: 50;
-    }
-
-    .filter-btn {
-      padding: 14px 28px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.03em;
-      color: var(--gray);
-      border: none;
-      border-right: 1px solid var(--line);
-      background: #ffffff;
-      cursor: none;
-      text-align: left;
-      transition: color 0.2s;
-    }
-    .filter-btn:last-child { border-right: none; }
-    .filter-btn.active {
-      color: #ffffff;
-      background: var(--black);
-      font-weight: 500;
-    }
-
-    /* 프로젝트 리스트 */
-    .project-entry {
-      background: #ffffff;
-      border-bottom: 1px solid var(--line);
-      transition: opacity 0.3s;
-    }
-
-    .project-entry.hidden {
-      display: none;
-    }
-
-    .project-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr auto;
-      align-items: center;
-      padding: 16px 28px;
-      cursor: none;
-    }
-
-    .project-header span {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      color: var(--gray);
-    }
-
-    .project-name {
-      font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--black) !important;
-      letter-spacing: 0 !important;
-    }
-
-    .project-toggle {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px;
-      color: var(--gray);
-      transition: transform 0.3s;
-      cursor: none;
-    }
-    .project-entry.open .project-toggle {
-      transform: rotate(45deg);
-    }
-
-    .project-images {
-      display: none;
-      padding: 0 28px 28px;
-    }
-    .project-entry.open .project-images {
-      display: block;
-    }
-
-    .image-grid {
-      display: grid;
-      gap: 2px;
-    }
-
-    /* 사진 개수에 따라 그리드 변형 */
-    .image-grid.cols-1 { grid-template-columns: 2fr 1fr; }
-    .image-grid.cols-2 { grid-template-columns: 1fr 1fr 1fr; }
-    .image-grid.cols-3 { grid-template-columns: 2fr 1fr 1fr; }
-
-    .img-wrap {
-      overflow: hidden;
-      background: #e0ddd8;
-      position: relative;
-    }
-
-    .img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
-    }
-    .img-wrap:hover img { transform: scale(1.03); }
-
-    .img-wrap.tall { aspect-ratio: 3/4; }
-    .img-wrap.wide { aspect-ratio: 4/3; }
-    .img-wrap.square { aspect-ratio: 1; }
-
-    /* 플레이스홀더 */
-    .img-placeholder {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: #e8e5e0;
-      display: flex;
-      align-items: flex-end;
-      padding: 12px;
-    }
-    .img-placeholder span {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px;
-      color: #bbb;
-      letter-spacing: 0.05em;
-    }
-
-    .project-caption {
-      margin-top: 14px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      color: var(--gray);
-      letter-spacing: 0.05em;
-    }
-
-    /* ABOUT */
-    #about {
-      border-top: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: #ffffff;
-    }
-
-    .about-left {
-      padding: 80px 28px;
-      border-right: 1px solid var(--line);
-      background: #ffffff;
-    }
-
-    .about-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      color: var(--gray);
-      letter-spacing: 0.04em;
-      margin-bottom: 40px;
-    }
-
-    .about-heading strong,
-    .contact-heading strong {
-      font-weight: 600;
-    }
-
-    .about-heading {
-      font-family: 'Outfit', 'Noto Sans KR', sans-serif;
-      font-weight: 200;
-      font-size: clamp(52px, 6.5vw, 100px);
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      margin-bottom: 40px;
-    }
-
-    .about-body {
-      font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
-      font-size: 15px;
-      line-height: 2;
-      color: #555;
-      max-width: 440px;
-    }
-
-    .about-right {
-      padding: 0;
-      position: relative;
-    }
-
-    .about-photo-wrap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .about-photo {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      filter: brightness(0.75);
-    }
-
-    .about-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 40px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      width: 100%;
-    }
-
-    .stat {
-      padding: 20px 0;
-      border-top: 1px solid rgba(255,255,255,0.25);
-      border-right: 1px solid rgba(255,255,255,0.25);
-    }
-    .stat:nth-child(even) { border-right: none; padding-left: 24px; }
-    .stat:nth-child(odd) { padding-right: 24px; }
-
-    .stat-num {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 300;
-      font-size: 60px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-      color: #ffffff;
-    }
-
-    .stat-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.05em;
-    }
-
-    /* CONTACT */
-    #contact {
-      border-top: 1px solid var(--line);
-      padding: 120px 28px;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .contact-label {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      color: var(--gray);
-      letter-spacing: 0.04em;
-      margin-bottom: 40px;
-    }
-
-    .contact-heading {
-      font-family: 'Outfit', 'Noto Sans KR', sans-serif;
-      font-weight: 200;
-      font-size: clamp(52px, 6.5vw, 100px);
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-      margin-bottom: 60px;
-      max-width: 900px;
-    }
-
-    .kakao-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      background: #FEE500;
-      color: #1a0a00;
-      padding: 18px 36px;
-      text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
-      letter-spacing: 0.03em;
-      font-weight: 500;
-      transition: all 0.25s;
-      cursor: none;
-    }
-    .kakao-btn:hover {
-      background: var(--black);
-      color: #FEE500;
-    }
-
-    .contact-info {
-      margin-top: 60px;
-      border-top: 1px solid var(--line);
-      width: 100%;
-      max-width: 600px;
-    }
-
-    .contact-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      align-items: baseline;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
-      gap: 16px;
-    }
-
-    .contact-key {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      color: var(--gray);
-      letter-spacing: 0.05em;
-    }
-
-    .contact-val {
-      font-family: 'Space Grotesk', 'Noto Sans KR', sans-serif;
-      font-size: 15px;
-      color: var(--black);
-      text-decoration: none;
-      font-weight: 300;
-      line-height: 1.8;
-    }
-
-    a.contact-val:hover { opacity: 0.5; transition: opacity 0.2s; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      padding: 20px 28px;
-      background: #ffffff;
-    }
-
-    footer span {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      color: #999;
-      letter-spacing: 0.05em;
-    }
-    footer span:nth-child(2) { text-align: center; }
-    footer span:nth-child(3) { text-align: right; }
-
-    /* 반응형 */
-    @media (max-width: 768px) {
-      body { cursor: auto; }
-      .cursor { display: none; }
-
-      nav {
-        padding: 16px 20px;
-      }
-      .nav-left { gap: 16px; }
-      .nav-title { display: none; }
-
-      .hero-type {
-        font-size: clamp(72px, 20vw, 140px);
-        padding: 0 20px;
-      }
-
-      .hero-meta { grid-template-columns: 1fr; }
-      .hero-meta-item { border-right: none; border-bottom: 1px solid var(--line); padding: 20px 20px; }
-      .hero-meta-item:last-child { border-bottom: none; }
-
-      .filter-bar {
-      background: #ffffff !important; grid-template-columns: 1fr 1fr; }
-      .filter-btn:nth-child(2) { border-right: none; }
-      .filter-btn:nth-child(3) { border-top: 1px solid var(--line); }
-      .filter-btn:nth-child(4) { border-top: 1px solid var(--line); border-right: none; }
-
-      .project-header { grid-template-columns: 1fr auto; gap: 8px; }
-      .project-header .proj-category,
-      .project-header .proj-year { display: none; }
-
-      .image-grid.cols-1,
-      .image-grid.cols-2,
-      .image-grid.cols-3 { grid-template-columns: 1fr; }
-
-      #about { grid-template-columns: 1fr; }
-      .about-left { border-right: none; border-bottom: 1px solid var(--line); padding: 48px 20px; }
-      .about-right { padding: 60px 20px; }
-
-      #contact { padding: 60px 20px; }
-      .contact-info { max-width: 100%; width: 100%; margin-left: 0; margin-right: 0; }
-      .contact-row { grid-template-columns: 72px 1fr; gap: 12px; padding: 16px 0; }
-      .contact-val { font-size: 14px; }
-      .contact-key { font-size: 12px; }
-      .contact-heading { word-break: keep-all; }
-      .kakao-btn { width: 100%; justify-content: center; }
-
-      footer { grid-template-columns: 1fr; gap: 8px; padding: 24px 20px; }
-      footer span:nth-child(2),
-      footer span:nth-child(3) { text-align: left; }
-
-      .project-header,
-      .filter-btn { padding-left: 20px; padding-right: 20px; }
-      .project-images { padding: 0 20px 20px; }
-    }
-
-    /* 페이드인 */
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add("js","intro")</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THE PILOTI — Interior Design &amp; Build, Seoul · Gwangju</title>
+<meta name="description" content="THE PILOTI plans, designs and builds interiors for homes, salons, cafés, restaurants, shops and clinics in Seoul and Gwangju.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='153 86 206 210'%3E%3Cpath d='M179.5 149V291M208.5 149V291M238.5 149V291M267.5 291V129A32.75 32.75 0 0 1 333 129V291' fill='none' stroke='%23000' stroke-width='14'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#111; --paper:#fff; --mute:#8a8a8a; --rule:#b3b3b3; --dark:#0c0c0c; --ph:#efefed;
+  --pad:clamp(16px,2.2vw,32px);
+  --lh:clamp(24px,4.3vw,62px);
+  --e:cubic-bezier(.65,0,.35,1); --eo:cubic-bezier(.2,.7,.2,1);
+  --sans:"Inter Tight","Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html.intro{overflow:hidden}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.45 var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+img{display:block;max-width:100%}
+svg{display:block}
+ol,ul{list-style:none}
+:focus-visible{outline:1px solid currentColor;outline-offset:3px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ul{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--eo)}
+.ul:hover,.ul:focus-visible,.ul[aria-current]{background-size:100% 1px}
+section{scroll-margin-top:56px}
+.k-dot{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#FEE500;flex:none}
+.k-dot svg{width:11px;height:11px;color:#111}
+
+/* ---------- intro: black stage, the logo draws itself ---------- */
+#intro{display:none}
+.js #intro{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:var(--dark);color:#fff;transition:background-color 1.1s ease}
+#intro .i-in{display:flex;flex-direction:column;align-items:center;gap:30px;transition:opacity .6s ease .2s}
+#intro .i-mark{width:44px;height:auto;overflow:visible}
+#intro .i-word{width:min(270px,58vw);height:auto;overflow:visible}
+#intro path{fill:none;stroke:currentColor;stroke-linecap:butt;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset var(--t,1s) var(--e) var(--d,0s)}
+#intro.go path{stroke-dashoffset:0}
+#intro.fade{background-color:rgba(12,12,12,0);pointer-events:none}
+#intro.fade .i-in{opacity:0}
+#intro.gone{display:none}
+
+/* ---------- header ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:calc(var(--pad)*.75) var(--pad);transition:background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
+.js .hdr{opacity:0}
+.lit .hdr{opacity:1;transition:opacity .9s ease .25s,background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
+.hdr.small{background:#fff;box-shadow:0 1px 0 var(--rule);padding-top:14px;padding-bottom:14px}
+.brand{display:block}
+.brand svg{height:var(--lh);width:calc(var(--lh)*516/77);--ww:3.4;transition:height .55s var(--eo),width .55s var(--eo)}
+.brand .tag{display:block;font-size:calc(var(--lh)*.96);line-height:1;letter-spacing:-.035em;white-space:nowrap;margin-top:calc(var(--lh)*.2);max-height:1.4em;overflow:hidden;transition:opacity .3s ease,max-height .55s var(--eo),margin .55s var(--eo)}
+.hdr.small .brand svg{height:17px;width:calc(17px*516/77);--ww:4.8}
+.hdr.small .brand .tag{opacity:0;max-height:0;margin-top:0}
+.nav{display:flex;align-items:center;gap:22px;font-size:14px;letter-spacing:-.005em;padding-top:3px;white-space:nowrap}
+.nav .k{display:inline-flex;align-items:center;gap:7px}
+.nav .k i{width:9px;height:9px;border-radius:50%;background:#FEE500;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+
+/* ---------- hero: section drawing ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;display:flex;flex-direction:column;padding:0 var(--pad)}
+.bp-hero-wrap{position:relative;flex:1;min-height:0;margin-top:calc(var(--lh)*2.4 + 70px)}
+.bp-hero-wrap svg{position:absolute;inset:0;width:100%;height:100%}
+.bp{color:var(--ink);overflow:hidden}
+.contact .bp{color:#f2f2f2}
+.bp .s{fill:none;stroke:currentColor;stroke-width:calc(1.15px*var(--k,1));stroke-linecap:round;stroke-linejoin:round}
+.bp .s.th{stroke-width:calc(.7px*var(--k,1))}
+.bp .s.bd{stroke-width:calc(1.6px*var(--k,1))}
+.bp .s.fig{fill:#fff}
+.bp .ax{fill:none;stroke:currentColor;stroke-width:calc(.6px*var(--k,1));stroke-dasharray:7 6;opacity:.28}
+.bp text{fill:currentColor;font-family:var(--sans);font-size:calc(10.5px*var(--k,1));letter-spacing:.09em}
+.bp text.fx{font-size:15px;letter-spacing:0}
+.js .bp .s{stroke-dasharray:1;stroke-dashoffset:1}
+.js .bp .ax,.js .bp text{opacity:0}
+.bp.draw .s{stroke-dashoffset:0;transition:stroke-dashoffset var(--t,1s) var(--e) var(--d,0s)}
+.bp.draw .ax{opacity:.28;transition:opacity 1.2s ease var(--d,0s)}
+.bp.draw text{opacity:1;transition:opacity .9s ease var(--d,0s)}
+.cap-row{position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:16px;padding:12px 0 18px;font-size:12px;color:var(--mute)}
+.cap-row::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--rule);transform-origin:0 0}
+.js .cap-row::before{transform:scaleX(0)}
+.js .cap-row>*{opacity:0}
+.hero.on .cap-row::before{transform:scaleX(1);transition:transform 1.6s var(--e) .2s}
+.hero.on .cap-row>*{opacity:1;transition:opacity .9s ease 1.4s}
+.cap-row>:nth-child(2){text-align:center}
+.cap-row>:last-child{text-align:right}
+.cap-row a{color:var(--ink)}
+
+/* ---------- hero interaction: sun, shade, the building as a menu ---------- */
+.bp .hp{fill:none;stroke:currentColor;stroke-width:.7}
+.bp .shade{fill:url(#hatch);stroke:none}
+.bp .sun-c{fill:none;stroke:currentColor;stroke-width:calc(1.1px*var(--k,1));stroke-linecap:round}
+.bp .sunny{opacity:0;transition:opacity 1.4s ease}
+.bp.live #sun{opacity:1}
+.bp.live .shade{opacity:.55}
+.bp .hot rect{fill:transparent;cursor:pointer}
+.bp .hot{outline:none;-webkit-tap-highlight-color:transparent}
+.bp .hot:focus-visible rect{stroke:currentColor;stroke-dasharray:6 5;stroke-width:calc(1px*var(--k,1))}
+.bp.live .s,.bp.live text,.bp.live .ax{transition:opacity .35s ease,stroke-width .35s ease}
+.bp.hl .s,.bp.hl text{opacity:.18}
+.bp.hl .ax{opacity:.08}
+.bp.hl .shade{opacity:.2}
+.bp.hl #sun-t{opacity:1}
+.bp[data-hl="work"] .g-work .s,.bp[data-hl="work"] .g-work text,.bp[data-hl="about"] .g-about .s,.bp[data-hl="about"] .g-about text,.bp[data-hl="process"] .g-process .s,.bp[data-hl="process"] .g-process text,.bp[data-hl="contact"] .g-contact .s,.bp[data-hl="contact"] .g-contact text{opacity:1}
+.bp[data-hl="work"] .g-work .s,.bp[data-hl="about"] .g-about .s,.bp[data-hl="process"] .g-process .s,.bp[data-hl="contact"] .g-contact .s{stroke-width:calc(1.9px*var(--k,1))}
+.bp[data-hl="work"] .g-work .s.th,.bp[data-hl="about"] .g-about .s.th,.bp[data-hl="process"] .g-process .s.th,.bp[data-hl="contact"] .g-contact .s.th{stroke-width:calc(1.25px*var(--k,1))}
+/* people stroll, turn round, stroll back */
+.bp .walker{transform-box:fill-box;transform-origin:50% 50%}
+@keyframes walk1{0%,98.6%,100%{transform:translateX(0) scaleX(1)}46%,47.4%{transform:translateX(96px) scaleX(1)}47.8%,50%{transform:translateX(96px) scaleX(-1)}96%,98.2%{transform:translateX(0) scaleX(-1)}}
+@keyframes walk2{0%,98.6%,100%{transform:translateX(0) scaleX(1)}46%,47.4%{transform:translateX(-86px) scaleX(1)}47.8%,50%{transform:translateX(-86px) scaleX(-1)}96%,98.2%{transform:translateX(0) scaleX(-1)}}
+.bp.live .w1{animation:walk1 32s linear infinite}
+.bp.live .w2{animation:walk2 38s linear -9s infinite}
+.hot-tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;background:#111;color:#fff;font-size:12px;line-height:1;padding:8px 11px;white-space:nowrap;opacity:0;transform:translate3d(var(--x,0),var(--y,0),0);transition:opacity .2s ease}
+.hot-tip.show{opacity:1}
+
+/* ---------- ruled cells (work grid, index, process) ---------- */
+.rc{position:relative}
+.rc::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--rule);transform-origin:0 0}
+.rc::after{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--rule);transform-origin:0 0}
+.rc.c0::after{display:none}
+.js .rc::before{transform:scaleX(0)}
+.js .rc::after{transform:scaleY(0)}
+.js .rc .fx-in{opacity:0}
+.rc.in::before{transform:scaleX(1);transition:transform 1s var(--e) var(--dl,0s)}
+.rc.in::after{transform:scaleY(1);transition:transform 1.1s var(--e) calc(var(--dl,0s) + .22s)}
+.rc.in .fx-in{opacity:1;transition:opacity .7s ease calc(var(--dl,0s) + .55s)}
+
+/* ---------- work: horizontal magazine ---------- */
+.work{position:relative;margin-top:clamp(50px,7vw,110px)}
+.sec-title{font-size:clamp(30px,3.6vw,56px);font-weight:400;line-height:1;letter-spacing:-.035em}
+.filters{font-size:14px;color:var(--mute);line-height:1.6}
+.filters button{color:var(--mute);transition:color .25s}
+.filters button:hover,.filters button[aria-pressed="true"]{color:var(--ink)}
+.filters button[aria-pressed="true"]{background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat}
+.filters sup{font-size:.62em;margin-left:2px;vertical-align:.7em;line-height:0}
+.w-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px 30px;flex-wrap:wrap;padding:14px var(--pad) 0}
+.w-it{display:block;cursor:pointer}
+.w-fig{overflow:hidden;background:var(--ph);margin:0}
+.w-fig img{width:100%;height:100%;object-fit:cover}
+.w-cap{display:flex;gap:14px;align-items:flex-start;margin-top:12px}
+.w-no{font-size:30px;font-weight:300;line-height:.86;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.w-t{min-width:0}
+.w-t b{display:inline;font-weight:400;font-size:15px;line-height:1.2;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--eo)}
+.w-it:hover .w-t b,.w-it:focus-visible .w-t b{background-size:100% 1px}
+.w-t>span{display:block;font-size:12px;color:var(--mute);margin-top:3px}
+.w-t em{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-style:normal;font-size:14px;line-height:1.35;color:#3a3a3a;margin-top:10px;max-width:32em}
+.w-lbl{font-size:12px;color:var(--mute)}
+.w-lede{font-size:clamp(20px,1.9vw,28px);line-height:1.18;letter-spacing:-.02em}
+.w-yr b{display:block;font-weight:300;line-height:.8;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
+.w-end a{display:inline-block;font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;margin-top:14px}
+.w-foot{display:flex;align-items:center;gap:20px;padding:0 calc(var(--pad) + 150px) 18px var(--pad);font-size:12px;color:var(--mute)}
+.w-bar{flex:1;height:1px;background:var(--rule);position:relative;overflow:hidden}
+.w-bar i{position:absolute;inset:0;background:var(--ink);transform-origin:0 0;transform:scaleX(0)}
+#w-count{color:var(--ink);font-variant-numeric:tabular-nums;min-width:10em}
+@media (min-width:761px){
+  .work{height:400vh}
+  .w-pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;overflow:hidden;padding-top:50px}
+  .w-view{position:relative;flex:1;min-height:0;padding:28px 0 20px;overflow:hidden}
+  .w-track{display:flex;height:100%;width:max-content;padding:0 var(--pad);will-change:transform}
+  .w-it{flex:none;display:flex;flex-direction:column;height:100%}
+  .w-it.cap-top .w-cap{order:-1;margin:0 0 12px}
+  .w-fig img{transform:scale(1.12);will-change:transform}
+  .w-blk{flex:none;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+  .w-intro{width:clamp(260px,25vw,380px);margin-right:3vw}
+  .w-yr{margin-left:7vw;padding-left:16px;border-left:1px solid var(--rule)}
+  .w-yr b{font-size:clamp(90px,12vw,200px);white-space:nowrap;margin-left:-.04em}
+  .w-end{width:clamp(280px,28vw,420px);margin-left:8vw;padding-left:16px;padding-bottom:56px;border-left:1px solid var(--rule)}
+}
+@media (max-width:760px){
+  .w-foot{display:none}
+  .w-track{padding:0 var(--pad)}
+  .w-fig{aspect-ratio:var(--ar)}
+  .w-it{margin-top:46px}
+  .w-it.v0,.w-it.v4{width:100%}
+  .w-it.v1{width:66%;margin-left:auto}
+  .w-it.v2{width:74%}
+  .w-it.v3{width:60%;margin-left:14%}
+  .w-intro{margin-top:26px}
+  .w-intro .w-lede{margin:10px 0}
+  .w-yr{display:flex;justify-content:space-between;align-items:flex-end;margin-top:72px;padding-top:12px;border-top:1px solid var(--rule)}
+  .w-yr b{font-size:72px}
+  .w-end{margin-top:72px;padding-top:12px;border-top:1px solid var(--rule)}
+}
+
+/* ---------- about ---------- */
+.about{padding:clamp(100px,12vw,190px) var(--pad) 0}
+.ab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:20px 24px}
+.lbl-s{font-size:12px;color:var(--mute);padding-top:.5em}
+.ab-big{font-size:clamp(24px,2.75vw,44px);font-weight:400;line-height:1.13;letter-spacing:-.028em;max-width:22em}
+.ab-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:clamp(30px,4vw,52px);max-width:920px;color:#3c3c3c}
+.ab-cols p+p{margin-top:.9em}
+.ko-t{font-size:12px;line-height:1.65;color:var(--mute);letter-spacing:-.01em;margin-top:.55em}
+.ab-cols p.ko-t{margin-top:.55em}
+.ab-cols p.ko-t+p{margin-top:1.3em}
+.ko-big{font-size:13px;max-width:44em;margin-top:1.1em}
+.pp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:20px 24px;margin-top:clamp(80px,10vw,140px)}
+.pp-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);max-width:920px}
+.pp-in .rc{padding:12px 0 0 20px}
+.pp-in .rc.c0{padding-left:0}
+.pp-ph img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:#ececec}
+.pp-tx{display:flex;flex-direction:column;justify-content:flex-end}
+.pp-role{font-size:12px;color:var(--mute)}
+.pp-name{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:clamp(34px,4vw,60px);line-height:1.05;letter-spacing:-.04em}
+.pp-ko{font-size:14px;line-height:1.3;color:var(--mute);letter-spacing:-.01em}
+.pp-cta{display:inline-block;margin-top:22px;font-size:14px;border-bottom:1px solid currentColor;padding-bottom:2px}
+.fig{margin-top:clamp(70px,9vw,130px)}
+.fig svg{width:100%;height:auto;max-height:76vh}
+.fig figcaption{position:relative;display:flex;justify-content:space-between;gap:16px;padding-top:12px;margin-top:22px;font-size:12px;color:var(--mute)}
+.fig figcaption::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--rule)}
+.block{margin-top:clamp(80px,10vw,140px)}
+.block-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.block-h h3{font-size:clamp(22px,2.2vw,32px);font-weight:400;letter-spacing:-.025em;line-height:1.1}
+.block-h span{font-size:12px;color:var(--mute)}
+.idx{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.idx{column-gap:16px}
+.idx .rc{padding:12px 0 20px 16px}
+.idx .rc.c0{padding-left:0}
+.idx b{display:block;font-weight:400;font-size:clamp(40px,5.4vw,88px);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin-top:clamp(26px,4vw,60px)}
+.idx span{font-size:12px;color:var(--mute)}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.steps{column-gap:16px}
+.steps .rc{padding:12px 0 22px 16px}
+.steps .rc.c0{padding-left:0}
+.steps .n{font-size:11px;color:var(--mute);font-variant-numeric:tabular-nums}
+.steps h4{font-size:16px;font-weight:400;letter-spacing:-.01em;margin:clamp(34px,4.5vw,70px) 0 6px}
+.steps p{font-size:13px;color:var(--mute);line-height:1.45}
+
+/* ---------- contact (dark, bookends the intro) ---------- */
+.contact{background:var(--dark);color:#f2f2f2;margin-top:clamp(110px,13vw,200px);padding:clamp(70px,9vw,130px) var(--pad) 0;--rule:rgba(255,255,255,.24);--mute:#8f8f8f}
+.ct-head h2{font-size:clamp(36px,5.6vw,92px);font-weight:400;line-height:.98;letter-spacing:-.045em}
+.ct-head p{max-width:34em;color:var(--mute);margin-top:20px}
+.ct-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(36px,5vw,90px);margin-top:clamp(44px,6vw,80px)}
+.info .k-big{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 20px 20px;background:#FEE500;color:#111;transition:transform .4s var(--eo)}
+.info .k-big:hover{transform:translateY(-2px)}
+.info .k-big strong{display:block;font-weight:500;font-size:16px}
+.info .k-big small{display:block;font-size:13px;margin-top:4px;opacity:.75}
+.info dl{margin-top:26px}
+.info dl>div{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:13px 0;border-top:1px solid var(--rule);font-size:14px}
+.info dt{font-size:12px;color:var(--mute)}
+.info dd small{display:block;font-size:12px;color:var(--mute);margin-top:2px}
+.info .copy{font-size:11px;color:var(--mute);text-decoration:underline;text-underline-offset:3px}
+.info .copy:hover{color:#fff}
+.builder .field{border:0;padding:18px 0 20px;border-top:1px solid var(--rule);min-width:0}
+.builder legend,.builder .lbl{display:block;font-size:12px;color:var(--mute);margin-bottom:10px;padding:0}
+.builder legend{float:left;width:100%}
+.builder legend span{color:#5f5f5f}
+.opts{clear:both;display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:inline-block;padding:7px 14px;border:1px solid var(--rule);border-radius:999px;font-size:13px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+.opt span:hover{border-color:#f2f2f2}
+.opt input:checked+span{background:#f2f2f2;color:#111;border-color:#f2f2f2}
+.opt input:focus-visible+span{outline:1px solid #fff;outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sub .lbl{margin-bottom:4px}
+.inp{width:100%;background:transparent;border:0;border-bottom:1px solid var(--rule);border-radius:0;color:inherit;font:inherit;font-size:15px;padding:8px 0}
+.inp::placeholder{color:#5c5c5c}
+.inp:focus{outline:none;border-bottom-color:#f2f2f2}
+select.inp{-webkit-appearance:none;appearance:none;padding-right:22px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999'/%3E%3C/svg%3E") right 4px center/10px 6px no-repeat}
+select.inp option{color:#111}
+textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
+.area{display:flex;align-items:baseline;gap:10px}
+.area .inp{width:96px}
+.area span,.area output{font-size:13px;color:var(--mute)}
+.preview-wrap{padding-top:18px;border-top:1px solid var(--rule)}
+.preview{white-space:pre-wrap;font:400 13px/1.6 var(--sans);color:#cfcfcf;border:1px solid var(--rule);padding:14px 16px;min-height:92px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border:1px solid currentColor;border-radius:999px;font-size:14px;transition:background-color .25s,color .25s}
+.btn-solid{background:#f2f2f2;color:#111;border-color:#f2f2f2;padding-left:11px}
+.btn:not(.btn-solid):hover{background:#f2f2f2;color:#111}
+.hint{font-size:12px;color:var(--mute);margin-top:12px}
+.ft-word{padding-top:clamp(90px,12vw,170px)}
+.ft-word svg{width:100%;height:auto;--ww:3.4}
+.ft-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 26px;margin-top:clamp(22px,3vw,40px);padding:16px 0 22px;border-top:1px solid var(--rule);font-size:12px;color:var(--mute)}
+.ft-row a{color:#f2f2f2}
+
+/* ---------- floating KakaoTalk ---------- */
+.fab{position:fixed;right:var(--pad);bottom:var(--pad);z-index:90;display:inline-flex;align-items:center;gap:9px;padding:9px 16px 9px 9px;background:#111;color:#fff;border-radius:999px;font-size:13px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s ease,transform .5s var(--eo)}
+.fab.show{opacity:1;transform:none;pointer-events:auto}
+
+/* ---------- project detail ---------- */
+.pd{position:fixed;inset:0;z-index:250;background:#fff;overflow-y:auto;overscroll-behavior:contain;opacity:0;transition:opacity .4s ease}
+.pd[hidden]{display:none}
+.pd.open{opacity:1}
+.pd-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px var(--pad);background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:13px}
+.pd-bar::after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:1px;background:var(--rule);transform:scaleX(0);transform-origin:0 0}
+.pd.open .pd-bar::after{transform:scaleX(1);transition:transform 1.1s var(--e) .1s}
+.pd-bar .no{color:var(--mute);font-variant-numeric:tabular-nums}
+.pd-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(26px,4vw,70px);padding:30px var(--pad) 90px}
+.pd-info{position:sticky;top:84px;align-self:start}
+.pd-cat{font-size:12px;color:var(--mute)}
+.pd-title{font-size:clamp(32px,3.8vw,60px);font-weight:400;line-height:1;letter-spacing:-.04em;margin:10px 0 20px}
+.pd-head{font-size:clamp(17px,1.4vw,20px);line-height:1.3;letter-spacing:-.01em;max-width:22em}
+.pd-dl{margin:26px 0 22px}
+.pd-dl>div{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--rule);font-size:13px}
+.pd-dl>div:last-child{border-bottom:1px solid var(--rule)}
+.pd-dl>div[hidden]{display:none}
+.pd-dl dt{color:var(--mute)}
+.pd-desc{font-size:14px;color:#4a4a4a;max-width:30em}
+.pd .btn{margin-top:26px;color:#111}
+.pd .btn-solid{background:#111;color:#fff;border-color:#111}
+.pd .btn-solid:hover{background:#333}
+.pd-nav{display:flex;justify-content:space-between;margin-top:40px;font-size:13px}
+.pd-gal{display:grid;gap:14px}
+.pd-gal img{width:100%;height:auto;background:var(--ph);opacity:0;transition:opacity .8s ease}
+.pd-gal img.ld{opacity:1}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:24px;z-index:400;transform:translate(-50%,calc(100% + 40px));max-width:min(92vw,520px);background:#111;color:#fff;font-size:14px;line-height:1.45;padding:13px 20px;text-align:center;transition:transform .5s var(--eo)}
+.toast.show{transform:translate(-50%,0)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ct-body{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  :root{--lh:22px}
+  .nav .hide-s{display:none}
+  .nav{gap:14px;font-size:13px}
+  .hero{height:auto;min-height:0}
+  .bp-hero-wrap{flex:none;aspect-ratio:760/790;margin-top:100px}
+  .bp .lv{display:none}
+  .cap-row{grid-template-columns:1fr auto}
+  .cap-row>:first-child{display:none}
+  .cap-row>:nth-child(2){text-align:left;color:var(--ink)}
+  .ab-grid{grid-template-columns:1fr}
+  .ab-cols{grid-template-columns:1fr}
+  .pp{grid-template-columns:1fr}
+  .pp-in{grid-template-columns:minmax(0,9fr) minmax(0,11fr)}
+  .pp-in .rc{padding-left:14px}
+  .pp-in .rc.c0{padding-left:0}
+  .pp-name{font-size:28px}
+  .pp-ko{font-size:12px;white-space:nowrap}
+  .pp-name{gap:2px 8px}
+  .idx{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pd-body{grid-template-columns:1fr}
+  .pd-info{position:static}
+  .two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation:none!important}
+}
+.ft-word .s{stroke-linecap:butt;stroke-linejoin:miter}
+</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="lg-word" viewBox="-2 343 516 77"><path fill="none" stroke="currentColor" style="stroke-width:var(--ww,3.4)" d="M0 348.5H51M25.5 347V416M65.5 347V416M114.5 347V416M64 381.5H116M137.5 347V416M136 348.5H183M136 381.5H178M136 414.5H183M227.5 347V416M226 348.5H254A19.5 19.5 0 0 1 254 387.5H226M291.5 347V416M315.5 347V416M314 414.5H357M432.5 381.5A32 34 0 1 1 368.5 381.5A32 34 0 1 1 432.5 381.5M444 348.5H495M469.5 347V416M510.5 347V416"/></symbol>
+  <symbol id="i-kakao" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.6c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.7 4.88 4.27 6.2l-.9 3.27c-.08.3.25.53.5.36l3.92-2.58c.56.08 1.13.12 1.71.12 5.25 0 9.5-3.33 9.5-7.43S17.25 3.6 12 3.6z"/></symbol>
+</svg>
 
-<div class="cursor" id="cursor"></div>
+<!-- Intro: black stage. The logo draws itself, then the page turns white. -->
+<div id="intro" aria-hidden="true">
+  <div class="i-in">
+    <svg class="i-mark" viewBox="172 89 168 206"><path pathLength="1" style="stroke-width:7.4;--d:0.05s;--t:0.55s" d="M179.5 291V149"/><path pathLength="1" style="stroke-width:7.4;--d:0.15s;--t:0.55s" d="M208.5 291V149"/><path pathLength="1" style="stroke-width:7.4;--d:0.25s;--t:0.55s" d="M238.5 291V149"/><path pathLength="1" style="stroke-width:7.4;--d:0.35s;--t:0.95s" d="M267.5 291V129A32.75 32.75 0 0 1 333 129V291"/></svg>
+    <svg class="i-word" viewBox="-2 343 516 77"><path pathLength="1" style="stroke-width:3.4;--d:.55s;--t:1.35s" d="M0 348.5H51M25.5 347V416M65.5 347V416M114.5 347V416M64 381.5H116M137.5 347V416M136 348.5H183M136 381.5H178M136 414.5H183M227.5 347V416M226 348.5H254A19.5 19.5 0 0 1 254 387.5H226M291.5 347V416M315.5 347V416M314 414.5H357M432.5 381.5A32 34 0 1 1 368.5 381.5A32 34 0 1 1 432.5 381.5M444 348.5H495M469.5 347V416M510.5 347V416"/></svg>
+  </div>
+</div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-left">
-    <a href="#about">About</a>
-    <a href="#portfolio">Work</a>
-  </div>
-  <div class="nav-center">
-    <a href="#hero"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEASABIAAD/7QAsUGhvdG9zaG9wIDMuMAA4QklNA+0AAAAAABAASAAAAAEAAQBIAAAAAQAB/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoKDBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgAwAEAAwERAAIRAQMRAf/EAaIAAAAHAQEBAQEAAAAAAAAAAAQFAwIGAQAHCAkKCwEAAgIDAQEBAQEAAAAAAAAAAQACAwQFBgcICQoLEAACAQMDAgQCBgcDBAIGAnMBAgMRBAAFIRIxQVEGE2EicYEUMpGhBxWxQiPBUtHhMxZi8CRygvElQzRTkqKyY3PCNUQnk6OzNhdUZHTD0uIIJoMJChgZhJRFRqS0VtNVKBry4/PE1OT0ZXWFlaW1xdXl9WZ2hpamtsbW5vY3R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo+Ck5SVlpeYmZqbnJ2en5KjpKWmp6ipqqusra6voRAAICAQIDBQUEBQYECAMDbQEAAhEDBCESMUEFURNhIgZxgZEyobHwFMHR4SNCFVJicvEzJDRDghaSUyWiY7LCB3PSNeJEgxdUkwgJChgZJjZFGidkdFU38qOzwygp0+PzhJSktMTU5PRldYWVpbXF1eX1RlZmdoaWprbG1ub2R1dnd4eXp7fH1+f3OEhYaHiImKi4yNjo+DlJWWl5iZmpucnZ6fkqOkpaanqKmqq6ytrq+v/aAAwDAQACEQMRAD8A9U4q7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FVlxPBbwSXE8ixQQq0ksrkKqooqzMTsAAN8VfOfnr89fMvmDUzonklZre1kf0op4ELXlyen7ulWjU9uPxe46Yql1v+QP5p60De6nPb29y+5/SFzJJMfcmJZ/xNcVQV1YfnH+V8iXXqzw6cr0DxyfWbFjUbPGSVXl0HJVPhir3L8q/wA1NP8APFg8botprdooN5ZA1VlO3rQ13KE9R1U7HsSqzvFXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXkH/ADkn5ouNN8rWei27FH1mV/Xcf74t+LMn+yd0+gEYqi/yC8g2mi+V4NfuYQdX1dPVWVh8Udq28SIf8sUc+NR4Yq9UxVSu7S1vLWW0u4kntp0Mc0MgDI6MKFWB6g4q+VvMFjP+VX5tQz2Jf9HxyJdWyVqXspiVkiNa1pR0BPhXFX1arK6hlIZWFVYbgg9xireKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV89f8AOUv/AB0fL/8Axhuf+JR4q9u8noqeUtERRRVsLUKPYQqMVKb4q7FXzh/zlCq/4l0ZqfEbNgT7CU0/Xir3vyqzP5X0d2PJmsbYsT1JMS4qU0xV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KoTV746fpN7fhPUNpBLOI605emheld6VpirCPyl/NK48+fpX1tPSx/R31fjwkMnP1/VrWqrSnpYqyPz75nfyt5Tv8AXo7cXT2QjIgZuAb1JUj+0AenOuKpd+V3nyXzt5dm1aWzWyaK6e29JXMgIREflUhf9+Yq1+afn6byR5ft9Vis1vWnu0tTEzmMAPFJJyqA3++qYqm3knzG/mTyrp+uPALZ76MuYA3MLR2T7RAr9nFXiv8AzlL/AMdLy/8A8Ybn/iUeKvcPKX/KK6N/zA23/JlcVKa4q7FXzl/zlF/ykWi/8wb/APJ04q948pf8oro3/MDbf8mVxUprirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVSrzb/yius/8wNz/AMmWxUPGP+cVv+mo/wCjH/sYxV6D+eX/AJKvXf8AVt/+oqLFUg/5xm/5QC7/AO2nN/yYgxVZ/wA5Of8AKBWH/bVh/wCoe4xVlP5M/wDksdA/4wv/AMnnxV5d/wA5S/8AHS8v/wDGG5/4lHir3Dyl/wAoro3/ADA23/JlcVKa4q7FXzl/zlF/ykWi/wDMG/8AydOKvePKX/KK6N/zA23/ACZXFSmuKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxVKvNv/KK6z/zA3P/ACZbFQ8Y/wCcVv8ApqP+jH/sYxV6D+eX/kq9d/1bf/qKixVIP+cZv+UAu/8Atpzf8mIMVWf85Of8oFYf9tWH/qHuMVZT+TP/AJLHQP8AjC//ACefFXl3/OUv/HS8v/8AGG5/4lHir3Dyl/yiujf8wNt/yZXFSmuKuxV85f8AOUX/ACkWi/8AMG//ACdOKvePKX/KK6N/zA23/JlcVKa4q7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FUq82/wDKK6z/AMwNz/yZbFQ8Y/5xW/6aj/ox/wCxjFXoP55f+Sr13/Vt/wDqKixVIP8AnGb/AJQC7/7ac3/JiDFVn/OTn/KBWH/bVh/6h7jFWU/kz/5LHQP+ML/8nnxV5d/zlL/x0vL/APxhuf8AiUeKvcPKX/KK6N/zA23/ACZXFSmuKuxV85f85Rf8pFov/MG//J04q948pf8AKK6N/wAwNt/yZXFSmuKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxVKvNv/ACius/8AMDc/8mWxUPGP+cVv+mo/6Mf+xjFXoP55f+Sr13/Vt/8AqKixVIP+cZv+UAu/+2nN/wAmIMVWf85Of8oFYf8AbVh/6h7jFWU/kz/5LHQP+ML/APJ58VeXf85S/wDHS8v/APGG5/4lHir3Dyl/yiujf8wNt/yZXFSmuKuxV85f85Rf8pFov/MG/wDydOKvePKX/KK6N/zA23/JlcVKa4q7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FXYq7FUq82/8orrP/MDc/wDJlsVDxj/nFb/pqP8Aox/7GMVeg/nl/wCSr13/AFbf/qKixVIP+cZv+UAu/wDtpzf8mIMVWf8AOTn/ACgVh/21Yf8AqHuMVZT+TP8A5LHQP+ML/wDJ58VeXf8AOUv/AB0vL/8Axhuf+JR4q9w8pf8AKK6N/wAwNt/yZXFSmuKuxV85f85Rf8pFov8AzBv/AMnTir3jyl/yiujf8wNt/wAmVxUprirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVSrzb/yius/8wNz/wAmWxUPGP8AnFb/AKaj/ox/7GMVeg/nl/5KvXf9W3/6iosVSD/nGb/lALv/ALac3/JiDFVn/OTn/KBWH/bVh/6h7jFWU/kz/wCSx0D/AIwv/wAnnxV5d/zlL/x0vL//ABhuf+JR4q9w8pf8oro3/MDbf8mVxUprirsVfOX/ADlF/wApFov/ADBv/wAnTir3jyl/yiujf8wNt/yZXFSmuKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxVKvNv8Ayius/wDMDc/8mWxUPGP+cVv+mo/6Mf8AsYxV6D+eX/kq9d/1bf8A6iosVSD/AJxm/wCUAu/+2nN/yYgxVZ/zk5/ygVh/21Yf+oe4xVlP5M/+Sx0D/jC//J58VeXf85S/8dLy/wD8Ybn/AIlHir3Dyl/yiujf8wNt/wAmVxUprirsVfOX/OUX/KRaL/zBv/ydOKvePKX/ACiujf8AMDbf8mVxUprirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVdirsVSrzb/wAorrP/ADA3P/JlsVDxj/nFb/pqP+jH/sYxV6D+eX/kq9d/1bf/AKiosVSD/nGb/lALv/tpzf8AJiDFVn/OTn/KBWH/AG1Yf+oe4xVlP5M/+Sx0D/jC/wDyefFXl3/OUv8Ax0vL/wDxhuf+JR4q9w8pf8oro3/MDbf8mVxUprirsVfOX/OUX/KRaL/zBv8A8nTir3jyl/yiujf8wNt/yZXFSmuKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxVC6rYjUNLvLAv6Yu4JIDIBUqJEKVptWlcVYb+Vv5Vp5C/SfHUzqP6S9CtYfR4eh6n+XJXl6v4YqyDzv5XXzT5WvtBa5NoL0Rj6wE9Tj6cqyfZqla8KdcVQH5a+Qk8kaBLpC3pv/VuXuTMY/SoXRE48eUnT0/HFVv5meQF88aDBpLXxsBBdJdCYRetXhHJHx484/8Afta1xVNPJ3lxfLXlmw0Nbg3QsUKfWCvDnVi1eNWp9rxxVi/5o/lKnnu40+ZtUOnGwSROIg9bn6hU1/vI6U44qzfSrEafpdnYB/UFpBHAJCKFhGgStN6VpiqKxV2KvOPzR/J//Heo2V5+l/0d9ThaH0/q/r8uTcq19WKmKs90mx/R+lWdgH9T6pBFB6lOPL0kCcqVNK08cVRWKuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxVjQ/MryCRUa/ZEHofVXBaab/5WT5B/wCr9Z/8jVxtad/ysnyD/wBX6z/5Grja0nOl6tpuq2a3um3Md3aOWVZomDKSpowqPA4UNaTrOlaxaC80u7ivbUsUE0LB15L1FRiqMxV2KoLR9c0jWbU3elXkV7bBzGZoWDqHABK1HejDFUPrHmvy3os0cOq6lBZSyrzjjmcKWUGlQD2riqA/5WT5B/6v1n/yNXBaad/ysnyD/wBX6z/5Grja0mWjeZNB1sTHSb+G++r8RN6Lh+HOvHlTpXicKEyxV2Kscf8AMfyIjsja7ZhkJVh6q7EGhGC000PzJ8gkgfp+xFTSrTKo+kkgDDa0nen6npupW4udOu4by3JoJreRZUr4ckJGKETiqD0rWtJ1aGWbTLuK8ihlaCV4WDhZVALISO4DDFWr/WtJ0+5tLa9u4re4v39KyikYK0r1A4oD1NWH34qjcVdirsVdirGdY/MvyJpE7W99rMCzoSskUXKdkYGhDrCJCp9jitO0f8y/ImsTrb2Os27TuQscUpaB3Y7AIswjLH2XFaZNiqC1fW9I0e2W61S7isrdnEayzMFUuQSFBPeinFUo/wCVk+Qf+r9Z/wDI1cFpp3/KyfIP/V+s/wDkauNrS6H8xPI000cMWuWbyysscaCVaszGige5JxtaTXWNc0jRrUXeq3kVlbFxGJpmCKXIJC1PeinChJh+Wf5fgUHl+yp/xhXBSbed+fPJ/lay/MPyfY2ml28FneysLuBEASQB1ADjv1xS9E/5Vn+X/wD1YLL/AJErjSLTvS9J0zSbNbLTbaO0tEJZYIlCoCxqxoPE4UPPv+cef/JdR/8AMVL/AMRTAl6ZhQ7FXlP/ADjb/wAoBP8A9tCX/kxDilT/ADE0+x1H83PKdlfQJc2k0DiWCQclYAyGhHzGAqGaf8qz/L//AKsFl/yJXGlt3/Ks/wAv/wDqwWX/ACJXGltNNF8taBogmGkafBYi44mf0ECc+FePKnWnI4UJlirsVeM/kx5Q8sa1oms3WraZb3txHq88SSzIHYIIYWCgntVicCbZ+/5Yfl86FToFmAdiVjCn6CtCMaW2Cec/y2fyZBJ5w8iXEunz6ePUvtPZ3lilt1NX+2SxVftMrEim68SBir07yvr0Gv8Al6w1iFeCXsKyGOteD9HSvfg4K4UMF/ID/lG9b/7bVx/1D2+IUrPzb/5TX8vP+2mf+T9rgKQ9RwodirsVeS+aNY8wefPNdz5L8uXTWGi6d8Ov6oleTNUq0KkEbVBXjUciGr8I3CWWaF+U/kDR7ZYYtHgu3UUa4vUW5lY+NZAVWvggA9sKLW6/+UvkHWrV4ZNJhspGFFubFFt5FPj8ACP8nUjFWKeU9c8w+R/NkHkjzPcm90q+oNA1V6168ViJNTuaJxJPBqU+FhQJenavoekazara6rZxXtsriRYplDqHAIDAHvRjhQk3/Ks/y/8A+rBZf8iVwUm3n35X+TfKuo6950gvtKtrmKx1aaGzSSMMIoxNMAiV6CijFbeiwflz5Egmjnh0KzSaJlkjdYlBVlNVI9wRjS2wv/nJL/lAIP8AtoRf8mJsKvVsUPLfzH/8mh5F/wCMz/8AE0wFIepYUOxV49+RXmzytpnkOO11LWbGxuRcSMYLm5hhk4lUoeLspocVehf8rB8hf9TLpX/Sbb/814q7/lYPkL/qZdK/6Tbf/mvFWEf842/8oBP/ANtCX/kxDilb+YV9ZWP5veUru+uI7W1ihcy3E7rHGoJkFWdiFG5wKzn/AJWD5C/6mXSv+k23/wCa8KHf8rB8hf8AUy6V/wBJtv8A814qnFjf2N/ax3djcRXdpLUxXEDrJGwBIPF1JU0IpiqvirsVeY/kB/yjet/9tq4/6h7fEKXp2KsS/NXXtP0fyHq7Xciq97bS2VrGSKvLcRmMADuF5cm9gcVC/wDKzSrrS/y/0WzulKT+iZnRgQy/WJGmCsD0KiShHjiFLG/yA/5RvW/+21cf9Q9viFKz82/+U1/Lz/tpn/k/a4CkPUcKHYqlvmbUpNL8t6rqcQBksbO4uUB6coYmcf8AEcVYf+RWkx2XkC3vDU3WqTTXNzI27EiQxJud6cIwfmTgCS9Cwodirzj8+tIjuvIj6kvwXekTwz28q7OBJIsLgN/z0DfNRgKQzfy7qTap5f0zU2ADX1pBcsB0BmjV9v8AgsKEwxV5j+T/APyknn//ALbU/wD1ET4q9OxV5T/zkl/ygEH/AG0Iv+TE2KXq2KHlv5j/APk0PIv/ABmf/iaYCkPUsKHYq8U/JLyH5R1vyPHe6rpkV1devInquXB4qq0GzAd8CWff8qm/Lr/qxwffJ/zVjS27/lU35df9WOD75P8AmrGlti//ADjcSfINwTuTqEtT/wA8YcKqP5j6ZYap+bXlSwv4RcWk8DrNC1aMAZDvQg9RgKhl3/Kpvy6/6scH3yf81Y0tu/5VN+XX/Vjg++T/AJqxpbZHpWlafpNhFp+nQLbWcAIihSvFeTFj1r1ZicKEVirsVfP35aaX+aF3p2rSeU9XtNP04anMs0Nyis7TiKIs4rBNtwKj7XbAlmA8vfn+TRvNGnID1ZYoyR8gbSmKonRvydV9Wi1rzhq83mTUISGgilBW3jNQ1OBZuQDCvEcV8VxpbekYUPMfyA/5RvW/+21cf9Q9viFKz82/+U1/Lz/tpn/k/a4CkPUcKHYqlfmvT5tS8raxp0ArPe2NzbxD/LlhZF/E4qxP8i9Whv8A8u7KFWrNp8s1tOOlD6hlT/knKuISXoGKHYq88/PjU4LT8vLq1befUpoLe3QbklZBM1AN/sRH6aYlIZj5Y06TTPLWk6bL/eWNnb2z/wCtFEqH/iOKEyxV5j+T/wDyknn/AP7bU/8A1ET4q9OxV5T/AM5Jf8oBB/20Iv8AkxNil6tih5b+Y/8A5NDyL/xmf/iaYCkPUsKHYq8z/wCcef8AyXUf/MVL/wARTAl6ZhQ7FXlP/ONv/KAT/wDbQl/5MQ4pa/MC8tLP84PKNzdzx29tHDIZJpWVEUVkHxMxAGAqGe/428mf9X/Tv+kuD/mvCinf428mf9X/AE7/AKS4P+a8VpG6brejap6n6Nv7a+9Gnq/Vpo5uHKvHlwLUrxNK4qjcVdirzH8gP+Ub1v8A7bVx/wBQ9viFL07FXYq7FXmP5Af8o3rf/bauP+oe3xClQ/OO4gt/N/kCe4kWGCLUWeWWRgqKqzWpLMxoAAMBSGd/428mf9X/AE7/AKS4P+a8KKd/jbyZ/wBX/Tv+kuD/AJrxWkxsNT03UYDcafdw3kAYoZbeRZU5DcjkhIrvirybXbXV/wAsfN135n021e98o6w3LVrSLrbyFi3Idl+JmKE/DuUNPhOBL0by9548qeYYUk0rUoZpHG9sWCTqfBoXo4+75YUN+YPO3lXy/C0mralDAyg0twweZqdliSrn7sVed+X7TVvzK832vmvU7V7PynpDctEtJR8U8gYMJDTYjkoZiPh2CDl8RwJev4UOxV5j+T//ACknn/8A7bU//URPir07FXlP/OSX/KAQf9tCL/kxNil6tihLNR8s6HqWqWOqXtqJr/TCWspi7r6ZahPwqwVun7QOKpnirsVS3y/5c0Xy9pw07R7YWtmGZxEGd/ibqauWbt44qmWKuxVLPLvlnQ/Llg1hotqLS0aQytEGd/jYBSayMx6KO+KoPzJ5D8p+ZbiG41qwF3NAhjif1Zo6KTWn7t0rv44raUf8qW/LP/qzD/pIuv8AqrjSbd/ypb8s/wDqzD/pIuv+quNLad+WvJXljyybk6HZCzN5w+sH1JZOXpcuH96z0p6jdMUJ3irsVS3QfLei6Bbz22kWwtYbmZrmZAzvylcKrN8ZYjZBsNsVTLFXYq7FUt0Hy3ougW89tpFsLWG5ma5mQM78pXCqzfGWI2QbDbFUP5l8meWvMy241uyF2LUubf8AeSx8fUpy/u2SteA64qkf/Klvyz/6sw/6SLr/AKq40m3f8qW/LP8A6sw/6SLr/qrjS2yPy95Z0Py7YtYaNbC0tXkMzRh3ersApblIzt0Ud8UJkyq6lWAZWFGU7gg9jirCNX/Jb8utTleZtM+qyyfaNrI8SfRED6Q+hMaTbej/AJL/AJdaXKkyaWLqVPsm7d5k+mJj6R/4HGltmyqqqFUAKBQAbAAYobxV2KpbpHlvRdIuL+5062EE2pzNc3zhnb1JWJYt8RYDdjstBiqZYqlnmLyzofmOwWw1q1F3aLIJViLOnxqCoNY2U9GPfFUzxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2KuxV2Kv/9k=" alt="THE PILOTI" style="height:44px; opacity:1;"></a>
-  </div>
-  <div class="nav-right">
-    <a href="#contact">견적문의</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-photo">
-    <img
-      src="le_corbusier.png"
-      alt="Villa Savoye — Le Corbusier, 1929"
-      loading="eager"
-    >
-    <span class="hero-photo-caption">Villa Savoye, Le Corbusier — 1929</span>
-  </div>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      Studio
-      <strong>서울, 대한민국</strong>
-    </div>
-    <div class="hero-meta-item">
-      Founded
-      <strong>2012</strong>
-    </div>
-    <div class="hero-meta-item">
-      Speciality
-      <strong>주거 · 상업 · 교육</strong>
-    </div>
-  </div>
-</section>
-
-<!-- PORTFOLIO -->
-<section id="portfolio">
-
-  <!-- 필터 -->
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all', this)">ALL</button>
-    <button class="filter-btn" onclick="filter('residential', this)">주거공간</button>
-    <button class="filter-btn" onclick="filter('commercial', this)">상업공간</button>
-    <button class="filter-btn" onclick="filter('education', this)">교육공간</button>
-  </div>
-
-  <!-- 프로젝트 01 -->
-  <div class="project-entry reveal" data-category="residential">
-    <div class="project-header" onclick="toggle(this)">
-      <span class="project-name">Hannam Residence</span>
-      <span class="proj-category">주거공간</span>
-      <span class="proj-year">2024</span>
-      <span class="project-toggle">+</span>
-    </div>
-    <div class="project-images">
-      <div class="image-grid cols-1">
-        <div class="img-wrap tall"><div class="img-placeholder"><span>PHOTO — 001</span></div></div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 002</span></div></div>
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 003</span></div></div>
-        </div>
-      </div>
-      <p class="project-caption">016.01–03 &nbsp;/&nbsp; Hannam-dong, Seoul &nbsp;/&nbsp; 84㎡</p>
-    </div>
-  </div>
-
-  <!-- 프로젝트 02 -->
-  <div class="project-entry reveal" data-category="commercial">
-    <div class="project-header" onclick="toggle(this)">
-      <span class="project-name">Café Blanc</span>
-      <span class="proj-category">상업공간</span>
-      <span class="proj-year">2024</span>
-      <span class="project-toggle">+</span>
-    </div>
-    <div class="project-images">
-      <div class="image-grid cols-2">
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 001</span></div></div>
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 002</span></div></div>
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 003</span></div></div>
-      </div>
-      <p class="project-caption">017.01–03 &nbsp;/&nbsp; Seongsu-dong, Seoul &nbsp;/&nbsp; 62㎡</p>
-    </div>
-  </div>
-
-  <!-- 프로젝트 03 -->
-  <div class="project-entry reveal" data-category="education">
-    <div class="project-header" onclick="toggle(this)">
-      <span class="project-name">Learning Hub</span>
-      <span class="proj-category">교육공간</span>
-      <span class="proj-year">2023</span>
-      <span class="project-toggle">+</span>
-    </div>
-    <div class="project-images">
-      <div class="image-grid cols-3">
-        <div class="img-wrap tall"><div class="img-placeholder"><span>PHOTO — 001</span></div></div>
-        <div class="img-wrap tall"><div class="img-placeholder"><span>PHOTO — 002</span></div></div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 003</span></div></div>
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 004</span></div></div>
-        </div>
-      </div>
-      <p class="project-caption">018.01–04 &nbsp;/&nbsp; Mapo-gu, Seoul &nbsp;/&nbsp; 140㎡</p>
-    </div>
-  </div>
-
-  <!-- 프로젝트 04 -->
-  <div class="project-entry reveal" data-category="residential">
-    <div class="project-header" onclick="toggle(this)">
-      <span class="project-name">Yeonnam Apartment</span>
-      <span class="proj-category">주거공간</span>
-      <span class="proj-year">2023</span>
-      <span class="project-toggle">+</span>
-    </div>
-    <div class="project-images">
-      <div class="image-grid cols-1">
-        <div class="img-wrap tall"><div class="img-placeholder"><span>PHOTO — 001</span></div></div>
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 002</span></div></div>
-          <div class="img-wrap square"><div class="img-placeholder"><span>PHOTO — 003</span></div></div>
-        </div>
-      </div>
-      <p class="project-caption">019.01–03 &nbsp;/&nbsp; Yeonnam-dong, Seoul &nbsp;/&nbsp; 96㎡</p>
-    </div>
-  </div>
-
-  <!-- 프로젝트 05 -->
-  <div class="project-entry reveal" data-category="commercial">
-    <div class="project-header" onclick="toggle(this)">
-      <span class="project-name">Office Renewal — K Corp.</span>
-      <span class="proj-category">상업공간</span>
-      <span class="proj-year">2023</span>
-      <span class="project-toggle">+</span>
-    </div>
-    <div class="project-images">
-      <div class="image-grid cols-2">
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 001</span></div></div>
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 002</span></div></div>
-        <div class="img-wrap wide"><div class="img-placeholder"><span>PHOTO — 003</span></div></div>
-      </div>
-      <p class="project-caption">020.01–03 &nbsp;/&nbsp; Gangnam-gu, Seoul &nbsp;/&nbsp; 210㎡</p>
-    </div>
-  </div>
-
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-left reveal">
-    <p class="about-label">ABOUT — THE PILOTI</p>
-    <h2 class="about-heading"><strong>공간</strong>이<br><strong>삶</strong>을<br>바꿉니다</h2>
-    <p class="about-body">
-      <em style="font-style:italic; font-size:15px; line-height:1.8; color:#333; display:block; margin-bottom:20px;">
-        " The Competitive Edge of Vision "<br>
-        " Pleasant Contradictions "
-      </em>
-      <strong style="font-size:12px; letter-spacing:0.1em; font-family:'DM Mono',monospace; color:#999;">Piloti</strong>
-      <br><br>
-      프랑스 건축가 '르 코르뷔지에'가 제창한 건축 양식으로,<br>
-      건물을 지면보다 높이 받치는 기둥이라는 사전적 의미를 지닌다.<br>
-      기둥이 있는 지상층은 보행이나, 일반인들의 자유로운 왕래와<br>
-      자동차의 통행을 위하여 개방하는 것이 목적.<br><br>
-      자유로운 왕래, 안과 밖의 경계를 허물다.<br>
-      즉 사람과 사람 사이, 사람과 공간 사이를 나누지 않는<br>
-      소통하는 공간을 가꾸어 나가려고 합니다.
-    </p>
-  </div>
-  <div class="about-right reveal">
-    <div class="about-photo-wrap">
-      <img src="savoye_gardener.webp" alt="Villa Savoye" class="about-photo">
-      <div class="about-overlay">
-        <div class="stats-grid">
-          <div class="stat">
-            <div class="stat-num">12+</div>
-            <div class="stat-label">YEARS</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">340</div>
-            <div class="stat-label">PROJECTS</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">3</div>
-            <div class="stat-label">CATEGORIES</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">98%</div>
-            <div class="stat-label">SATISFACTION</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <p class="contact-label reveal">CONTACT — 견적 문의</p>
-  <h2 class="contact-heading reveal"><strong>공간</strong>에 대한<br><strong>이야기</strong>를<br>들려주세요</h2>
-  <a href="https://open.kakao.com/o/여기에카카오링크" class="kakao-btn reveal" target="_blank">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.632 1.557 4.95 3.938 6.32L4.5 21l4.563-2.4A11.3 11.3 0 0012 19c5.523 0 10-3.477 10-7.5S17.523 3 12 3z"/>
-    </svg>
-    카카오톡으로 견적 문의하기
+<header class="hdr" id="hdr">
+  <a class="brand" href="#top" aria-label="THE PILOTI — back to top">
+    <svg aria-hidden="true"><use href="#lg-word"/></svg>
+    <span class="tag" aria-hidden="true">Interior Design &amp; Build</span>
   </a>
+  <nav class="nav" aria-label="Main">
+    <span><a class="ul" href="#work">Work</a>, <a class="ul" href="#about">About</a>, <a class="ul" href="#contact">Contact</a></span>
+    <a class="k hide-s ul" data-kakao href="#contact"><i aria-hidden="true"></i>카카오톡 상담</a>
+    <a class="hide-s ul" href="tel:050713050516">0507-1305-0516</a>
+  </nav>
+</header>
 
-  <div class="contact-info reveal">
-    <div class="contact-row">
-      <span class="contact-key">E-mail.</span>
-      <a href="mailto:thepiloti@naver.com" class="contact-val">thepiloti@naver.com</a>
-    </div>
-    <div class="contact-row">
-      <span class="contact-key">Tel.</span>
-      <a href="tel:05071305-0516" class="contact-val">0507-1305-0516</a>
-    </div>
-    <div class="contact-row">
-      <span class="contact-key">Offline.</span>
-      <span class="contact-val">
-        광주광역시 북구 부남길15번길 15 1층<br>
-        <span style="color:var(--gray); font-size:11px;">15, Bunam-gil 15beon-gil, Buk-gu, Gwangju, Korea</span>
-      </span>
-    </div>
+<main id="top">
+<section class="hero" id="hero" aria-label="Introduction">
+  <h1 class="sr">THE PILOTI — interior design and build for homes, salons, cafés, restaurants and shops in Seoul and Gwangju</h1>
+  <div class="bp-hero-wrap">
+    <svg class="bp" id="bp-hero" viewBox="0 -150 1600 790" data-vb="0 -150 1600 790" data-vb-m="236 -150 760 790" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Section drawing of a building raised on columns, with open ground beneath, a ribbon window and an arched roof garden. Parts of the building link to sections of this page."><defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9"><path class="hp" d="M-1 1L1 -1M0 9L9 0M8 10L10 8"/></pattern><clipPath id="gclip"><rect x="40" y="300" width="1520" height="220"/></clipPath></defs><path id="shade" class="sunny shade" clip-path="url(#gclip)" d="M240 330H1400L1400 520H240Z"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:1.00s" d="M40 520H1560"/><path class="s th" pathLength="1" style="--d:0.55s;--t:1.50s" d="M52 520l-12 14M74 520l-12 14M96 520l-12 14M118 520l-12 14M140 520l-12 14M162 520l-12 14M184 520l-12 14M206 520l-12 14M228 520l-12 14M250 520l-12 14M272 520l-12 14M294 520l-12 14M316 520l-12 14M338 520l-12 14M360 520l-12 14M382 520l-12 14M404 520l-12 14M426 520l-12 14M448 520l-12 14M470 520l-12 14M492 520l-12 14M514 520l-12 14M536 520l-12 14M558 520l-12 14M580 520l-12 14M602 520l-12 14M624 520l-12 14M646 520l-12 14M668 520l-12 14M690 520l-12 14M712 520l-12 14M734 520l-12 14M756 520l-12 14M778 520l-12 14M800 520l-12 14M822 520l-12 14M844 520l-12 14M866 520l-12 14M888 520l-12 14M910 520l-12 14M932 520l-12 14M954 520l-12 14M976 520l-12 14M998 520l-12 14M1020 520l-12 14M1042 520l-12 14M1064 520l-12 14M1086 520l-12 14M1108 520l-12 14M1130 520l-12 14M1152 520l-12 14M1174 520l-12 14M1196 520l-12 14M1218 520l-12 14M1240 520l-12 14M1262 520l-12 14M1284 520l-12 14M1306 520l-12 14M1328 520l-12 14M1350 520l-12 14M1372 520l-12 14M1394 520l-12 14M1416 520l-12 14M1438 520l-12 14M1460 520l-12 14M1482 520l-12 14M1504 520l-12 14M1526 520l-12 14M1548 520l-12 14"/><path class="ax" style="--d:3.0s" d="M300 26V572"/><path class="ax" style="--d:3.0s" d="M560 26V572"/><path class="ax" style="--d:3.0s" d="M820 26V572"/><path class="ax" style="--d:3.0s" d="M1080 26V572"/><path class="ax" style="--d:3.0s" d="M1340 26V572"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M292 520V330"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M308 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M552 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M568 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M812 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M828 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1072 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1088 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1332 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1348 520V330"/><path class="s bd" pathLength="1" style="--d:1.00s;--t:0.90s" d="M240 330H1400V310H240Z"/><path class="s" pathLength="1" style="--d:2.55s;--t:1.00s" d="M880 112V72A52 52 0 0 1 984 72V112"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.80s" d="M1120 92H1400M1120 92V112M1160 92V112M1200 92V112M1240 92V112M1280 92V112M1320 92V112M1360 92V112M1400 92V112"/><text x="1260" y="80" text-anchor="middle" style="--d:3.70s">ROOF GARDEN</text><path class="s th" pathLength="1" style="--d:2.30s;--t:0.50s" d="M1494 520V438"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M1446 392a48 48 0 1 0 96 0a48 48 0 1 0 -96 0"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.60s" d="M1494 438V398M1494 412l-15-13M1494 404l13-11"/><g class="walker w2"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M947.7 512.1L948.8 513.2L949.1 514.1L948.9 515.1L948.3 515.9L939.9 519.9L939.4 520.0L938.9 519.6L938.7 519.1L938.9 518.5L943.8 514.2L944.1 513.7L944.2 513.0L940.0 503.0L936.9 492.2L936.2 491.5L935.3 491.4L934.5 491.9L934.1 492.9L934.0 502.8L931.9 515.4L932.0 516.0L932.6 516.9L932.9 517.5L932.9 518.2L932.7 518.8L932.0 519.7L930.9 520.0L922.1 520.0L921.7 519.8L921.3 519.3L921.4 518.8L921.8 518.3L927.6 516.6L928.2 516.2L928.5 515.5L928.0 502.6L928.3 492.2L928.5 489.4L928.2 488.5L927.7 488.2L926.8 487.9L926.4 487.2L927.8 476.0L928.2 471.7L928.0 471.1L927.3 470.3L927.2 469.7L929.1 461.5L929.2 460.1L928.6 447.9L930.0 440.0L930.3 439.6L931.2 439.0L932.5 437.0L933.2 433.4L933.0 432.6L931.6 431.2L930.7 429.5L930.4 427.4L930.6 425.3L931.2 423.5L932.3 422.0L933.6 420.9L935.2 420.4L936.0 420.4L936.9 420.6L938.7 421.4L940.1 422.4L941.7 422.8L942.6 423.5L943.0 424.5L942.9 425.3L942.6 426.1L942.0 426.7L940.9 427.1L940.5 427.5L939.6 428.9L938.7 430.4L937.7 431.7L937.5 432.5L937.7 433.3L938.2 434.3L939.2 436.9L940.5 439.0L940.9 439.3L941.9 439.6L942.2 440.2L943.0 448.0L942.6 460.1L943.8 475.9L945.0 487.2L944.7 487.9L943.5 488.3L942.9 489.0L942.9 492.0L945.7 501.2L947.5 511.6Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M940.7 465.6L941.0 470.7L940.7 471.3L940.1 471.4L939.7 471.3L939.4 470.9L938.1 465.7L935.6 449.7L933.9 440.9L934.0 440.0L934.4 439.2L934.9 438.7L935.8 438.3L936.7 438.3L937.5 438.7L938.1 439.3L938.5 440.2L939.2 449.3L939.7 457.2Z"/><path class="s th fig" pathLength="1" style="--d:3.08s;--t:0.90s" d="M986.5 511.2L986.8 511.9L987.8 512.8L988.2 513.6L988.1 514.8L987.5 515.7L986.8 516.1L978.1 519.9L977.5 520.0L977.0 519.7L976.8 519.0L977.0 518.4L982.5 514.0L982.9 513.4L982.9 512.7L978.2 502.1L974.8 492.4L973.2 486.9L972.5 486.2L971.4 486.0L970.9 486.3L970.5 486.8L968.7 491.7L968.8 501.9L966.2 515.1L966.3 515.8L966.9 516.7L967.2 517.3L967.2 518.1L967.0 518.8L966.2 519.6L965.1 520.0L955.0 520.0L954.5 519.8L954.1 519.3L954.2 518.7L954.6 518.2L961.6 516.3L962.2 515.9L962.5 515.2L962.6 491.0L965.7 467.9L965.9 466.8L966.5 465.3L966.7 463.8L966.6 463.1L966.3 462.6L965.8 462.3L965.2 462.2L964.7 462.3L964.0 462.9L961.8 466.6L961.3 466.7L960.8 466.7L960.4 466.3L960.3 465.7L964.6 452.9L965.9 447.2L965.4 441.4L965.5 438.0L965.9 436.3L966.7 434.6L968.4 431.8L968.7 429.4L969.0 428.3L968.8 427.3L967.3 425.8L966.4 424.1L966.0 422.1L966.2 419.9L966.9 417.9L968.0 416.2L969.4 415.0L971.0 414.4L971.8 414.4L972.8 414.5L975.2 415.7L976.0 416.4L976.6 417.1L977.2 418.9L977.3 420.4L976.9 421.7L975.8 423.4L974.9 425.0L973.8 426.4L973.6 427.1L973.8 428.1L974.5 429.4L975.1 431.5L976.8 434.2L977.2 435.8L977.4 437.8L977.5 443.2L976.4 455.4L976.4 458.5L977.3 463.5L977.8 465.1L978.7 466.8L978.9 467.9L980.8 490.7L984.2 500.1Z"/><path class="s th" pathLength="1" style="--d:3.13s;--t:0.60s" d="M974.8 434.1L977.3 463.3"/><path class="s th fig" pathLength="1" style="--d:3.18s;--t:0.90s" d="M981.3 472.6L981.1 473.1L980.6 473.4L975.3 473.4L974.7 473.0L974.6 472.6L974.9 463.5L975.3 462.9L980.2 462.8L980.8 463.1Z"/><path class="s th fig" pathLength="1" style="--d:3.23s;--t:0.90s" d="M978.7 462.0L979.7 467.4L979.4 468.1L978.8 468.3L978.3 468.2L978.0 467.8L975.9 462.3L973.8 454.0L972.2 445.6L969.8 436.3L969.8 435.4L970.2 434.5L970.7 433.9L971.6 433.5L972.5 433.4L973.4 433.7L974.1 434.4L974.6 435.2L976.1 444.9L977.0 453.4Z"/></g><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 520H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 507L81 520L90 507Z"/><text class="lv" x="98" y="512" text-anchor="start" style="--d:3.40s">GL ±0</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 330H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 317L81 330L90 317Z"/><text class="lv" x="98" y="322" text-anchor="start" style="--d:3.40s">2FL</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 112H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 99L81 112L90 99Z"/><text class="lv" x="98" y="104" text-anchor="start" style="--d:3.40s">RF</text><path class="s th" pathLength="1" style="--d:3.10s;--t:0.60s" d="M286 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="300" y="595" text-anchor="middle" style="--d:3.50s">A</text><path class="s th" pathLength="1" style="--d:3.18s;--t:0.60s" d="M546 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="560" y="595" text-anchor="middle" style="--d:3.58s">B</text><path class="s th" pathLength="1" style="--d:3.26s;--t:0.60s" d="M806 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="820" y="595" text-anchor="middle" style="--d:3.66s">C</text><path class="s th" pathLength="1" style="--d:3.34s;--t:0.60s" d="M1066 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1080" y="595" text-anchor="middle" style="--d:3.74s">D</text><path class="s th" pathLength="1" style="--d:3.42s;--t:0.60s" d="M1326 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1340" y="595" text-anchor="middle" style="--d:3.82s">E</text><path class="s th" pathLength="1" style="--d:3.30s;--t:1.00s" d="M300 626H1340M294 632L306 620M554 632L566 620M814 632L826 620M1074 632L1086 620M1334 632L1346 620"/><g class="g-work"><path class="s" pathLength="1" style="--d:1.50s;--t:0.60s" d="M240 310V130M1400 310V130"/><path class="s bd" pathLength="1" style="--d:1.85s;--t:0.90s" d="M228 130H1412V112H228Z"/><path class="s" pathLength="1" style="--d:2.15s;--t:0.80s" d="M280 246H1360V176H280Z"/><path class="s th" pathLength="1" style="--d:2.35s;--t:0.60s" d="M276 252H1364"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M340 176V246M400 176V246M460 176V246M520 176V246M580 176V246M640 176V246M700 176V246M760 176V246M820 176V246M880 176V246M940 176V246M1000 176V246M1060 176V246M1120 176V246M1180 176V246M1240 176V246M1300 176V246"/><text x="820" y="160" text-anchor="middle" style="--d:3.80s">RIBBON WINDOW</text></g><g class="g-about"><path class="s th" pathLength="1" style="--d:3.30s;--t:0.80s" d="M318 388H542M318 388l10-5M318 388l10 5M542 388l-10-5M542 388l-10 5"/><text x="430" y="376" text-anchor="middle" style="--d:3.60s">OPEN GROUND</text><g class="walker w1"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M405.2 511.0L404.9 511.7L403.9 512.7L403.5 513.5L403.6 514.7L404.2 515.7L404.9 516.0L413.8 519.9L414.4 520.0L414.9 519.7L415.1 519.0L414.9 518.4L409.3 513.9L408.9 513.3L408.9 512.5L413.7 501.8L417.1 491.9L418.8 486.3L419.5 485.5L420.6 485.4L421.2 485.7L421.5 486.2L423.3 491.2L423.3 501.6L425.9 515.0L425.8 515.7L425.2 516.6L424.9 517.3L424.9 518.0L425.1 518.8L425.9 519.6L427.0 520.0L437.3 520.0L437.9 519.8L438.2 519.3L438.2 518.7L437.7 518.2L430.6 516.3L430.0 515.8L429.6 515.1L429.7 501.2L429.6 490.4L426.4 466.9L426.2 465.8L425.6 464.3L425.4 462.7L425.5 462.1L425.8 461.6L426.3 461.2L426.9 461.1L427.5 461.2L428.2 461.8L430.4 465.5L430.9 465.7L431.5 465.6L431.8 465.3L431.9 464.7L427.6 451.6L426.2 445.8L426.8 439.9L426.6 436.4L426.2 434.8L425.4 433.0L423.7 430.1L423.4 427.7L423.1 426.6L423.3 425.6L424.8 424.0L425.7 422.3L426.1 420.2L425.9 418.0L425.2 415.9L424.1 414.2L422.7 413.0L421.0 412.4L420.2 412.4L419.2 412.5L416.7 413.7L415.9 414.4L415.3 415.2L414.7 417.0L414.6 418.5L415.0 419.9L416.1 421.6L417.0 423.2L418.1 424.6L418.3 425.4L418.2 426.4L417.5 427.6L416.8 429.9L415.1 432.6L414.7 434.2L414.5 436.2L414.4 441.7L415.5 454.2L415.5 457.4L414.6 462.4L414.1 464.0L413.2 465.8L412.9 466.9L411.1 490.1L407.6 499.7Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M413.1 460.9L412.2 466.4L412.4 467.1L413.1 467.3L413.6 467.2L413.9 466.8L416.0 461.2L418.1 452.7L419.8 444.2L422.2 434.7L422.2 433.8L421.9 432.9L421.3 432.3L420.4 431.8L419.5 431.8L418.5 432.1L417.8 432.7L417.4 433.6L415.9 443.5L414.9 452.1Z"/></g></g><g class="g-process"><path class="s th" pathLength="1" style="--d:1.60s;--t:1.10s" d="M600 520v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16"/><path class="s th" pathLength="1" style="--d:1.75s;--t:0.80s" d="M622 520L782 330"/></g><g class="g-contact"><path class="s" pathLength="1" style="--d:1.90s;--t:0.90s" d="M1110 520V350H1310V520"/><path class="s th" pathLength="1" style="--d:2.25s;--t:0.80s" d="M1145 350V520M1275 350V520M1180 520V420H1240V520"/><text x="1210" y="556" text-anchor="middle" style="--d:3.75s">ENTRANCE</text></g><g id="sun" class="sunny" transform="translate(420 -60)"><path class="sun-c" d="M-20 0a20 20 0 1 0 40 0a20 20 0 1 0 -40 0M30.0 0.0L40.0 0.0M21.2 21.2L28.3 28.3M-0.0 30.0L-0.0 40.0M-21.2 21.2L-28.3 28.3M-30.0 -0.0L-40.0 -0.0M-21.2 -21.2L-28.3 -28.3M0.0 -30.0L0.0 -40.0M21.2 -21.2L28.3 -28.3"/><text id="sun-t" x="52" y="5">10:00</text></g><a class="hot" href="#work" data-g="work" data-tip="Ribbon window — see our work" aria-label="Ribbon window — see our work"><rect x="228" y="112" width="1184" height="198"/></a><a class="hot" href="#about" data-g="about" data-tip="Open ground — about the name" aria-label="Open ground — about the name"><rect x="308" y="330" width="244" height="190"/></a><a class="hot" href="#process" data-g="process" data-tip="Stair — how we work" aria-label="Stair — how we work"><rect x="590" y="330" width="222" height="190"/></a><a class="hot" href="#contact" data-g="contact" data-tip="Entrance — start a consultation" aria-label="Entrance — start a consultation"><rect x="1100" y="340" width="220" height="180"/></a></svg>
+    <div class="hot-tip" id="hot-tip" aria-hidden="true"></div>
+  </div>
+  <div class="cap-row">
+    <span>Fig. 01 — Section A–A′, a building lifted on pilotis</span>
+    <span id="hero-hint">Move across the drawing to turn the sun · Click the building</span>
+    <a class="ul" href="#work">Selected work ↓</a>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <span>THE PILOTI</span>
-  <span>Interior Design Studio — Seoul</span>
-  <span>© 2025 All Rights Reserved</span>
-</footer>
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="w-pin" id="w-pin">
+    <div class="w-head">
+      <h2 class="sec-title" id="work-h">Selected Work</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects by field"></div>
+    </div>
+    <div class="w-view" id="w-view"><div class="w-track" id="track"></div></div>
+    <div class="w-foot" aria-hidden="true"><span id="w-count"></span><div class="w-bar"><i id="w-prog"></i></div><span>Scroll ↓ to move →</span></div>
+  </div>
+</section>
+
+<section class="about" id="about" aria-labelledby="about-h">
+  <div class="ab-grid">
+    <p class="lbl-s" id="about-h">About</p>
+    <div>
+      <p class="ab-big">A piloti lifts a building on columns and leaves the ground beneath it open for anyone to pass through. We build interiors the same way, with nothing walled off between people, or between people and the space they share.</p>
+      <p class="ko-t ko-big" lang="ko">필로티는 기둥으로 건물을 들어 올려, 그 아래 땅을 누구나 지나갈 수 있도록 비워 둡니다. 저희도 같은 방식으로 인테리어를 만듭니다. 사람과 사람 사이, 사람과 공간 사이를 벽으로 가로막지 않도록요.</p>
+      <div class="ab-cols">
+        <div>
+          <p><i>Piloti</i> is the term the architect Le Corbusier used for the columns that lift a building above the ground. The level they stand on is left clear, given over to walking and free passage.</p>
+          <p class="ko-t" lang="ko">필로티는 건축가 르 코르뷔지에가 건물을 지면 위로 들어 올리는 기둥을 부른 말입니다. 기둥이 선 층은 비워 두어, 누구나 걷고 자유롭게 지나다니는 곳이 됩니다.</p>
+          <p>We took the name for what it describes: a structure that holds things up without closing anything off.</p>
+          <p class="ko-t" lang="ko">저희는 이 이름이 뜻하는 바를 그대로 가져왔습니다. 무엇도 가로막지 않으면서 든든히 받쳐 주는 구조입니다.</p>
+        </div>
+        <div>
+          <p>THE PILOTI plans, designs and builds interiors — homes, salons, cafés, restaurants, shops and clinics — and today works across Seoul and Gwangju.</p>
+          <p class="ko-t" lang="ko">THE PILOTI는 주거 공간과 미용실, 카페, 식당, 매장, 병원의 인테리어를 기획하고 디자인하고 시공하며, 지금은 서울과 광주에서 일하고 있습니다.</p>
+          <p>Every project is planned as a place where people gather, talk and move freely, from a family living room to a café counter or a salon chair.</p>
+          <p class="ko-t" lang="ko">가족의 거실부터 카페 카운터, 미용실 의자까지, 모든 프로젝트를 사람들이 모여 이야기하고 자유롭게 움직이는 곳으로 계획합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pp" aria-labelledby="pp-h">
+    <p class="lbl-s" id="pp-h">Principal</p>
+    <div class="pp-in" data-row>
+      <figure class="rc pp-ph"><img class="fx-in" src="images/team/hyunggu-yoon.jpg" width="960" height="1200" loading="lazy" decoding="async" alt="윤형구, THE PILOTI 대표"></figure>
+      <div class="rc pp-tx">
+        <div class="fx-in">
+          <p class="pp-name">윤형구<span class="pp-ko">THE PILOTI 대표</span></p>
+          <a class="pp-cta" href="#contact">상담 시작하기 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <figure class="fig">
+    <svg class="bp" data-draw viewBox="0 0 1200 560" data-vb="0 0 1200 560" data-vb-m="40 14 720 546" role="img" aria-label="Plan drawing: a grid of columns with a curved free-standing wall, a room with a door, a counter, tables and a stair"><path class="ax" style="--d:1.6s" d="M200 36V524"/><path class="ax" style="--d:1.6s" d="M420 36V524"/><path class="ax" style="--d:1.6s" d="M640 36V524"/><path class="ax" style="--d:1.6s" d="M860 36V524"/><path class="ax" style="--d:1.6s" d="M1080 36V524"/><path class="ax" style="--d:1.6s" d="M36 160H1164"/><path class="ax" style="--d:1.6s" d="M36 280H1164"/><path class="ax" style="--d:1.6s" d="M36 400H1164"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:2.00s" d="M600 500H60V60H1140V500H700"/><path class="s" pathLength="1" style="--d:0.70s;--t:1.60s" d="M192 152h16v16h-16zM412 152h16v16h-16zM632 152h16v16h-16zM852 152h16v16h-16zM1072 152h16v16h-16zM192 272h16v16h-16zM412 272h16v16h-16zM632 272h16v16h-16zM852 272h16v16h-16zM1072 272h16v16h-16zM192 392h16v16h-16zM412 392h16v16h-16zM632 392h16v16h-16zM852 392h16v16h-16zM1072 392h16v16h-16z"/><path class="s bd" pathLength="1" style="--d:1.40s;--t:1.20s" d="M520 60C520 140 600 170 600 230S540 320 540 380"/><path class="s" pathLength="1" style="--d:1.60s;--t:0.90s" d="M860 60V200M860 280V500"/><path class="s th" pathLength="1" style="--d:2.00s;--t:0.80s" d="M860 280H940M940 280A80 80 0 0 0 860 200"/><path class="s th" pathLength="1" style="--d:1.80s;--t:0.80s" d="M90 230H150V470H90Z"/><path class="s th" pathLength="1" style="--d:2.10s;--t:1.20s" d="M274 300a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M274 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M694 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0"/><path class="s th" pathLength="1" style="--d:2.20s;--t:1.00s" d="M940 420H1140M960 420V500M980 420V500M1000 420V500M1020 420V500M1040 420V500M1060 420V500M1080 420V500M1100 420V500M1120 420V500"/><path class="s th" pathLength="1" style="--d:2.60s;--t:0.60s" d="M956 462H1112M1112 462l-10-6M1112 462l-10 6"/><path class="s th" pathLength="1" style="--d:2.40s;--t:0.60s" d="M650 548V512M650 512l-7 11M650 512l7 11"/><text x="120" y="216" text-anchor="middle" style="--d:2.80s">COUNTER</text><text x="1000" y="130" text-anchor="middle" style="--d:2.90s">ROOM</text><text x="380" y="110" text-anchor="middle" style="--d:2.90s">OPEN PLAN</text><text x="634" y="540" text-anchor="end" style="--d:3.00s">ENTRANCE</text><text x="1036" y="410" text-anchor="middle" style="--d:3.00s">UP</text><text class="fx" x="200" y="28" text-anchor="middle" style="--d:2.60s">1</text><text class="fx" x="420" y="28" text-anchor="middle" style="--d:2.60s">2</text><text class="fx" x="640" y="28" text-anchor="middle" style="--d:2.60s">3</text><text class="fx" x="860" y="28" text-anchor="middle" style="--d:2.60s">4</text><text class="fx" x="1080" y="28" text-anchor="middle" style="--d:2.60s">5</text></svg>
+    <figcaption><span>Fig. 02 — Plan. The columns carry the load, so walls are free to curve, stop short or open up.</span><span>Not to scale</span></figcaption>
+  </figure>
+
+  <div class="block">
+    <div class="block-h"><h3>Index</h3><span>As of 2026</span></div>
+    <div class="idx" data-row>
+      <div class="rc"><span class="fx-in">Selected projects</span><b class="fx-in">027</b></div>
+      <div class="rc"><span class="fx-in">Cities &amp; towns</span><b class="fx-in">06</b></div>
+      <div class="rc"><span class="fx-in">Fields of practice</span><b class="fx-in">04</b></div>
+      <div class="rc"><span class="fx-in">Latest completion</span><b class="fx-in">2026</b></div>
+    </div>
+  </div>
+
+  <div class="block" id="process">
+    <div class="block-h"><h3>진행 과정</h3><span>다섯 단계, 한 팀이 끝까지</span></div>
+    <ol class="steps" data-row>
+      <li class="rc"><span class="n fx-in">01</span><h4 class="fx-in">상담</h4><p class="fx-in">카카오톡이나 전화로 공간과 일정을 알려 주세요.</p></li>
+      <li class="rc"><span class="n fx-in">02</span><h4 class="fx-in">현장 실측</h4><p class="fx-in">직접 방문해 공간 상태를 확인하고 치수를 잽니다.</p></li>
+      <li class="rc"><span class="n fx-in">03</span><h4 class="fx-in">디자인 · 견적</h4><p class="fx-in">콘셉트와 항목별 견적을 제안합니다.</p></li>
+      <li class="rc"><span class="n fx-in">04</span><h4 class="fx-in">계약 · 시공</h4><p class="fx-in">합의한 일정대로 공사하며, 진행 상황을 그때그때 공유합니다.</p></li>
+      <li class="rc"><span class="n fx-in">05</span><h4 class="fx-in">준공 · 사후관리</h4><p class="fx-in">최종 점검 후에도 하자를 꾸준히 살핍니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="ct-head">
+    <h2 id="contact-h">공간 이야기를<br>들려주세요.</h2>
+    <p>몇 가지만 골라 주시면 상담 메시지를 대신 써 드려요. 보내기를 누르면 메시지가 복사되니, 카카오톡 채팅창에 그대로 붙여 넣으시면 돼요.</p>
+  </div>
+  <div class="ct-body">
+    <aside class="info" aria-label="연락처">
+      <a class="k-big" data-kakao href="#contact">
+        <span><strong>카카오톡으로 대화하기</strong><small>공간 사진을 몇 장 보내 주시면 더 정확하게 안내해 드릴게요.</small></span>
+        <span class="ar" aria-hidden="true">↗</span>
+      </a>
+      <dl>
+        <div><dt>전화</dt><dd><a href="tel:050713050516">0507-1305-0516</a></dd><button type="button" class="copy" data-copy="0507-1305-0516">복사</button></div>
+        <div><dt>이메일</dt><dd><a href="mailto:thepiloti@naver.com">thepiloti@naver.com</a></dd><button type="button" class="copy" data-copy="thepiloti@naver.com">복사</button></div>
+        <div><dt>지역</dt><dd>서울 · 광주<small>두 지역 모두 상담과 시공이 가능해요</small></dd><span></span></div>
+        <div><dt>사무실</dt><dd>광주 북구 부남길15번길 15 1층</dd><button type="button" class="copy" data-copy="광주 북구 부남길15번길 15 1층">복사</button></div>
+      </dl>
+    </aside>
+    <form class="builder" id="est" novalidate>
+      <fieldset class="field">
+        <legend>공간</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="type" value="아파트"><span>아파트</span></label>
+          <label class="opt"><input type="radio" name="type" value="주택 · 빌라"><span>주택 · 빌라</span></label>
+          <label class="opt"><input type="radio" name="type" value="카페 · 식당"><span>카페 · 식당</span></label>
+          <label class="opt"><input type="radio" name="type" value="매장 · 미용실"><span>매장 · 미용실</span></label>
+          <label class="opt"><input type="radio" name="type" value="사무실 · 병원"><span>사무실 · 병원</span></label>
+          <label class="opt"><input type="radio" name="type" value="기타"><span>기타</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>공사 범위 <span>(여러 개 선택 가능)</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="scope" value="전체 리모델링"><span>전체 리모델링</span></label>
+          <label class="opt"><input type="checkbox" name="scope" value="부분 시공"><span>부분 시공</span></label>
+          <label class="opt"><input type="checkbox" name="scope" value="주방 · 욕실"><span>주방 · 욕실</span></label>
+          <label class="opt"><input type="checkbox" name="scope" value="가구 · 스타일링"><span>가구 · 스타일링</span></label>
+          <label class="opt"><input type="checkbox" name="scope" value="디자인 컨설팅"><span>디자인 컨설팅</span></label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <span class="lbl">면적과 위치</span>
+        <div class="two">
+          <div class="sub"><label class="lbl" for="f-area">면적</label><div class="area"><input class="inp" id="f-area" name="area" type="number" inputmode="decimal" min="1" step="0.1" placeholder="32"><span>평</span><output id="f-m2" for="f-area">≈ 0 m²</output></div></div>
+          <div class="sub"><label class="lbl" for="f-region">지역</label><input class="inp" id="f-region" name="region" type="text" placeholder="예: 서울 마포구"></div>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl">일정과 예산</span>
+        <div class="two">
+          <div class="sub"><label class="lbl" for="f-when">공사 시기</label><select class="inp" id="f-when" name="when"><option value="">선택</option><option>1개월 이내</option><option>1–3개월 후</option><option>3–6개월 후</option><option>아직 미정</option></select></div>
+          <div class="sub"><label class="lbl" for="f-budget">예산</label><select class="inp" id="f-budget" name="budget"><option value="">선택</option><option>3천만 원 미만</option><option>3천만–5천만 원</option><option>5천만–1억 원</option><option>1억 원 이상</option><option>상담 후 결정</option></select></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl" for="f-note">요청 사항</label>
+        <textarea class="inp" id="f-note" name="note" rows="3" placeholder="원하는 분위기, 지금 불편한 점, 참고 이미지 등을 적어 주세요"></textarea>
+      </div>
+      <div class="field">
+        <span class="lbl">연락처</span>
+        <div class="two">
+          <div class="sub"><label class="lbl" for="f-name">성함</label><input class="inp" id="f-name" name="name" type="text" autocomplete="name"></div>
+          <div class="sub"><label class="lbl" for="f-tel">휴대폰 번호</label><input class="inp" id="f-tel" name="tel" type="tel" autocomplete="tel" placeholder="010-0000-0000"></div>
+        </div>
+      </div>
+      <div class="preview-wrap">
+        <span class="lbl">메시지 미리보기</span>
+        <pre class="preview" id="f-preview" aria-live="polite"></pre>
+      </div>
+      <div class="actions">
+        <a class="btn btn-solid" data-kakao="copy" href="#contact"><span class="k-dot"><svg aria-hidden="true"><use href="#i-kakao"/></svg></span>카카오톡으로 보내기</a>
+        <button type="button" class="btn" id="f-copy">메시지 복사</button>
+      </div>
+      <p class="hint">보내기를 누르면 메시지가 복사되고 카카오톡 채널이 열려요. 채팅창에 붙여 넣어 보내 주시면 그곳에서 답해 드릴게요.</p>
+    </form>
+  </div>
+  <footer class="ft">
+    <div class="ft-word">
+      <svg class="bp" data-draw viewBox="-2 343 516 77" role="img" aria-label="THE PILOTI"><path class="s" pathLength="1" style="stroke-width:3.4;--t:2.4s" d="M0 348.5H51M25.5 347V416M65.5 347V416M114.5 347V416M64 381.5H116M137.5 347V416M136 348.5H183M136 381.5H178M136 414.5H183M227.5 347V416M226 348.5H254A19.5 19.5 0 0 1 254 387.5H226M291.5 347V416M315.5 347V416M314 414.5H357M432.5 381.5A32 34 0 1 1 368.5 381.5A32 34 0 1 1 432.5 381.5M444 348.5H495M469.5 347V416M510.5 347V416"/></svg>
+    </div>
+    <div class="ft-row">
+      <span>© 2026 THE PILOTI</span><span>Interior design &amp; build</span><span>Seoul · Gwangju</span><a href="tel:050713050516">Tel. 0507-1305-0516</a><a href="mailto:thepiloti@naver.com">thepiloti@naver.com</a><a class="ul" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</section>
+</main>
+
+<a class="fab" id="fab" data-kakao href="#contact" aria-label="카카오톡 상담"><span class="k-dot"><svg aria-hidden="true"><use href="#i-kakao"/></svg></span>카카오톡 상담</a>
+
+<div class="pd" id="pd" role="dialog" aria-modal="true" aria-labelledby="pd-title" hidden>
+  <div class="pd-bar">
+    <span class="no" id="pd-no"></span>
+    <button type="button" class="ul" id="pd-close">Close ✕</button>
+  </div>
+  <div class="pd-body">
+    <aside class="pd-info">
+      <p class="pd-cat" id="pd-cat"></p>
+      <h2 class="pd-title" id="pd-title"></h2>
+      <p class="pd-head" id="pd-head"></p>
+      <dl class="pd-dl">
+        <div><dt>Type</dt><dd id="pd-type"></dd></div>
+        <div id="pd-loc-row"><dt>Location</dt><dd id="pd-loc"></dd></div>
+        <div><dt>Completed</dt><dd id="pd-year"></dd></div>
+      </dl>
+      <p class="pd-desc" id="pd-desc"></p>
+      <a class="btn btn-solid" id="pd-kakao" data-kakao href="#contact"><span class="k-dot"><svg aria-hidden="true"><use href="#i-kakao"/></svg></span>이런 공간으로 상담하기</a>
+      <div class="pd-nav"><button type="button" class="ul" id="pd-prev">← Previous</button><button type="button" class="ul" id="pd-next">Next →</button></div>
+    </aside>
+    <div class="pd-gal" id="pd-gal"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  // 커스텀 커서
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+(() => {
+'use strict';
+
+/* =========================================================
+   SETTINGS — edit these to update the site.
+   1) KAKAO_URL : your KakaoTalk channel chat link
+                  e.g. https://pf.kakao.com/_AbCdE/chat
+   2) PROJECTS  : one line per project, newest first.
+      slug   → folder name inside images/  (images/<slug>/01.jpg …)
+      photos → which numbered photos to show, cover first
+      loc    → leave out if unknown
+   ========================================================= */
+const KAKAO_URL = 'https://pf.kakao.com/_xxxxxx/chat';
+const PROJECTS = [
+  {"no": "027", "slug": "yeomchang-apartment", "title": "염창동 아파트", "cat": "Residential", "type": "Apartment", "year": 2026, "loc": "Yeomchang-dong, Seoul", "ar": 1.333, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A Seoul apartment in warm whites, with sunlit rooms and a calm, built-in kitchen", "desc": "Warm whites and soft beige throughout, with a built-in kitchen and island, flush storage and quiet, stone-toned bathrooms."},
+  {"no": "026", "slug": "koinu", "title": "Koinu Puppy School", "cat": "Retail & Venues", "type": "Puppy kindergarten", "year": 2024, "loc": "Munheung-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut panelling, school-house lamps and low steps for a puppy kindergarten", "desc": "Walnut panelling, curved blinds and school-house pendants, with low steps and planters built in for the dogs."},
+  {"no": "025", "slug": "urban-brook", "title": "어반브룩", "cat": "Retail & Venues", "type": "Small wedding venue", "year": 2024, "loc": "Imam-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Arched windows, timber trusses and greenery for small weddings", "desc": "A wedding hall of arched windows, timber trusses and chandeliers, with a bridal room and heavy timber doors."},
+  {"no": "024", "slug": "sodam-maru", "title": "소담마루", "cat": "Retail & Venues", "type": "Side-dish shop", "year": 2024, "loc": "Suwan-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Brick shelving and a sculpted timber ceiling for a premium side-dish shop", "desc": "Brick-clad shelving, timber walls and a layered, softly lit ceiling frame the display tables of a premium banchan shop."},
+  {"no": "023", "slug": "masterz", "title": "Masterz", "cat": "Retail & Venues", "type": "Car tinting shop", "year": 2024, "loc": "Yuchon-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "A tinting shop in concrete grey, lit low and opened wide with folding glass doors", "desc": "A grey, workshop-like interior with a dark reception, low linear lighting and a wide bay that opens fully to the street."},
+  {"no": "022", "slug": "bonito", "title": "Bonito Aesthetic", "cat": "Beauty & Wellness", "type": "Aesthetic salon", "year": 2024, "loc": "Chipyeong-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "Soft curves and black joinery for a quiet aesthetic salon", "desc": "Rounded walls and white surfaces are punctuated by black joinery, from the reception to each private treatment room."},
+  {"no": "021", "slug": "sindae-apartment", "title": "신대중흥 아파트", "cat": "Residential", "type": "Apartment", "year": 2024, "loc": "Sindae, Suncheon", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "An apartment kept pale and uncluttered, with an island kitchen at its centre", "desc": "Pale stone-toned surfaces, full-height storage and an island kitchen keep the home quiet and open."},
+  {"no": "020", "slug": "early-dawn", "title": "Early Dawn", "cat": "Retail & Venues", "type": "Select shop", "year": 2023, "loc": "Gwangsan-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Steel frames, concrete and moss for a contemporary select shop", "desc": "Black steel frames, brushed metal and raw concrete set out the shop, with patches of moss running along the floor."},
+  {"no": "019", "slug": "bagel-bazel", "title": "베이즐베이글", "cat": "Food & Drink", "type": "Bagel café", "year": 2023, "loc": "Dong-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Green banquettes, dark timber windows and old plaster for a bagel café", "desc": "Dark timber windows, raw plaster ceilings and deep green banquettes give the café a lived-in character."},
+  {"no": "018", "slug": "yookjihyang", "title": "육지향", "cat": "Food & Drink", "type": "Restaurant", "year": 2023, "loc": "Ungcheon, Yeosu", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Red brick, leather banquettes and warm sconces for a dry-aged pork restaurant", "desc": "A brick shopfront opens into a long dining hall of leather banquettes, timber tables and warm wall sconces."},
+  {"no": "017", "slug": "dear-hair", "title": "디어헤어살롱", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Nam-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Light frames floating over a pale salon, with niches of warm light along the walls", "desc": "Square light frames hang over each styling zone, while curved walls hold warmly lit shelving and a calm shampoo room."},
+  {"no": "016", "slug": "hwajeong-salon", "title": "화정동 미용실", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Hwajeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A street-front salon opened up behind a wall of glass", "desc": "Linear lights run the length of a bright, glazed salon, with a separate, softly lit shampoo room at the back."},
+  {"no": "015", "slug": "dream-clinic", "title": "드림마취통증의학과", "cat": "Beauty & Wellness", "type": "Clinic", "year": 2023, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A red-brick clinic building with calm, plaster-white rooms inside", "desc": "Behind a sculpted red-brick facade, the clinic is finished in soft plaster, built-in benches and quiet treatment rooms."},
+  {"no": "014", "slug": "bitgaram-building", "title": "빛가람동 건물", "cat": "Residential", "type": "Building", "year": 2022, "loc": "Bitgaram-dong, Naju", "ar": 1.43, "photos": [2, 1, 3, 4, 5, 6, 7, 8, 9], "head": "A building raised on columns over a glazed, planted ground floor", "desc": "A multi-storey building whose glazed ground floor sits under the floors above, with planted edges outside and pale, bright rooms upstairs."},
+  {"no": "013", "slug": "gokseong-house", "title": "곡성 주택", "cat": "Residential", "type": "House", "year": 2022, "loc": "Gokseong", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A single-storey house below the hills of Gokseong, refitted in timber and soft white", "desc": "A single-storey country house finished in soft white with timber doors, a rounded kitchen opening and windows onto the hills."},
+  {"no": "012", "slug": "gaum-hair", "title": "Gaum Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.579, "photos": [2, 1, 3, 4, 5, 6, 7], "head": "Arches cut into a bright salon, framing the shampoo room like a stage", "desc": "A bright, tree-lined styling floor with large arched openings that lead into a warmly lit shampoo room."},
+  {"no": "011", "slug": "teresa", "title": "Teresa", "cat": "Food & Drink", "type": "Bar", "year": 2022, "loc": "Dongmyeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Dark timber, a coffered ceiling and pools of lamplight for a bar in Dongmyeong-dong", "desc": "Dark timber walls, a deep coffered ceiling and table lamps turn the room into a series of small, low-lit corners."},
+  {"no": "010", "slug": "ugong", "title": "우공", "cat": "Food & Drink", "type": "Restaurant", "year": 2022, "loc": "Gusicheong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Stainless steel and a band of burnt orange for a grill restaurant", "desc": "Stainless tables and stools, grey walls and a single band of burnt orange give the grill room a clean, graphic look."},
+  {"no": "009", "slug": "grid-hair", "title": "Grid Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Sangmu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Warm timber tones and a lounge-like shampoo room for Grid Hair", "desc": "A reception lounge, an open styling floor and a dimmed shampoo room, all in one warm, sand-coloured palette."},
+  {"no": "008", "slug": "kitchen-kiyeon", "title": "Kitchen Kiyeon", "cat": "Food & Drink", "type": "Pasta restaurant", "year": 2022, "ar": 1.0, "photos": [1, 2, 3, 4, 5, 6], "head": "A small pasta kitchen in cream and pale oak, with arched niches and globe lights", "desc": "A narrow restaurant planned around a long bar counter, with oak window frames, arched niches and globe pendants."},
+  {"no": "007", "slug": "wetmans-hair", "title": "웻맨즈헤어", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Textured black volumes set against white walls in a long, light-filled salon", "desc": "Rough black volumes hold the reception and storage, set against white walls and a long run of styling stations."},
+  {"no": "006", "slug": "aube", "title": "Aube", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Gwangsan-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "An all-white salon softened with curves, plaster and dried branches", "desc": "A white salon of rounded counters, arched openings and lit product niches, kept soft rather than clinical."},
+  {"no": "005", "slug": "arean-hair", "title": "Arean Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Oak panelling and warm niche lighting give Arean Hair a calm, residential feel", "desc": "Timber-lined niches, planted alcoves and indirect light bring a homely warmth to the styling floor and shampoo rooms."},
+  {"no": "004", "slug": "molito", "title": "Molito", "cat": "Retail & Venues", "type": "Rental studio", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A bright rental studio furnished like a home, with arches and mid-century pieces", "desc": "An open-plan studio divided by soft arches and shelving, so one floor can be shot as a dining room, a living room or a study."},
+  {"no": "003", "slug": "monello", "title": "Monello", "cat": "Retail & Venues", "type": "Clothing store", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A clothing store in sunlit cream, with arched alcoves and slim steel rails", "desc": "Cream walls, arched alcoves and minimal steel rails let the clothes and the afternoon light do the work."},
+  {"no": "002", "slug": "essential-house", "title": "The Essential House", "cat": "Food & Drink", "type": "Café & wine shop", "year": 2022, "loc": "Dong-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A tiled-roof house turned into a place for coffee, brunch and natural wine", "desc": "Behind the tiled-roof frontage, dark wine shelving and a counter with DJ decks sit beside a pale, sunlit dining room."},
+  {"no": "001", "slug": "omot", "title": "OMOT", "cat": "Food & Drink", "type": "Café", "year": 2021, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut, cream plaster and glazed timber partitions for OMOT, a café with its own business room", "desc": "A long, bright café arranged as a sequence of rooms: an open counter, walnut banquettes along the windows and a glazed business room for quieter meetings."}
+];
+const PYEONG = 3.3058; // 1 pyeong = 3.3058 m²
+const CATS = ['Residential', 'Beauty & Wellness', 'Food & Drink', 'Retail & Venues'];
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const root = document.documentElement;
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pad2 = n => String(n).padStart(2, '0');
+const src = (p, k) => `images/${p.slug}/${pad2(k)}.jpg`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const setHash = h => { try { history.replaceState(null, '', h || location.pathname + location.search); } catch (_) {} };
+
+const toastEl = $('#toast'); let toastT;
+function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3200); }
+function copyText(text, okMsg){
+  const fallback = () => {
+    const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0;left:0;top:0';
+    document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch (_) {} ta.remove();
+    toast(ok ? okMsg : '복사가 막혔어요. 텍스트를 직접 선택해 복사해 주세요.');
+  };
+  try {
+    if (!navigator.clipboard) return fallback();
+    navigator.clipboard.writeText(text).then(() => toast(okMsg), fallback);
+  } catch (_) { fallback(); }
+}
+
+/* =========================================================
+   DRAWINGS — keep line weights and labels the same size on
+   screen at any width (--k = drawing units per screen pixel)
+   ========================================================= */
+const drawings = $$('svg.bp');
+function scaleDrawings(){
+  const narrow = innerWidth <= 760;
+  drawings.forEach(svg => {
+    const vb = (narrow && svg.dataset.vbM) || svg.dataset.vb || svg.getAttribute('viewBox');
+    if (svg.getAttribute('viewBox') !== vb) svg.setAttribute('viewBox', vb);
+    const [, , w, h] = vb.split(/\s+/).map(Number);
+    const r = svg.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const k = 1 / Math.min(r.width / w, r.height / h);
+    svg.style.setProperty('--k', k.toFixed(3));
+    const hp = svg.querySelector('#hatch'); if (hp) hp.setAttribute('patternTransform', `scale(${k.toFixed(3)})`);
   });
-  document.querySelectorAll('a, button, .project-header').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+}
+scaleDrawings();
+if ('ResizeObserver' in window) { const ro = new ResizeObserver(scaleDrawings); drawings.forEach(d => ro.observe(d)); }
+else addEventListener('resize', scaleDrawings);
+
+/* =========================================================
+   INTRO — black stage, logo draws, page turns white, then
+   the section drawing draws itself in black line
+   ========================================================= */
+const intro = $('#intro'), hero = $('#hero'), heroBp = $('#bp-hero');
+let lit = false;
+function light(fast){
+  if (lit) return; lit = true;
+  intro.classList.add('go', 'fade');
+  root.classList.remove('intro'); root.classList.add('lit');
+  setTimeout(() => { hero.classList.add('on'); heroBp.classList.add('draw'); }, fast ? 150 : 420);
+  setTimeout(goLive, RM ? 0 : (fast ? 150 : 420) + 4700);
+  setTimeout(() => intro.classList.add('gone'), 1400);
+}
+if (RM) { light(true); }
+else {
+  requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add('go')));
+  const t = setTimeout(() => light(false), 2350);
+  const skip = () => { clearTimeout(t); light(true); ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev => removeEventListener(ev, skip)); };
+  setTimeout(() => ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev => addEventListener(ev, skip, { passive: true })), 250);
+}
+
+/* =========================================================
+   HERO DRAWING — the sun follows the pointer and the lifted
+   floor casts its shade; parts of the building are links
+   ========================================================= */
+const sun = $('#sun'), sunT = $('#sun-t'), shade = $('#shade'), tip = $('#hot-tip'), hwrap = $('.bp-hero-wrap');
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+let sxT = 420, sxNow = 420, sunRaf = 0, heroSeen = true, autoSun = !finePointer;
+if (!finePointer) $('#hero-hint').textContent = 'Tap the building to explore';
+const vbx = () => heroBp.getAttribute('viewBox').split(/\s+/).map(Number);
+function placeSun(sx){
+  const [x, , w] = vbx(), lo = x + 50, hi = x + w - 50, narrow = w < 1000;
+  const u = (sx - (x + w / 2)) / (w / 2);
+  const sy = -100 + Math.min(1, u * u) * (narrow ? 70 : 165);
+  sun.setAttribute('transform', `translate(${sx.toFixed(1)} ${sy.toFixed(1)})`);
+  const day = Math.min(1, Math.max(0, (sx - lo) / (hi - lo))), mins = Math.round(420 + day * 720);
+  sunT.textContent = `${pad2(Math.floor(mins / 60))}:${pad2(mins % 60)}`;
+  const flip = sx > x + w * .72;
+  sunT.setAttribute('x', flip ? -52 : 52); sunT.setAttribute('text-anchor', flip ? 'end' : 'start');
+  const off = Math.max(-600, Math.min(600, 190 * (820 - sx) / (330 - sy)));
+  shade.setAttribute('d', `M240 330H1400L${(1400 + off).toFixed(1)} 520H${(240 + off).toFixed(1)}Z`);
+}
+function sunLoop(now){
+  sunRaf = 0;
+  if (autoSun) { const [x, , w] = vbx(); sxT = x + w / 2 + Math.sin(now / 7000) * (w / 2 - 60); }
+  sxNow += (sxT - sxNow) * .07;
+  placeSun(sxNow);
+  if (heroSeen && (autoSun || Math.abs(sxT - sxNow) > .3)) sunRaf = requestAnimationFrame(sunLoop);
+}
+const kickSun = () => { if (!sunRaf && !RM) sunRaf = requestAnimationFrame(sunLoop); };
+function goLive(){
+  heroBp.classList.add('live');
+  if (RM) { placeSun(sxNow); return; }
+  if (!finePointer) { const [x, , w] = vbx(); sxNow = sxT = x + w / 2; }
+  placeSun(sxNow); kickSun();
+}
+new IntersectionObserver(es => { heroSeen = es[0].isIntersecting; if (heroSeen && heroBp.classList.contains('live')) kickSun(); }).observe(hero);
+function toUser(cx, cy){ const pt = heroBp.createSVGPoint(); pt.x = cx; pt.y = cy; return pt.matrixTransform(heroBp.getScreenCTM().inverse()); }
+addEventListener('pointermove', e => {
+  if (e.pointerType !== 'mouse' || !heroSeen || !heroBp.classList.contains('live')) return;
+  const hr = hero.getBoundingClientRect(); if (e.clientY < hr.top || e.clientY > hr.bottom) return;
+  autoSun = false;
+  const [x, , w] = vbx();
+  sxT = Math.min(x + w - 50, Math.max(x + 50, toUser(e.clientX, e.clientY).x));
+  kickSun();
+  if (tip.classList.contains('show')) moveTip(e.clientX, e.clientY);
+});
+function moveTip(cx, cy){
+  const r = hwrap.getBoundingClientRect();
+  let x = cx - r.left + 16, y = cy - r.top - 36;
+  x = Math.min(x, r.width - tip.offsetWidth - 4);
+  tip.style.setProperty('--x', x + 'px'); tip.style.setProperty('--y', y + 'px');
+}
+$$('.hot', heroBp).forEach(a => {
+  const on = e => {
+    if (!heroBp.classList.contains('live')) return;
+    heroBp.classList.add('hl'); heroBp.dataset.hl = a.dataset.g;
+    tip.textContent = a.dataset.tip + ' →'; tip.classList.add('show');
+    if (e && e.clientX) moveTip(e.clientX, e.clientY);
+    else { const b = a.getBoundingClientRect(); moveTip(b.left + b.width / 2, b.top + 20); }
+  };
+  const off = () => { heroBp.classList.remove('hl'); delete heroBp.dataset.hl; tip.classList.remove('show'); };
+  a.addEventListener('pointerenter', on); a.addEventListener('pointerleave', off);
+  a.addEventListener('focus', () => on()); a.addEventListener('blur', off);
+  a.addEventListener('click', off);
+});
+
+/* =========================================================
+   REVEAL — ruled cells draw their lines, drawings draw
+   ========================================================= */
+const io = new IntersectionObserver(entries => {
+  let k = 0;
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    if (el.matches('svg.bp')) el.classList.add('draw');
+    else { el.style.setProperty('--dl', `${RM ? 0 : Math.min(k++, 6) * .11}s`); el.classList.add('in'); }
+    io.unobserve(el);
   });
+}, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+$$('svg.bp[data-draw]').forEach(el => io.observe(el));
 
-  // 프로젝트 토글
-  function toggle(header) {
-    const entry = header.closest('.project-entry');
-    entry.classList.toggle('open');
+function markFirstColumn(scope){
+  const cols = getComputedStyle(scope).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+  [...scope.children].forEach((c, i) => c.classList.toggle('c0', i % cols === 0));
+}
+$$('[data-row]').forEach(row => { markFirstColumn(row); [...row.children].forEach(c => io.observe(c)); });
+addEventListener('resize', () => $$('[data-row]').forEach(markFirstColumn));
+
+/* =========================================================
+   WORK — scrolling down moves the projects sideways, laid
+   out like magazine spreads (desktop). Phones: a staggered
+   vertical column.
+   ========================================================= */
+const work = $('#work'), track = $('#track'), filters = $('#filters'), view = $('#w-view'), pin = $('#w-pin');
+const prog = $('#w-prog'), count = $('#w-count');
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+// five layouts that repeat: image height (share of the strip), vertical position, gap before (vw)
+const V = [
+  { h: .9,  al: 'top',    gap: 5, big: true },
+  { h: .46, al: 'bottom', gap: 5, capTop: true },
+  { h: .68, al: 'mid',    gap: 4, portrait: true },
+  { h: .52, al: 'top',    gap: 6 },
+  { h: .74, al: 'bottom', gap: 3 },
+];
+const desk = () => innerWidth > 760;
+const SPEED = 1.35; // sideways pixels per pixel scrolled
+const city = p => p.loc ? p.loc.split(', ').pop() : '';
+let cur = 'All', list = PROJECTS, maxX = 0, wTop = 0, pos = [];
+
+function renderFilters(){
+  filters.innerHTML = ['All', ...CATS].map(c => {
+    const n = c === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.cat === c).length;
+    return `<button type="button" data-cat="${esc(c)}" aria-pressed="${c === cur}">${esc(c)}<sup>${n}</sup></button>`;
+  }).join('<span aria-hidden="true">, </span>');
+}
+function renderTrack(){
+  list = cur === 'All' ? PROJECTS : PROJECTS.filter(p => p.cat === cur);
+  const ys = list.map(p => p.year), lo = Math.min(...ys), hi = Math.max(...ys);
+  const lede = cur === 'All'
+    ? `${list.length} projects: homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju.`
+    : `${list.length} ${cur} project${list.length > 1 ? 's' : ''}, newest first.`;
+  let html = `<div class="w-blk w-intro"><p class="w-lbl">Index of work, ${lo}${hi > lo ? '–' + hi : ''}</p><p class="w-lede">${esc(lede)}</p><p class="w-lbl">Newest first</p></div>`;
+  let year = null, k = 0;
+  list.forEach((p, i) => {
+    if (p.year !== year) {
+      year = p.year; const n = list.filter(q => q.year === year).length;
+      html += `<div class="w-blk w-yr"><span class="w-lbl">Completed in ${year} — ${n} project${n > 1 ? 's' : ''}</span><b>${year}</b></div>`;
+      k = 0;
+    }
+    const vi = k % V.length, v = V[vi]; k++;
+    const ar = v.portrait ? .78 : clamp(p.ar, .75, 1.75);
+    html += `<a class="w-it v${vi}${v.capTop ? ' cap-top' : ''}" href="#${p.slug}" data-i="${i}" data-v="${vi}">
+      <figure class="w-fig" style="--ar:${ar}"><img src="${src(p, p.photos[0])}" alt="${esc(p.title)}, ${esc(p.type.toLowerCase())}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"></figure>
+      <div class="w-cap"><span class="w-no">${p.no}</span><span class="w-t"><b>${esc(p.title)}</b><span>${esc(p.type)} · ${city(p) ? esc(city(p)) + ' · ' : ''}${p.year}</span>${v.big ? `<em>${esc(p.head)}</em>` : ''}</span></div>
+    </a>`;
+  });
+  html += `<div class="w-blk w-end"><p class="w-lbl">End of index</p><div><p class="w-lede">Planning a home, a shop or a salon of your own?</p><a class="ul" href="#contact">Tell us about your space →</a></div></div>`;
+  track.innerHTML = html;
+}
+
+function layout(){
+  const items = $$('.w-it', track);
+  if (!desk()) {
+    track.style.transform = ''; work.style.height = ''; maxX = 0; pos = [];
+    items.forEach(el => { el.removeAttribute('style'); const f = $('.w-fig', el); f.style.width = f.style.height = ''; $('img', el).style.transform = ''; });
+    return;
   }
+  const cs = getComputedStyle(view);
+  const H = view.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  items.forEach(el => {
+    const v = V[+el.dataset.v], p = list[+el.dataset.i], fig = $('.w-fig', el);
+    const capH = v.big ? 124 : 74;
+    const ar = v.portrait ? .78 : clamp(p.ar, .75, 1.75);
+    const ih = Math.round((H - capH) * v.h), iw = Math.round(ih * ar);
+    fig.style.width = iw + 'px'; fig.style.height = ih + 'px';
+    el.style.width = Math.max(iw, 240) + 'px';
+    const free = Math.max(0, H - ih - capH);
+    el.style.paddingTop = (v.al === 'top' ? 0 : v.al === 'bottom' ? free : free / 2) + 'px';
+    el.style.marginLeft = v.gap + 'vw';
+    el._w = iw;
+  });
+  maxX = Math.max(0, track.scrollWidth - innerWidth);
+  work.style.height = (maxX / SPEED + innerHeight) + 'px';
+  wTop = work.getBoundingClientRect().top + scrollY;
+  pos = items.map(el => ({ el, img: $('img', el), w: el._w, c: el.offsetLeft + el.offsetWidth / 2 }));
+  moveWork();
+}
 
-  // 필터
-  function filter(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.project-entry').forEach(entry => {
-      if (cat === 'all' || entry.dataset.category === cat) {
-        entry.classList.remove('hidden');
-      } else {
-        entry.classList.add('hidden');
-      }
-    });
+let lastIdx = -1;
+function moveWork(){
+  if (!desk()) return;
+  const p = maxX ? clamp((scrollY - wTop) / (maxX / SPEED), 0, 1) : 0, x = p * maxX;
+  track.style.transform = `translate3d(${-x.toFixed(1)}px,0,0)`;
+  prog.style.transform = `scaleX(${p.toFixed(4)})`;
+  const mid = x + innerWidth / 2; let best = -1, bd = Infinity;
+  pos.forEach((o, j) => {
+    const d = o.c - mid, ad = Math.abs(d);
+    if (ad < bd) { bd = ad; best = j; }
+    if (!RM && ad < innerWidth * 1.1) o.img.style.transform = `translate3d(${(clamp(-d / innerWidth, -1, 1) * o.w * .05).toFixed(1)}px,0,0) scale(1.12)`;
+  });
+  if (best !== lastIdx && pos[best]) {
+    lastIdx = best; const pr = list[+pos[best].el.dataset.i];
+    count.textContent = `No. ${pr.no} — ${pad2(best + 1)} / ${pad2(list.length)}`;
   }
+}
+let wRaf = 0;
+addEventListener('scroll', () => { if (!wRaf) wRaf = requestAnimationFrame(() => { wRaf = 0; moveWork(); }); }, { passive: true });
+let wRz; addEventListener('resize', () => { clearTimeout(wRz); wRz = setTimeout(layout, 120); });
 
-  // 스크롤 reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, { threshold: 0.08 });
+// keyboard: bring a focused project into view instead of letting the strip jump
+track.addEventListener('focusin', e => {
+  view.scrollLeft = 0; pin.scrollLeft = 0;
+  const it = e.target.closest('.w-it'); if (!it || !desk() || !maxX) return;
+  const want = clamp((it.offsetLeft + it.offsetWidth / 2 - innerWidth / 2) / maxX, 0, 1);
+  scrollTo({ top: wTop + want * maxX / SPEED, behavior: RM ? 'auto' : 'smooth' });
+});
+filters.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.dataset.cat === cur) return;
+  cur = b.dataset.cat; lastIdx = -1; renderFilters(); renderTrack(); layout();
+  const t = work.getBoundingClientRect().top + scrollY;
+  if (scrollY > t) scrollTo({ top: t, behavior: 'auto' });
+});
+track.addEventListener('click', e => {
+  const a = e.target.closest('.w-it'); if (!a) return;
+  e.preventDefault(); openProject(+a.dataset.i);
+});
+renderFilters(); renderTrack(); layout();
+addEventListener('load', layout);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+/* =========================================================
+   PROJECT DETAIL
+   ========================================================= */
+const pd = $('#pd'), gal = $('#pd-gal');
+let pi = -1, lastFocus = null;
+function openProject(i){
+  const p = list[i]; if (!p) return; pi = i;
+  $('#pd-no').textContent = `No. ${p.no} — ${p.cat}`;
+  $('#pd-cat').textContent = `${p.type}${p.loc ? ' · ' + p.loc.split(', ').pop() : ''}`;
+  $('#pd-title').textContent = p.title;
+  $('#pd-head').textContent = p.head;
+  $('#pd-type').textContent = p.type;
+  $('#pd-loc-row').hidden = !p.loc; $('#pd-loc').textContent = p.loc || '';
+  $('#pd-year').textContent = p.year;
+  $('#pd-desc').textContent = p.desc;
+  $('#pd-kakao').dataset.kakaoMsg = `[THE PILOTI 상담 문의]\n포트폴리오에서 "${p.title}" 프로젝트를 보고 비슷한 공간으로 상담받고 싶어요.\n· 공간: \n· 면적: \n· 지역: `;
+  gal.innerHTML = p.photos.map((k, j) => `<img src="${src(p, k)}" alt="${esc(p.title)}, photo ${j + 1} of ${p.photos.length}" loading="${j < 2 ? 'eager' : 'lazy'}" decoding="async">`).join('');
+  $$('img', gal).forEach(img => { const done = () => img.classList.add('ld'); if (img.complete && img.naturalWidth) done(); else { img.addEventListener('load', done); img.addEventListener('error', done); } });
+  if (pd.hidden) {
+    lastFocus = document.activeElement;
+    pd.hidden = false; root.style.overflow = 'hidden';
+    requestAnimationFrame(() => requestAnimationFrame(() => pd.classList.add('open')));
+    $('#pd-close').focus({ preventScroll: true });
+  }
+  pd.scrollTop = 0;
+  setHash('#' + p.slug);
+}
+function closeProject(){
+  if (pd.hidden) return;
+  pd.classList.remove('open'); root.style.overflow = '';
+  setTimeout(() => { pd.hidden = true; gal.innerHTML = ''; }, 400);
+  setHash('');
+  if (lastFocus) lastFocus.focus({ preventScroll: true });
+}
+$('#pd-close').addEventListener('click', closeProject);
+$('#pd-prev').addEventListener('click', () => openProject((pi - 1 + list.length) % list.length));
+$('#pd-next').addEventListener('click', () => openProject((pi + 1) % list.length));
+addEventListener('keydown', e => {
+  if (pd.hidden) return;
+  if (e.key === 'Escape') closeProject();
+  else if (e.key === 'ArrowLeft') $('#pd-prev').click();
+  else if (e.key === 'ArrowRight') $('#pd-next').click();
+  else if (e.key === 'Tab') {
+    const f = $$('a[href],button', pd).filter(el => el.offsetParent !== null);
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+// open a project straight from a link such as …/#dear-hair
+const deep = PROJECTS.findIndex(p => '#' + p.slug === location.hash);
+if (deep > -1) setTimeout(() => openProject(deep), RM ? 0 : 2600);
+
+/* =========================================================
+   CONSULTATION MESSAGE BUILDER & KAKAO
+   ========================================================= */
+const form = $('#est'), preview = $('#f-preview'), m2 = $('#f-m2');
+function buildMessage(){
+  const fd = new FormData(form), lines = ['[THE PILOTI 상담 문의]'];
+  const add = (k, v) => { if (v) lines.push(`· ${k}: ${v}`); };
+  const val = k => (fd.get(k) || '').toString().trim();
+  add('공간', val('type'));
+  add('공사 범위', fd.getAll('scope').join(', '));
+  const a = parseFloat(val('area')); if (a > 0) add('면적', `${a}평 (약 ${(a * PYEONG).toFixed(1)}㎡)`);
+  add('지역', val('region')); add('공사 시기', val('when')); add('예산', val('budget'));
+  add('요청 사항', val('note'));
+  add('성함 / 연락처', [val('name'), val('tel')].filter(Boolean).join(' / '));
+  if (lines.length === 1) lines.push('안녕하세요, 인테리어 상담 문의드려요.');
+  return lines.join('\n');
+}
+function updateForm(){ preview.textContent = buildMessage(); const a = parseFloat($('#f-area').value); m2.textContent = a > 0 ? `약 ${(a * PYEONG).toFixed(1)}㎡` : '약 0㎡'; }
+form.addEventListener('input', updateForm); form.addEventListener('change', updateForm); form.addEventListener('submit', e => e.preventDefault());
+updateForm();
+$('#f-copy').addEventListener('click', () => copyText(buildMessage(), '메시지를 복사했어요.'));
+document.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copyText(b.dataset.copy, `복사했어요 · ${b.dataset.copy}`); });
+
+const KAKAO_READY = !/_xxxxxx/.test(KAKAO_URL);
+$$('[data-kakao]').forEach(a => {
+  if (KAKAO_READY) { a.href = KAKAO_URL; a.target = '_blank'; a.rel = 'noopener'; } else a.href = '#contact';
+  a.addEventListener('click', e => {
+    const kind = a.dataset.kakao;
+    let msg = a.dataset.kakaoMsg || '';
+    if (kind === 'copy') msg = buildMessage();
+    if (msg) copyText(msg, '메시지를 복사했어요. 카카오톡 채팅창에 붙여 넣어 주세요.');
+    closeProject();
+    if (KAKAO_READY) return;
+    if (kind === 'copy') { e.preventDefault(); setTimeout(() => toast('카카오톡 채널 주소를 연결하면 이 버튼이 바로 채팅창을 열어요.'), msg ? 1900 : 0); }
+  });
+});
+
+/* =========================================================
+   HEADER & FLOATING BUTTON
+   ========================================================= */
+const hdr = $('#hdr'), fab = $('#fab'), contact = $('#contact');
+let inContact = false;
+function onScroll(){
+  const y = scrollY;
+  hdr.classList.toggle('small', y > 30);
+  fab.classList.toggle('show', y > innerHeight * .6 && !inContact);
+}
+new IntersectionObserver(es => { inContact = es[0].isIntersecting; onScroll(); }, { threshold: .08 }).observe(contact);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
+
 </script>
 </body>
 </html>
