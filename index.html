@@ -49,22 +49,22 @@ section{scroll-margin-top:56px}
 #intro.gone{display:none}
 
 /* ---------- header ---------- */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:calc(var(--pad)*.75) var(--pad);transition:background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:calc(var(--pad)*.75) var(--pad);transition:background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
 .js .hdr{opacity:0}
 .lit .hdr{opacity:1;transition:opacity .9s ease .25s,background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
 .hdr.small{background:#fff;box-shadow:0 1px 0 var(--rule);padding-top:14px;padding-bottom:14px}
-.brand{display:block}
-.brand svg{height:var(--lh);width:calc(var(--lh)*516/77);--ww:3.4;transition:height .55s var(--eo),width .55s var(--eo)}
-.brand .tag{display:block;font-size:calc(var(--lh)*.96);line-height:1;letter-spacing:-.035em;white-space:nowrap;margin-top:calc(var(--lh)*.2);max-height:1.4em;overflow:hidden;transition:opacity .3s ease,max-height .55s var(--eo),margin .55s var(--eo)}
-.hdr.small .brand svg{height:17px;width:calc(17px*516/77);--ww:4.8}
-.hdr.small .brand .tag{opacity:0;max-height:0;margin-top:0}
+.brand{display:flex;align-items:flex-end;gap:11px}
+.brand svg{flex:none;transition:height .45s var(--eo),width .45s var(--eo)}
+.brand .b-mark{height:32px;width:calc(32px*168/206)}
+.brand .b-word{height:12.5px;width:calc(12.5px*516/77);--ww:5.4;margin-bottom:1px}
+.hdr.small .brand .b-mark{height:25px;width:calc(25px*168/206)}
 .nav{display:flex;align-items:center;gap:22px;font-size:14px;letter-spacing:-.005em;padding-top:3px;white-space:nowrap}
 .nav .k{display:inline-flex;align-items:center;gap:7px}
 .nav .k i{width:9px;height:9px;border-radius:50%;background:#FEE500;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 
 /* ---------- hero: section drawing ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:620px;display:flex;flex-direction:column;padding:0 var(--pad)}
-.bp-hero-wrap{position:relative;flex:1;min-height:0;margin-top:calc(var(--lh)*2.4 + 70px)}
+.bp-hero-wrap{position:relative;flex:1;min-height:0;margin-top:clamp(84px,8.5vw,128px)}
 .bp-hero-wrap svg{position:absolute;inset:0;width:100%;height:100%}
 .bp{color:var(--ink);overflow:hidden}
 .contact .bp{color:#f2f2f2}
@@ -74,7 +74,8 @@ section{scroll-margin-top:56px}
 .bp .s.fig{fill:#fff}
 .bp .ax{fill:none;stroke:currentColor;stroke-width:calc(.6px*var(--k,1));stroke-dasharray:7 6;opacity:.28}
 .bp text{fill:currentColor;font-family:var(--sans);font-size:calc(10.5px*var(--k,1));letter-spacing:.09em}
-.bp text.fx{font-size:15px;letter-spacing:0}
+.bp text{paint-order:stroke;stroke:var(--paper);stroke-width:calc(3px*var(--k,1));stroke-linejoin:round}
+.bp text.fx{font-size:15px;letter-spacing:0;stroke:none}
 .js .bp .s{stroke-dasharray:1;stroke-dashoffset:1}
 .js .bp .ax,.js .bp text{opacity:0}
 .bp.draw .s{stroke-dashoffset:0;transition:stroke-dashoffset var(--t,1s) var(--e) var(--d,0s)}
@@ -129,61 +130,88 @@ section{scroll-margin-top:56px}
 .rc.in::after{transform:scaleY(1);transition:transform 1.1s var(--e) calc(var(--dl,0s) + .22s)}
 .rc.in .fx-in{opacity:1;transition:opacity .7s ease calc(var(--dl,0s) + .55s)}
 
-/* ---------- work: horizontal magazine ---------- */
+/* ---------- work: a sideways strip on the home page ---------- */
 .work{position:relative;margin-top:clamp(50px,7vw,110px)}
 .sec-title{font-size:clamp(30px,3.6vw,56px);font-weight:400;line-height:1;letter-spacing:-.035em}
 .filters{font-size:14px;color:var(--mute);line-height:1.6}
 .filters button{color:var(--mute);transition:color .25s}
 .filters button:hover,.filters button[aria-pressed="true"]{color:var(--ink)}
 .filters button[aria-pressed="true"]{background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat}
-.filters sup{font-size:.62em;margin-left:2px;vertical-align:.7em;line-height:0}
+.filters sup,.w-all sup{font-size:.62em;margin-left:2px;vertical-align:.7em;line-height:0}
 .w-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px 30px;flex-wrap:wrap;padding:14px var(--pad) 0}
-.w-it{display:block;cursor:pointer}
+.w-all{font-size:clamp(15px,1.25vw,18px);letter-spacing:-.01em}
+.w-view{position:relative;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;outline:none}
+.w-view::-webkit-scrollbar{display:none}
+.w-view:focus-visible{box-shadow:inset 0 0 0 1px var(--ink)}
+.w-track{display:flex;width:max-content;padding:0 var(--pad)}
+.w-it{display:block;cursor:pointer;-webkit-user-drag:none}
 .w-fig{overflow:hidden;background:var(--ph);margin:0}
-.w-fig img{width:100%;height:100%;object-fit:cover}
+.w-fig img{width:100%;height:100%;object-fit:cover;-webkit-user-drag:none}
 .w-cap{display:flex;gap:14px;align-items:flex-start;margin-top:12px}
 .w-no{font-size:30px;font-weight:300;line-height:.86;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 .w-t{min-width:0}
 .w-t b{display:inline;font-weight:400;font-size:15px;line-height:1.2;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--eo)}
-.w-it:hover .w-t b,.w-it:focus-visible .w-t b{background-size:100% 1px}
+.w-it:hover .w-t b,.w-it:focus-visible .w-t b,.aw-it:hover .w-t b,.aw-it:focus-visible .w-t b{background-size:100% 1px}
 .w-t>span{display:block;font-size:12px;color:var(--mute);margin-top:3px}
 .w-t em{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-style:normal;font-size:14px;line-height:1.35;color:#3a3a3a;margin-top:10px;max-width:32em}
 .w-lbl{font-size:12px;color:var(--mute)}
 .w-lede{font-size:clamp(20px,1.9vw,28px);line-height:1.18;letter-spacing:-.02em}
-.w-yr b{display:block;font-weight:300;line-height:.8;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
 .w-end a{display:inline-block;font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;margin-top:14px}
-.w-foot{display:flex;align-items:center;gap:20px;padding:0 calc(var(--pad) + 150px) 18px var(--pad);font-size:12px;color:var(--mute)}
+.w-foot{display:flex;align-items:center;gap:20px;padding:16px var(--pad) 0;font-size:12px;color:var(--mute)}
 .w-bar{flex:1;height:1px;background:var(--rule);position:relative;overflow:hidden}
 .w-bar i{position:absolute;inset:0;background:var(--ink);transform-origin:0 0;transform:scaleX(0)}
 #w-count{color:var(--ink);font-variant-numeric:tabular-nums;min-width:10em}
+.w-arr{display:flex;gap:8px}
+.w-arr button{width:40px;height:40px;border:1px solid var(--rule);border-radius:50%;display:grid;place-items:center;font-size:15px;color:var(--ink);transition:border-color .25s,opacity .25s}
+.w-arr button:hover:not(:disabled){border-color:var(--ink)}
+.w-arr button:disabled{opacity:.3;cursor:default}
 @media (min-width:761px){
-  .work{height:400vh}
-  .w-pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;overflow:hidden;padding-top:50px}
-  .w-view{position:relative;flex:1;min-height:0;padding:28px 0 20px;overflow:hidden}
-  .w-track{display:flex;height:100%;width:max-content;padding:0 var(--pad);will-change:transform}
+  .w-view{height:clamp(440px,72vh,780px);margin-top:clamp(22px,2.6vw,38px);cursor:grab}
+  .w-view.dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
+  .w-track{height:100%}
   .w-it{flex:none;display:flex;flex-direction:column;height:100%}
   .w-it.cap-top .w-cap{order:-1;margin:0 0 12px}
   .w-fig img{transform:scale(1.12);will-change:transform}
   .w-blk{flex:none;height:100%;display:flex;flex-direction:column;justify-content:space-between}
-  .w-intro{width:clamp(260px,25vw,380px);margin-right:3vw}
-  .w-yr{margin-left:7vw;padding-left:16px;border-left:1px solid var(--rule)}
-  .w-yr b{font-size:clamp(90px,12vw,200px);white-space:nowrap;margin-left:-.04em}
-  .w-end{width:clamp(280px,28vw,420px);margin-left:8vw;padding-left:16px;padding-bottom:56px;border-left:1px solid var(--rule)}
+  .w-intro{width:clamp(260px,25vw,380px);margin-right:2vw}
+  .w-end{width:clamp(280px,28vw,420px);margin-left:8vw;padding-left:16px;padding-bottom:20px;border-left:1px solid var(--rule)}
 }
 @media (max-width:760px){
-  .w-foot{display:none}
-  .w-track{padding:0 var(--pad)}
-  .w-fig{aspect-ratio:var(--ar)}
-  .w-it{margin-top:46px}
-  .w-it.v0,.w-it.v4{width:100%}
-  .w-it.v1{width:66%;margin-left:auto}
-  .w-it.v2{width:74%}
-  .w-it.v3{width:60%;margin-left:14%}
-  .w-intro{margin-top:26px}
-  .w-intro .w-lede{margin:10px 0}
-  .w-yr{display:flex;justify-content:space-between;align-items:flex-end;margin-top:72px;padding-top:12px;border-top:1px solid var(--rule)}
-  .w-yr b{font-size:72px}
-  .w-end{margin-top:72px;padding-top:12px;border-top:1px solid var(--rule)}
+  .w-view{margin-top:22px;scroll-snap-type:x mandatory;scroll-padding:0 var(--pad)}
+  .w-track{gap:14px}
+  .w-intro{display:none}
+  .w-it{flex:none;width:78vw;scroll-snap-align:start}
+  .w-fig{aspect-ratio:4/3}
+  .w-t em{display:none}
+  .w-end{flex:none;width:60vw;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:space-between;padding:2px 0 4px 14px;border-left:1px solid var(--rule)}
+  .w-end .w-lede{font-size:20px;margin-top:10px}
+  .w-arr{display:none}
+  #w-count{min-width:0}
+}
+
+/* ---------- all work (work.html) ---------- */
+.aw{padding:calc(var(--pad)*.75 + 104px) var(--pad) 0}
+.aw-head{display:grid;gap:18px;padding-bottom:6px}
+.aw-back{justify-self:start;font-size:13px;color:var(--mute)}
+.aw-head .sec-title{font-size:clamp(46px,7.4vw,118px);letter-spacing:-.045em}
+.aw-lede{font-size:clamp(18px,1.7vw,24px);line-height:1.25;letter-spacing:-.015em;max-width:34em}
+.aw-yr{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:clamp(52px,6.4vw,96px);padding-top:12px;border-top:1px solid var(--rule)}
+.aw-yr b{font-size:clamp(56px,7vw,110px);font-weight:300;line-height:.8;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
+.aw-yr span{font-size:12px;color:var(--mute)}
+.aw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(36px,4vw,60px) clamp(14px,1.6vw,24px);margin-top:clamp(22px,2.4vw,34px)}
+.aw-it{display:block;min-width:0}
+.aw-fig{aspect-ratio:4/3;overflow:hidden;background:var(--ph);margin:0}
+.aw-fig img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--eo)}
+.aw-it:hover .aw-fig img{transform:scale(1.035)}
+.aw-ct-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+@media (max-width:1000px){ .aw-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:760px){
+  .aw{padding-top:96px}
+  .aw-grid{gap:28px 12px}
+  .aw-it .w-cap{gap:7px;margin-top:8px}
+  .aw-it .w-no{font-size:18px}
+  .aw-it .w-t b{font-size:14px}
+  .aw-it .w-t>span{font-size:11px}
 }
 
 /* ---------- about ---------- */
@@ -321,9 +349,17 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
 @media (max-width:760px){
   :root{--lh:22px}
   .nav .hide-s{display:none}
+  .brand{gap:9px}
+  .brand .b-mark,.hdr.small .brand .b-mark{height:26px;width:calc(26px*168/206)}
+  .brand .b-word{height:11px;width:calc(11px*516/77);--ww:6}
   .nav{gap:14px;font-size:13px}
   .hero{height:auto;min-height:0}
-  .bp-hero-wrap{flex:none;aspect-ratio:760/790;margin-top:100px}
+  .bp-hero-wrap{flex:none;aspect-ratio:1552/790;margin:84px calc(-1*var(--pad)) 6px}
+  .bp text{font-size:calc(8px*var(--k,1));letter-spacing:.05em}
+  .bp text{stroke-width:calc(2px*var(--k,1))}
+  #bp-hero text:not(.fx){font-size:calc(7.3px*var(--k,1));letter-spacing:.02em}
+  #bp-hero .g-work text{transform:translateY(5px)}
+  #bp-hero .g-contact text{transform:translateY(16px)}
   .bp .lv{display:none}
   .cap-row{grid-template-columns:1fr auto}
   .cap-row>:first-child{display:none}
@@ -350,8 +386,9 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
 .ft-word .s{stroke-linecap:butt;stroke-linejoin:miter}
 </style>
 </head>
-<body>
+<body data-page="home">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="lg-mark" viewBox="172 89 168 206"><path fill="none" stroke="currentColor" stroke-width="7.4" d="M179.5 291V149M208.5 291V149M238.5 291V149M267.5 291V129A32.75 32.75 0 0 1 333 129V291"/></symbol>
   <symbol id="lg-word" viewBox="-2 343 516 77"><path fill="none" stroke="currentColor" style="stroke-width:var(--ww,3.4)" d="M0 348.5H51M25.5 347V416M65.5 347V416M114.5 347V416M64 381.5H116M137.5 347V416M136 348.5H183M136 381.5H178M136 414.5H183M227.5 347V416M226 348.5H254A19.5 19.5 0 0 1 254 387.5H226M291.5 347V416M315.5 347V416M314 414.5H357M432.5 381.5A32 34 0 1 1 368.5 381.5A32 34 0 1 1 432.5 381.5M444 348.5H495M469.5 347V416M510.5 347V416"/></symbol>
   <symbol id="i-kakao" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.6c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.7 4.88 4.27 6.2l-.9 3.27c-.08.3.25.53.5.36l3.92-2.58c.56.08 1.13.12 1.71.12 5.25 0 9.5-3.33 9.5-7.43S17.25 3.6 12 3.6z"/></symbol>
 </svg>
@@ -366,8 +403,8 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
 
 <header class="hdr" id="hdr">
   <a class="brand" href="#top" aria-label="THE PILOTI — back to top">
-    <svg aria-hidden="true"><use href="#lg-word"/></svg>
-    <span class="tag" aria-hidden="true">Interior Design &amp; Build</span>
+    <svg class="b-mark" aria-hidden="true"><use href="#lg-mark"/></svg>
+    <svg class="b-word" aria-hidden="true"><use href="#lg-word"/></svg>
   </a>
   <nav class="nav" aria-label="Main">
     <span><a class="ul" href="#work">Work</a>, <a class="ul" href="#about">About</a>, <a class="ul" href="#contact">Contact</a></span>
@@ -380,7 +417,7 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
 <section class="hero" id="hero" aria-label="Introduction">
   <h1 class="sr">THE PILOTI — interior design and build for homes, salons, cafés, restaurants and shops in Seoul and Gwangju</h1>
   <div class="bp-hero-wrap">
-    <svg class="bp" id="bp-hero" viewBox="0 -150 1600 790" data-vb="0 -150 1600 790" data-vb-m="236 -150 760 790" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Section drawing of a building raised on columns, with open ground beneath, a ribbon window and an arched roof garden. Parts of the building link to sections of this page."><defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9"><path class="hp" d="M-1 1L1 -1M0 9L9 0M8 10L10 8"/></pattern><clipPath id="gclip"><rect x="40" y="300" width="1520" height="220"/></clipPath></defs><path id="shade" class="sunny shade" clip-path="url(#gclip)" d="M240 330H1400L1400 520H240Z"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:1.00s" d="M40 520H1560"/><path class="s th" pathLength="1" style="--d:0.55s;--t:1.50s" d="M52 520l-12 14M74 520l-12 14M96 520l-12 14M118 520l-12 14M140 520l-12 14M162 520l-12 14M184 520l-12 14M206 520l-12 14M228 520l-12 14M250 520l-12 14M272 520l-12 14M294 520l-12 14M316 520l-12 14M338 520l-12 14M360 520l-12 14M382 520l-12 14M404 520l-12 14M426 520l-12 14M448 520l-12 14M470 520l-12 14M492 520l-12 14M514 520l-12 14M536 520l-12 14M558 520l-12 14M580 520l-12 14M602 520l-12 14M624 520l-12 14M646 520l-12 14M668 520l-12 14M690 520l-12 14M712 520l-12 14M734 520l-12 14M756 520l-12 14M778 520l-12 14M800 520l-12 14M822 520l-12 14M844 520l-12 14M866 520l-12 14M888 520l-12 14M910 520l-12 14M932 520l-12 14M954 520l-12 14M976 520l-12 14M998 520l-12 14M1020 520l-12 14M1042 520l-12 14M1064 520l-12 14M1086 520l-12 14M1108 520l-12 14M1130 520l-12 14M1152 520l-12 14M1174 520l-12 14M1196 520l-12 14M1218 520l-12 14M1240 520l-12 14M1262 520l-12 14M1284 520l-12 14M1306 520l-12 14M1328 520l-12 14M1350 520l-12 14M1372 520l-12 14M1394 520l-12 14M1416 520l-12 14M1438 520l-12 14M1460 520l-12 14M1482 520l-12 14M1504 520l-12 14M1526 520l-12 14M1548 520l-12 14"/><path class="ax" style="--d:3.0s" d="M300 26V572"/><path class="ax" style="--d:3.0s" d="M560 26V572"/><path class="ax" style="--d:3.0s" d="M820 26V572"/><path class="ax" style="--d:3.0s" d="M1080 26V572"/><path class="ax" style="--d:3.0s" d="M1340 26V572"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M292 520V330"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M308 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M552 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M568 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M812 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M828 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1072 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1088 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1332 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1348 520V330"/><path class="s bd" pathLength="1" style="--d:1.00s;--t:0.90s" d="M240 330H1400V310H240Z"/><path class="s" pathLength="1" style="--d:2.55s;--t:1.00s" d="M880 112V72A52 52 0 0 1 984 72V112"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.80s" d="M1120 92H1400M1120 92V112M1160 92V112M1200 92V112M1240 92V112M1280 92V112M1320 92V112M1360 92V112M1400 92V112"/><text x="1260" y="80" text-anchor="middle" style="--d:3.70s">ROOF GARDEN</text><path class="s th" pathLength="1" style="--d:2.30s;--t:0.50s" d="M1494 520V438"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M1446 392a48 48 0 1 0 96 0a48 48 0 1 0 -96 0"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.60s" d="M1494 438V398M1494 412l-15-13M1494 404l13-11"/><g class="walker w2"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M947.7 512.1L948.8 513.2L949.1 514.1L948.9 515.1L948.3 515.9L939.9 519.9L939.4 520.0L938.9 519.6L938.7 519.1L938.9 518.5L943.8 514.2L944.1 513.7L944.2 513.0L940.0 503.0L936.9 492.2L936.2 491.5L935.3 491.4L934.5 491.9L934.1 492.9L934.0 502.8L931.9 515.4L932.0 516.0L932.6 516.9L932.9 517.5L932.9 518.2L932.7 518.8L932.0 519.7L930.9 520.0L922.1 520.0L921.7 519.8L921.3 519.3L921.4 518.8L921.8 518.3L927.6 516.6L928.2 516.2L928.5 515.5L928.0 502.6L928.3 492.2L928.5 489.4L928.2 488.5L927.7 488.2L926.8 487.9L926.4 487.2L927.8 476.0L928.2 471.7L928.0 471.1L927.3 470.3L927.2 469.7L929.1 461.5L929.2 460.1L928.6 447.9L930.0 440.0L930.3 439.6L931.2 439.0L932.5 437.0L933.2 433.4L933.0 432.6L931.6 431.2L930.7 429.5L930.4 427.4L930.6 425.3L931.2 423.5L932.3 422.0L933.6 420.9L935.2 420.4L936.0 420.4L936.9 420.6L938.7 421.4L940.1 422.4L941.7 422.8L942.6 423.5L943.0 424.5L942.9 425.3L942.6 426.1L942.0 426.7L940.9 427.1L940.5 427.5L939.6 428.9L938.7 430.4L937.7 431.7L937.5 432.5L937.7 433.3L938.2 434.3L939.2 436.9L940.5 439.0L940.9 439.3L941.9 439.6L942.2 440.2L943.0 448.0L942.6 460.1L943.8 475.9L945.0 487.2L944.7 487.9L943.5 488.3L942.9 489.0L942.9 492.0L945.7 501.2L947.5 511.6Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M940.7 465.6L941.0 470.7L940.7 471.3L940.1 471.4L939.7 471.3L939.4 470.9L938.1 465.7L935.6 449.7L933.9 440.9L934.0 440.0L934.4 439.2L934.9 438.7L935.8 438.3L936.7 438.3L937.5 438.7L938.1 439.3L938.5 440.2L939.2 449.3L939.7 457.2Z"/><path class="s th fig" pathLength="1" style="--d:3.08s;--t:0.90s" d="M986.5 511.2L986.8 511.9L987.8 512.8L988.2 513.6L988.1 514.8L987.5 515.7L986.8 516.1L978.1 519.9L977.5 520.0L977.0 519.7L976.8 519.0L977.0 518.4L982.5 514.0L982.9 513.4L982.9 512.7L978.2 502.1L974.8 492.4L973.2 486.9L972.5 486.2L971.4 486.0L970.9 486.3L970.5 486.8L968.7 491.7L968.8 501.9L966.2 515.1L966.3 515.8L966.9 516.7L967.2 517.3L967.2 518.1L967.0 518.8L966.2 519.6L965.1 520.0L955.0 520.0L954.5 519.8L954.1 519.3L954.2 518.7L954.6 518.2L961.6 516.3L962.2 515.9L962.5 515.2L962.6 491.0L965.7 467.9L965.9 466.8L966.5 465.3L966.7 463.8L966.6 463.1L966.3 462.6L965.8 462.3L965.2 462.2L964.7 462.3L964.0 462.9L961.8 466.6L961.3 466.7L960.8 466.7L960.4 466.3L960.3 465.7L964.6 452.9L965.9 447.2L965.4 441.4L965.5 438.0L965.9 436.3L966.7 434.6L968.4 431.8L968.7 429.4L969.0 428.3L968.8 427.3L967.3 425.8L966.4 424.1L966.0 422.1L966.2 419.9L966.9 417.9L968.0 416.2L969.4 415.0L971.0 414.4L971.8 414.4L972.8 414.5L975.2 415.7L976.0 416.4L976.6 417.1L977.2 418.9L977.3 420.4L976.9 421.7L975.8 423.4L974.9 425.0L973.8 426.4L973.6 427.1L973.8 428.1L974.5 429.4L975.1 431.5L976.8 434.2L977.2 435.8L977.4 437.8L977.5 443.2L976.4 455.4L976.4 458.5L977.3 463.5L977.8 465.1L978.7 466.8L978.9 467.9L980.8 490.7L984.2 500.1Z"/><path class="s th" pathLength="1" style="--d:3.13s;--t:0.60s" d="M974.8 434.1L977.3 463.3"/><path class="s th fig" pathLength="1" style="--d:3.18s;--t:0.90s" d="M981.3 472.6L981.1 473.1L980.6 473.4L975.3 473.4L974.7 473.0L974.6 472.6L974.9 463.5L975.3 462.9L980.2 462.8L980.8 463.1Z"/><path class="s th fig" pathLength="1" style="--d:3.23s;--t:0.90s" d="M978.7 462.0L979.7 467.4L979.4 468.1L978.8 468.3L978.3 468.2L978.0 467.8L975.9 462.3L973.8 454.0L972.2 445.6L969.8 436.3L969.8 435.4L970.2 434.5L970.7 433.9L971.6 433.5L972.5 433.4L973.4 433.7L974.1 434.4L974.6 435.2L976.1 444.9L977.0 453.4Z"/></g><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 520H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 507L81 520L90 507Z"/><text class="lv" x="98" y="512" text-anchor="start" style="--d:3.40s">GL ±0</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 330H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 317L81 330L90 317Z"/><text class="lv" x="98" y="322" text-anchor="start" style="--d:3.40s">2FL</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 112H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 99L81 112L90 99Z"/><text class="lv" x="98" y="104" text-anchor="start" style="--d:3.40s">RF</text><path class="s th" pathLength="1" style="--d:3.10s;--t:0.60s" d="M286 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="300" y="595" text-anchor="middle" style="--d:3.50s">A</text><path class="s th" pathLength="1" style="--d:3.18s;--t:0.60s" d="M546 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="560" y="595" text-anchor="middle" style="--d:3.58s">B</text><path class="s th" pathLength="1" style="--d:3.26s;--t:0.60s" d="M806 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="820" y="595" text-anchor="middle" style="--d:3.66s">C</text><path class="s th" pathLength="1" style="--d:3.34s;--t:0.60s" d="M1066 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1080" y="595" text-anchor="middle" style="--d:3.74s">D</text><path class="s th" pathLength="1" style="--d:3.42s;--t:0.60s" d="M1326 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1340" y="595" text-anchor="middle" style="--d:3.82s">E</text><path class="s th" pathLength="1" style="--d:3.30s;--t:1.00s" d="M300 626H1340M294 632L306 620M554 632L566 620M814 632L826 620M1074 632L1086 620M1334 632L1346 620"/><g class="g-work"><path class="s" pathLength="1" style="--d:1.50s;--t:0.60s" d="M240 310V130M1400 310V130"/><path class="s bd" pathLength="1" style="--d:1.85s;--t:0.90s" d="M228 130H1412V112H228Z"/><path class="s" pathLength="1" style="--d:2.15s;--t:0.80s" d="M280 246H1360V176H280Z"/><path class="s th" pathLength="1" style="--d:2.35s;--t:0.60s" d="M276 252H1364"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M340 176V246M400 176V246M460 176V246M520 176V246M580 176V246M640 176V246M700 176V246M760 176V246M820 176V246M880 176V246M940 176V246M1000 176V246M1060 176V246M1120 176V246M1180 176V246M1240 176V246M1300 176V246"/><text x="820" y="160" text-anchor="middle" style="--d:3.80s">RIBBON WINDOW</text></g><g class="g-about"><path class="s th" pathLength="1" style="--d:3.30s;--t:0.80s" d="M318 388H542M318 388l10-5M318 388l10 5M542 388l-10-5M542 388l-10 5"/><text x="430" y="376" text-anchor="middle" style="--d:3.60s">OPEN GROUND</text><g class="walker w1"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M405.2 511.0L404.9 511.7L403.9 512.7L403.5 513.5L403.6 514.7L404.2 515.7L404.9 516.0L413.8 519.9L414.4 520.0L414.9 519.7L415.1 519.0L414.9 518.4L409.3 513.9L408.9 513.3L408.9 512.5L413.7 501.8L417.1 491.9L418.8 486.3L419.5 485.5L420.6 485.4L421.2 485.7L421.5 486.2L423.3 491.2L423.3 501.6L425.9 515.0L425.8 515.7L425.2 516.6L424.9 517.3L424.9 518.0L425.1 518.8L425.9 519.6L427.0 520.0L437.3 520.0L437.9 519.8L438.2 519.3L438.2 518.7L437.7 518.2L430.6 516.3L430.0 515.8L429.6 515.1L429.7 501.2L429.6 490.4L426.4 466.9L426.2 465.8L425.6 464.3L425.4 462.7L425.5 462.1L425.8 461.6L426.3 461.2L426.9 461.1L427.5 461.2L428.2 461.8L430.4 465.5L430.9 465.7L431.5 465.6L431.8 465.3L431.9 464.7L427.6 451.6L426.2 445.8L426.8 439.9L426.6 436.4L426.2 434.8L425.4 433.0L423.7 430.1L423.4 427.7L423.1 426.6L423.3 425.6L424.8 424.0L425.7 422.3L426.1 420.2L425.9 418.0L425.2 415.9L424.1 414.2L422.7 413.0L421.0 412.4L420.2 412.4L419.2 412.5L416.7 413.7L415.9 414.4L415.3 415.2L414.7 417.0L414.6 418.5L415.0 419.9L416.1 421.6L417.0 423.2L418.1 424.6L418.3 425.4L418.2 426.4L417.5 427.6L416.8 429.9L415.1 432.6L414.7 434.2L414.5 436.2L414.4 441.7L415.5 454.2L415.5 457.4L414.6 462.4L414.1 464.0L413.2 465.8L412.9 466.9L411.1 490.1L407.6 499.7Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M413.1 460.9L412.2 466.4L412.4 467.1L413.1 467.3L413.6 467.2L413.9 466.8L416.0 461.2L418.1 452.7L419.8 444.2L422.2 434.7L422.2 433.8L421.9 432.9L421.3 432.3L420.4 431.8L419.5 431.8L418.5 432.1L417.8 432.7L417.4 433.6L415.9 443.5L414.9 452.1Z"/></g></g><g class="g-process"><path class="s th" pathLength="1" style="--d:1.60s;--t:1.10s" d="M600 520v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16"/><path class="s th" pathLength="1" style="--d:1.75s;--t:0.80s" d="M622 520L782 330"/></g><g class="g-contact"><path class="s" pathLength="1" style="--d:1.90s;--t:0.90s" d="M1110 520V350H1310V520"/><path class="s th" pathLength="1" style="--d:2.25s;--t:0.80s" d="M1145 350V520M1275 350V520M1180 520V420H1240V520"/><text x="1210" y="556" text-anchor="middle" style="--d:3.75s">ENTRANCE</text></g><g id="sun" class="sunny" transform="translate(420 -60)"><path class="sun-c" d="M-20 0a20 20 0 1 0 40 0a20 20 0 1 0 -40 0M30.0 0.0L40.0 0.0M21.2 21.2L28.3 28.3M-0.0 30.0L-0.0 40.0M-21.2 21.2L-28.3 28.3M-30.0 -0.0L-40.0 -0.0M-21.2 -21.2L-28.3 -28.3M0.0 -30.0L0.0 -40.0M21.2 -21.2L28.3 -28.3"/><text id="sun-t" x="52" y="5">10:00</text></g><a class="hot" href="#work" data-g="work" data-tip="Ribbon window — see our work" aria-label="Ribbon window — see our work"><rect x="228" y="112" width="1184" height="198"/></a><a class="hot" href="#about" data-g="about" data-tip="Open ground — about the name" aria-label="Open ground — about the name"><rect x="308" y="330" width="244" height="190"/></a><a class="hot" href="#process" data-g="process" data-tip="Stair — how we work" aria-label="Stair — how we work"><rect x="590" y="330" width="222" height="190"/></a><a class="hot" href="#contact" data-g="contact" data-tip="Entrance — start a consultation" aria-label="Entrance — start a consultation"><rect x="1100" y="340" width="220" height="180"/></a></svg>
+    <svg class="bp" id="bp-hero" viewBox="0 -150 1600 790" data-vb="0 -150 1600 790" data-vb-m="24 -150 1552 790" preserveAspectRatio="xMidYMid meet" role="group" aria-label="Section drawing of a building raised on columns, with open ground beneath, a ribbon window and an arched roof garden. Parts of the building link to sections of this page."><defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="9" height="9"><path class="hp" d="M-1 1L1 -1M0 9L9 0M8 10L10 8"/></pattern><clipPath id="gclip"><rect x="40" y="300" width="1520" height="220"/></clipPath></defs><path id="shade" class="sunny shade" clip-path="url(#gclip)" d="M240 330H1400L1400 520H240Z"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:1.00s" d="M40 520H1560"/><path class="s th" pathLength="1" style="--d:0.55s;--t:1.50s" d="M52 520l-12 14M74 520l-12 14M96 520l-12 14M118 520l-12 14M140 520l-12 14M162 520l-12 14M184 520l-12 14M206 520l-12 14M228 520l-12 14M250 520l-12 14M272 520l-12 14M294 520l-12 14M316 520l-12 14M338 520l-12 14M360 520l-12 14M382 520l-12 14M404 520l-12 14M426 520l-12 14M448 520l-12 14M470 520l-12 14M492 520l-12 14M514 520l-12 14M536 520l-12 14M558 520l-12 14M580 520l-12 14M602 520l-12 14M624 520l-12 14M646 520l-12 14M668 520l-12 14M690 520l-12 14M712 520l-12 14M734 520l-12 14M756 520l-12 14M778 520l-12 14M800 520l-12 14M822 520l-12 14M844 520l-12 14M866 520l-12 14M888 520l-12 14M910 520l-12 14M932 520l-12 14M954 520l-12 14M976 520l-12 14M998 520l-12 14M1020 520l-12 14M1042 520l-12 14M1064 520l-12 14M1086 520l-12 14M1108 520l-12 14M1130 520l-12 14M1152 520l-12 14M1174 520l-12 14M1196 520l-12 14M1218 520l-12 14M1240 520l-12 14M1262 520l-12 14M1284 520l-12 14M1306 520l-12 14M1328 520l-12 14M1350 520l-12 14M1372 520l-12 14M1394 520l-12 14M1416 520l-12 14M1438 520l-12 14M1460 520l-12 14M1482 520l-12 14M1504 520l-12 14M1526 520l-12 14M1548 520l-12 14"/><path class="ax" style="--d:3.0s" d="M300 26V572"/><path class="ax" style="--d:3.0s" d="M560 26V572"/><path class="ax" style="--d:3.0s" d="M820 26V572"/><path class="ax" style="--d:3.0s" d="M1080 26V572"/><path class="ax" style="--d:3.0s" d="M1340 26V572"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M292 520V330"/><path class="s" pathLength="1" style="--d:0.35s;--t:0.75s" d="M308 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M552 520V330"/><path class="s" pathLength="1" style="--d:0.44s;--t:0.75s" d="M568 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M812 520V330"/><path class="s" pathLength="1" style="--d:0.53s;--t:0.75s" d="M828 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1072 520V330"/><path class="s" pathLength="1" style="--d:0.62s;--t:0.75s" d="M1088 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1332 520V330"/><path class="s" pathLength="1" style="--d:0.71s;--t:0.75s" d="M1348 520V330"/><path class="s bd" pathLength="1" style="--d:1.00s;--t:0.90s" d="M240 330H1400V310H240Z"/><path class="s" pathLength="1" style="--d:2.55s;--t:1.00s" d="M880 112V72A52 52 0 0 1 984 72V112"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.80s" d="M1120 92H1400M1120 92V112M1160 92V112M1200 92V112M1240 92V112M1280 92V112M1320 92V112M1360 92V112M1400 92V112"/><text x="1260" y="80" text-anchor="middle" style="--d:3.70s">ROOF GARDEN</text><path class="s th" pathLength="1" style="--d:2.30s;--t:0.50s" d="M1494 520V438"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M1446 392a48 48 0 1 0 96 0a48 48 0 1 0 -96 0"/><path class="s th" pathLength="1" style="--d:2.75s;--t:0.60s" d="M1494 438V398M1494 412l-15-13M1494 404l13-11"/><g class="walker w2"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M947.7 512.1L948.8 513.2L949.1 514.1L948.9 515.1L948.3 515.9L939.9 519.9L939.4 520.0L938.9 519.6L938.7 519.1L938.9 518.5L943.8 514.2L944.1 513.7L944.2 513.0L940.0 503.0L936.9 492.2L936.2 491.5L935.3 491.4L934.5 491.9L934.1 492.9L934.0 502.8L931.9 515.4L932.0 516.0L932.6 516.9L932.9 517.5L932.9 518.2L932.7 518.8L932.0 519.7L930.9 520.0L922.1 520.0L921.7 519.8L921.3 519.3L921.4 518.8L921.8 518.3L927.6 516.6L928.2 516.2L928.5 515.5L928.0 502.6L928.3 492.2L928.5 489.4L928.2 488.5L927.7 488.2L926.8 487.9L926.4 487.2L927.8 476.0L928.2 471.7L928.0 471.1L927.3 470.3L927.2 469.7L929.1 461.5L929.2 460.1L928.6 447.9L930.0 440.0L930.3 439.6L931.2 439.0L932.5 437.0L933.2 433.4L933.0 432.6L931.6 431.2L930.7 429.5L930.4 427.4L930.6 425.3L931.2 423.5L932.3 422.0L933.6 420.9L935.2 420.4L936.0 420.4L936.9 420.6L938.7 421.4L940.1 422.4L941.7 422.8L942.6 423.5L943.0 424.5L942.9 425.3L942.6 426.1L942.0 426.7L940.9 427.1L940.5 427.5L939.6 428.9L938.7 430.4L937.7 431.7L937.5 432.5L937.7 433.3L938.2 434.3L939.2 436.9L940.5 439.0L940.9 439.3L941.9 439.6L942.2 440.2L943.0 448.0L942.6 460.1L943.8 475.9L945.0 487.2L944.7 487.9L943.5 488.3L942.9 489.0L942.9 492.0L945.7 501.2L947.5 511.6Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M940.7 465.6L941.0 470.7L940.7 471.3L940.1 471.4L939.7 471.3L939.4 470.9L938.1 465.7L935.6 449.7L933.9 440.9L934.0 440.0L934.4 439.2L934.9 438.7L935.8 438.3L936.7 438.3L937.5 438.7L938.1 439.3L938.5 440.2L939.2 449.3L939.7 457.2Z"/><path class="s th fig" pathLength="1" style="--d:3.08s;--t:0.90s" d="M986.5 511.2L986.8 511.9L987.8 512.8L988.2 513.6L988.1 514.8L987.5 515.7L986.8 516.1L978.1 519.9L977.5 520.0L977.0 519.7L976.8 519.0L977.0 518.4L982.5 514.0L982.9 513.4L982.9 512.7L978.2 502.1L974.8 492.4L973.2 486.9L972.5 486.2L971.4 486.0L970.9 486.3L970.5 486.8L968.7 491.7L968.8 501.9L966.2 515.1L966.3 515.8L966.9 516.7L967.2 517.3L967.2 518.1L967.0 518.8L966.2 519.6L965.1 520.0L955.0 520.0L954.5 519.8L954.1 519.3L954.2 518.7L954.6 518.2L961.6 516.3L962.2 515.9L962.5 515.2L962.6 491.0L965.7 467.9L965.9 466.8L966.5 465.3L966.7 463.8L966.6 463.1L966.3 462.6L965.8 462.3L965.2 462.2L964.7 462.3L964.0 462.9L961.8 466.6L961.3 466.7L960.8 466.7L960.4 466.3L960.3 465.7L964.6 452.9L965.9 447.2L965.4 441.4L965.5 438.0L965.9 436.3L966.7 434.6L968.4 431.8L968.7 429.4L969.0 428.3L968.8 427.3L967.3 425.8L966.4 424.1L966.0 422.1L966.2 419.9L966.9 417.9L968.0 416.2L969.4 415.0L971.0 414.4L971.8 414.4L972.8 414.5L975.2 415.7L976.0 416.4L976.6 417.1L977.2 418.9L977.3 420.4L976.9 421.7L975.8 423.4L974.9 425.0L973.8 426.4L973.6 427.1L973.8 428.1L974.5 429.4L975.1 431.5L976.8 434.2L977.2 435.8L977.4 437.8L977.5 443.2L976.4 455.4L976.4 458.5L977.3 463.5L977.8 465.1L978.7 466.8L978.9 467.9L980.8 490.7L984.2 500.1Z"/><path class="s th" pathLength="1" style="--d:3.13s;--t:0.60s" d="M974.8 434.1L977.3 463.3"/><path class="s th fig" pathLength="1" style="--d:3.18s;--t:0.90s" d="M981.3 472.6L981.1 473.1L980.6 473.4L975.3 473.4L974.7 473.0L974.6 472.6L974.9 463.5L975.3 462.9L980.2 462.8L980.8 463.1Z"/><path class="s th fig" pathLength="1" style="--d:3.23s;--t:0.90s" d="M978.7 462.0L979.7 467.4L979.4 468.1L978.8 468.3L978.3 468.2L978.0 467.8L975.9 462.3L973.8 454.0L972.2 445.6L969.8 436.3L969.8 435.4L970.2 434.5L970.7 433.9L971.6 433.5L972.5 433.4L973.4 433.7L974.1 434.4L974.6 435.2L976.1 444.9L977.0 453.4Z"/></g><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 520H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 507L81 520L90 507Z"/><text class="lv" x="98" y="512" text-anchor="start" style="--d:3.40s">GL ±0</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 330H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 317L81 330L90 317Z"/><text class="lv" x="98" y="322" text-anchor="start" style="--d:3.40s">2FL</text><path class="s th lv" pathLength="1" style="--d:3.05s;--t:0.70s" d="M56 112H222"/><path class="s th lv" pathLength="1" style="--d:3.20s;--t:0.50s" d="M72 99L81 112L90 99Z"/><text class="lv" x="98" y="104" text-anchor="start" style="--d:3.40s">RF</text><path class="s th" pathLength="1" style="--d:3.10s;--t:0.60s" d="M286 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="300" y="595" text-anchor="middle" style="--d:3.50s">A</text><path class="s th" pathLength="1" style="--d:3.18s;--t:0.60s" d="M546 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="560" y="595" text-anchor="middle" style="--d:3.58s">B</text><path class="s th" pathLength="1" style="--d:3.26s;--t:0.60s" d="M806 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="820" y="595" text-anchor="middle" style="--d:3.66s">C</text><path class="s th" pathLength="1" style="--d:3.34s;--t:0.60s" d="M1066 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1080" y="595" text-anchor="middle" style="--d:3.74s">D</text><path class="s th" pathLength="1" style="--d:3.42s;--t:0.60s" d="M1326 590a14 14 0 1 0 28 0a14 14 0 1 0 -28 0"/><text class="fx" x="1340" y="595" text-anchor="middle" style="--d:3.82s">E</text><path class="s th" pathLength="1" style="--d:3.30s;--t:1.00s" d="M300 626H1340M294 632L306 620M554 632L566 620M814 632L826 620M1074 632L1086 620M1334 632L1346 620"/><g class="g-work"><path class="s" pathLength="1" style="--d:1.50s;--t:0.60s" d="M240 310V130M1400 310V130"/><path class="s bd" pathLength="1" style="--d:1.85s;--t:0.90s" d="M228 130H1412V112H228Z"/><path class="s" pathLength="1" style="--d:2.15s;--t:0.80s" d="M280 246H1360V176H280Z"/><path class="s th" pathLength="1" style="--d:2.35s;--t:0.60s" d="M276 252H1364"/><path class="s th" pathLength="1" style="--d:2.45s;--t:1.00s" d="M340 176V246M400 176V246M460 176V246M520 176V246M580 176V246M640 176V246M700 176V246M760 176V246M820 176V246M880 176V246M940 176V246M1000 176V246M1060 176V246M1120 176V246M1180 176V246M1240 176V246M1300 176V246"/><text x="820" y="160" text-anchor="middle" style="--d:3.80s">RIBBON WINDOW</text></g><g class="g-about"><path class="s th" pathLength="1" style="--d:3.30s;--t:0.80s" d="M318 388H542M318 388l10-5M318 388l10 5M542 388l-10-5M542 388l-10 5"/><text x="430" y="376" text-anchor="middle" style="--d:3.60s">OPEN GROUND</text><g class="walker w1"><path class="s th fig" pathLength="1" style="--d:3.00s;--t:0.90s" d="M405.2 511.0L404.9 511.7L403.9 512.7L403.5 513.5L403.6 514.7L404.2 515.7L404.9 516.0L413.8 519.9L414.4 520.0L414.9 519.7L415.1 519.0L414.9 518.4L409.3 513.9L408.9 513.3L408.9 512.5L413.7 501.8L417.1 491.9L418.8 486.3L419.5 485.5L420.6 485.4L421.2 485.7L421.5 486.2L423.3 491.2L423.3 501.6L425.9 515.0L425.8 515.7L425.2 516.6L424.9 517.3L424.9 518.0L425.1 518.8L425.9 519.6L427.0 520.0L437.3 520.0L437.9 519.8L438.2 519.3L438.2 518.7L437.7 518.2L430.6 516.3L430.0 515.8L429.6 515.1L429.7 501.2L429.6 490.4L426.4 466.9L426.2 465.8L425.6 464.3L425.4 462.7L425.5 462.1L425.8 461.6L426.3 461.2L426.9 461.1L427.5 461.2L428.2 461.8L430.4 465.5L430.9 465.7L431.5 465.6L431.8 465.3L431.9 464.7L427.6 451.6L426.2 445.8L426.8 439.9L426.6 436.4L426.2 434.8L425.4 433.0L423.7 430.1L423.4 427.7L423.1 426.6L423.3 425.6L424.8 424.0L425.7 422.3L426.1 420.2L425.9 418.0L425.2 415.9L424.1 414.2L422.7 413.0L421.0 412.4L420.2 412.4L419.2 412.5L416.7 413.7L415.9 414.4L415.3 415.2L414.7 417.0L414.6 418.5L415.0 419.9L416.1 421.6L417.0 423.2L418.1 424.6L418.3 425.4L418.2 426.4L417.5 427.6L416.8 429.9L415.1 432.6L414.7 434.2L414.5 436.2L414.4 441.7L415.5 454.2L415.5 457.4L414.6 462.4L414.1 464.0L413.2 465.8L412.9 466.9L411.1 490.1L407.6 499.7Z"/><path class="s th fig" pathLength="1" style="--d:3.05s;--t:0.90s" d="M413.1 460.9L412.2 466.4L412.4 467.1L413.1 467.3L413.6 467.2L413.9 466.8L416.0 461.2L418.1 452.7L419.8 444.2L422.2 434.7L422.2 433.8L421.9 432.9L421.3 432.3L420.4 431.8L419.5 431.8L418.5 432.1L417.8 432.7L417.4 433.6L415.9 443.5L414.9 452.1Z"/></g></g><g class="g-process"><path class="s th" pathLength="1" style="--d:1.60s;--t:1.10s" d="M600 520v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16v-19h16"/><path class="s th" pathLength="1" style="--d:1.75s;--t:0.80s" d="M622 520L782 330"/></g><g class="g-contact"><path class="s" pathLength="1" style="--d:1.90s;--t:0.90s" d="M1110 520V350H1310V520"/><path class="s th" pathLength="1" style="--d:2.25s;--t:0.80s" d="M1145 350V520M1275 350V520M1180 520V420H1240V520"/><text x="1210" y="556" text-anchor="middle" style="--d:3.75s">ENTRANCE</text></g><g id="sun" class="sunny" transform="translate(420 -60)"><path class="sun-c" d="M-20 0a20 20 0 1 0 40 0a20 20 0 1 0 -40 0M30.0 0.0L40.0 0.0M21.2 21.2L28.3 28.3M-0.0 30.0L-0.0 40.0M-21.2 21.2L-28.3 28.3M-30.0 -0.0L-40.0 -0.0M-21.2 -21.2L-28.3 -28.3M0.0 -30.0L0.0 -40.0M21.2 -21.2L28.3 -28.3"/><text id="sun-t" x="52" y="5">10:00</text></g><a class="hot" href="#work" data-g="work" data-tip="Ribbon window — see our work" aria-label="Ribbon window — see our work"><rect x="228" y="112" width="1184" height="198"/></a><a class="hot" href="#about" data-g="about" data-tip="Open ground — about the name" aria-label="Open ground — about the name"><rect x="308" y="330" width="244" height="190"/></a><a class="hot" href="#process" data-g="process" data-tip="Stair — how we work" aria-label="Stair — how we work"><rect x="590" y="330" width="222" height="190"/></a><a class="hot" href="#contact" data-g="contact" data-tip="Entrance — start a consultation" aria-label="Entrance — start a consultation"><rect x="1100" y="340" width="220" height="180"/></a></svg>
     <div class="hot-tip" id="hot-tip" aria-hidden="true"></div>
   </div>
   <div class="cap-row">
@@ -391,14 +428,12 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
 </section>
 
 <section class="work" id="work" aria-labelledby="work-h">
-  <div class="w-pin" id="w-pin">
-    <div class="w-head">
-      <h2 class="sec-title" id="work-h">Selected Work</h2>
-      <div class="filters" id="filters" role="group" aria-label="Filter projects by field"></div>
-    </div>
-    <div class="w-view" id="w-view"><div class="w-track" id="track"></div></div>
-    <div class="w-foot" aria-hidden="true"><span id="w-count"></span><div class="w-bar"><i id="w-prog"></i></div><span>Scroll ↓ to move →</span></div>
+  <div class="w-head">
+    <h2 class="sec-title" id="work-h">Selected Work</h2>
+    <a class="w-all ul" href="work.html">All projects<sup id="w-all-n"></sup> →</a>
   </div>
+  <div class="w-view" id="w-view" tabindex="0" role="region" aria-label="Selected projects — scroll sideways"><div class="w-track" id="track"></div></div>
+  <div class="w-foot"><div class="w-arr"><button type="button" id="w-prev" aria-label="Previous projects">←</button><button type="button" id="w-next" aria-label="Next projects">→</button></div><span id="w-count" aria-hidden="true"></span><div class="w-bar" aria-hidden="true"><i id="w-prog"></i></div></div>
 </section>
 
 <section class="about" id="about" aria-labelledby="about-h">
@@ -438,7 +473,7 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
   </div>
 
   <figure class="fig">
-    <svg class="bp" data-draw viewBox="0 0 1200 560" data-vb="0 0 1200 560" data-vb-m="40 14 720 546" role="img" aria-label="Plan drawing: a grid of columns with a curved free-standing wall, a room with a door, a counter, tables and a stair"><path class="ax" style="--d:1.6s" d="M200 36V524"/><path class="ax" style="--d:1.6s" d="M420 36V524"/><path class="ax" style="--d:1.6s" d="M640 36V524"/><path class="ax" style="--d:1.6s" d="M860 36V524"/><path class="ax" style="--d:1.6s" d="M1080 36V524"/><path class="ax" style="--d:1.6s" d="M36 160H1164"/><path class="ax" style="--d:1.6s" d="M36 280H1164"/><path class="ax" style="--d:1.6s" d="M36 400H1164"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:2.00s" d="M600 500H60V60H1140V500H700"/><path class="s" pathLength="1" style="--d:0.70s;--t:1.60s" d="M192 152h16v16h-16zM412 152h16v16h-16zM632 152h16v16h-16zM852 152h16v16h-16zM1072 152h16v16h-16zM192 272h16v16h-16zM412 272h16v16h-16zM632 272h16v16h-16zM852 272h16v16h-16zM1072 272h16v16h-16zM192 392h16v16h-16zM412 392h16v16h-16zM632 392h16v16h-16zM852 392h16v16h-16zM1072 392h16v16h-16z"/><path class="s bd" pathLength="1" style="--d:1.40s;--t:1.20s" d="M520 60C520 140 600 170 600 230S540 320 540 380"/><path class="s" pathLength="1" style="--d:1.60s;--t:0.90s" d="M860 60V200M860 280V500"/><path class="s th" pathLength="1" style="--d:2.00s;--t:0.80s" d="M860 280H940M940 280A80 80 0 0 0 860 200"/><path class="s th" pathLength="1" style="--d:1.80s;--t:0.80s" d="M90 230H150V470H90Z"/><path class="s th" pathLength="1" style="--d:2.10s;--t:1.20s" d="M274 300a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M274 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M694 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0"/><path class="s th" pathLength="1" style="--d:2.20s;--t:1.00s" d="M940 420H1140M960 420V500M980 420V500M1000 420V500M1020 420V500M1040 420V500M1060 420V500M1080 420V500M1100 420V500M1120 420V500"/><path class="s th" pathLength="1" style="--d:2.60s;--t:0.60s" d="M956 462H1112M1112 462l-10-6M1112 462l-10 6"/><path class="s th" pathLength="1" style="--d:2.40s;--t:0.60s" d="M650 548V512M650 512l-7 11M650 512l7 11"/><text x="120" y="216" text-anchor="middle" style="--d:2.80s">COUNTER</text><text x="1000" y="130" text-anchor="middle" style="--d:2.90s">ROOM</text><text x="380" y="110" text-anchor="middle" style="--d:2.90s">OPEN PLAN</text><text x="634" y="540" text-anchor="end" style="--d:3.00s">ENTRANCE</text><text x="1036" y="410" text-anchor="middle" style="--d:3.00s">UP</text><text class="fx" x="200" y="28" text-anchor="middle" style="--d:2.60s">1</text><text class="fx" x="420" y="28" text-anchor="middle" style="--d:2.60s">2</text><text class="fx" x="640" y="28" text-anchor="middle" style="--d:2.60s">3</text><text class="fx" x="860" y="28" text-anchor="middle" style="--d:2.60s">4</text><text class="fx" x="1080" y="28" text-anchor="middle" style="--d:2.60s">5</text></svg>
+    <svg class="bp" data-draw viewBox="0 0 1200 560" data-vb="0 0 1200 560" role="img" aria-label="Plan drawing: a grid of columns with a curved free-standing wall, a room with a door, a counter, tables and a stair"><path class="ax" style="--d:1.6s" d="M200 36V524"/><path class="ax" style="--d:1.6s" d="M420 36V524"/><path class="ax" style="--d:1.6s" d="M640 36V524"/><path class="ax" style="--d:1.6s" d="M860 36V524"/><path class="ax" style="--d:1.6s" d="M1080 36V524"/><path class="ax" style="--d:1.6s" d="M36 160H1164"/><path class="ax" style="--d:1.6s" d="M36 280H1164"/><path class="ax" style="--d:1.6s" d="M36 400H1164"/><path class="s bd" pathLength="1" style="--d:0.00s;--t:2.00s" d="M600 500H60V60H1140V500H700"/><path class="s" pathLength="1" style="--d:0.70s;--t:1.60s" d="M192 152h16v16h-16zM412 152h16v16h-16zM632 152h16v16h-16zM852 152h16v16h-16zM1072 152h16v16h-16zM192 272h16v16h-16zM412 272h16v16h-16zM632 272h16v16h-16zM852 272h16v16h-16zM1072 272h16v16h-16zM192 392h16v16h-16zM412 392h16v16h-16zM632 392h16v16h-16zM852 392h16v16h-16zM1072 392h16v16h-16z"/><path class="s bd" pathLength="1" style="--d:1.40s;--t:1.20s" d="M520 60C520 140 600 170 600 230S540 320 540 380"/><path class="s" pathLength="1" style="--d:1.60s;--t:0.90s" d="M860 60V200M860 280V500"/><path class="s th" pathLength="1" style="--d:2.00s;--t:0.80s" d="M860 280H940M940 280A80 80 0 0 0 860 200"/><path class="s th" pathLength="1" style="--d:1.80s;--t:0.80s" d="M90 230H150V470H90Z"/><path class="s th" pathLength="1" style="--d:2.10s;--t:1.20s" d="M274 300a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M274 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0M694 430a26 26 0 1 0 52 0a26 26 0 1 0 -52 0"/><path class="s th" pathLength="1" style="--d:2.20s;--t:1.00s" d="M940 420H1140M960 420V500M980 420V500M1000 420V500M1020 420V500M1040 420V500M1060 420V500M1080 420V500M1100 420V500M1120 420V500"/><path class="s th" pathLength="1" style="--d:2.60s;--t:0.60s" d="M956 462H1112M1112 462l-10-6M1112 462l-10 6"/><path class="s th" pathLength="1" style="--d:2.40s;--t:0.60s" d="M650 548V512M650 512l-7 11M650 512l7 11"/><text x="0" y="0" transform="translate(120 350) rotate(-90)" text-anchor="middle" dominant-baseline="central" style="--d:2.80s">COUNTER</text><text x="1000" y="130" text-anchor="middle" style="--d:2.90s">ROOM</text><text x="380" y="110" text-anchor="middle" style="--d:2.90s">OPEN PLAN</text><text x="634" y="540" text-anchor="end" style="--d:3.00s">ENTRANCE</text><text x="1004" y="410" text-anchor="middle" style="--d:3.00s">UP</text><text class="fx" x="200" y="28" text-anchor="middle" style="--d:2.60s">1</text><text class="fx" x="420" y="28" text-anchor="middle" style="--d:2.60s">2</text><text class="fx" x="640" y="28" text-anchor="middle" style="--d:2.60s">3</text><text class="fx" x="860" y="28" text-anchor="middle" style="--d:2.60s">4</text><text class="fx" x="1080" y="28" text-anchor="middle" style="--d:2.60s">5</text></svg>
     <figcaption><span>Fig. 02 — Plan. The columns carry the load, so walls are free to curve, stop short or open up.</span><span>Not to scale</span></figcaption>
   </figure>
 
@@ -590,6 +625,8 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
       slug   → folder name inside images/  (images/<slug>/01.jpg …)
       photos → which numbered photos to show, cover first
       loc    → leave out if unknown
+   3) SELECTED  : the projects shown on the home page, in order
+                  (use the slug). Every project is on work.html.
    ========================================================= */
 const KAKAO_URL = 'https://pf.kakao.com/_xxxxxx/chat';
 const PROJECTS = [
@@ -621,6 +658,7 @@ const PROJECTS = [
   {"no": "002", "slug": "essential-house", "title": "The Essential House", "cat": "Food & Drink", "type": "Café & wine shop", "year": 2022, "loc": "Dong-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A tiled-roof house turned into a place for coffee, brunch and natural wine", "desc": "Behind the tiled-roof frontage, dark wine shelving and a counter with DJ decks sit beside a pale, sunlit dining room."},
   {"no": "001", "slug": "omot", "title": "OMOT", "cat": "Food & Drink", "type": "Café", "year": 2021, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut, cream plaster and glazed timber partitions for OMOT, a café with its own business room", "desc": "A long, bright café arranged as a sequence of rooms: an open counter, walnut banquettes along the windows and a glazed business room for quieter meetings."}
 ];
+const SELECTED = ['yeomchang-apartment', 'urban-brook', 'early-dawn', 'bagel-bazel', 'dear-hair', 'dream-clinic', 'gokseong-house', 'teresa'];
 const PYEONG = 3.3058; // 1 pyeong = 3.3058 m²
 const CATS = ['Residential', 'Beauty & Wellness', 'Food & Drink', 'Retail & Venues'];
 
@@ -632,6 +670,7 @@ const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const pad2 = n => String(n).padStart(2, '0');
 const src = (p, k) => `images/${p.slug}/${pad2(k)}.jpg`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const PAGE = document.body.dataset.page || 'home', HOME = PAGE === 'home';
 const setHash = h => { try { history.replaceState(null, '', h || location.pathname + location.search); } catch (_) {} };
 
 const toastEl = $('#toast'); let toastT;
@@ -669,6 +708,7 @@ scaleDrawings();
 if ('ResizeObserver' in window) { const ro = new ResizeObserver(scaleDrawings); drawings.forEach(d => ro.observe(d)); }
 else addEventListener('resize', scaleDrawings);
 
+if (HOME) {
 /* =========================================================
    INTRO — black stage, logo draws, page turns white, then
    the section drawing draws itself in black line
@@ -756,6 +796,7 @@ $$('.hot', heroBp).forEach(a => {
   a.addEventListener('focus', () => on()); a.addEventListener('blur', off);
   a.addEventListener('click', off);
 });
+}
 
 /* =========================================================
    REVEAL — ruled cells draw their lines, drawings draw
@@ -780,126 +821,149 @@ $$('[data-row]').forEach(row => { markFirstColumn(row); [...row.children].forEac
 addEventListener('resize', () => $$('[data-row]').forEach(markFirstColumn));
 
 /* =========================================================
-   WORK — scrolling down moves the projects sideways, laid
-   out like magazine spreads (desktop). Phones: a staggered
-   vertical column.
+   WORK
+   home     → a sideways strip of the selected projects. Swipe,
+              drag or use the arrows; scrolling down simply
+              moves on to the next section.
+   work.html → every project in a grid, filterable by field.
    ========================================================= */
-const work = $('#work'), track = $('#track'), filters = $('#filters'), view = $('#w-view'), pin = $('#w-pin');
-const prog = $('#w-prog'), count = $('#w-count');
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-// five layouts that repeat: image height (share of the strip), vertical position, gap before (vw)
-const V = [
-  { h: .9,  al: 'top',    gap: 5, big: true },
-  { h: .46, al: 'bottom', gap: 5, capTop: true },
-  { h: .68, al: 'mid',    gap: 4, portrait: true },
-  { h: .52, al: 'top',    gap: 6 },
-  { h: .74, al: 'bottom', gap: 3 },
-];
-const desk = () => innerWidth > 760;
-const SPEED = 1.35; // sideways pixels per pixel scrolled
 const city = p => p.loc ? p.loc.split(', ').pop() : '';
-let cur = 'All', list = PROJECTS, maxX = 0, wTop = 0, pos = [];
+const desk = () => innerWidth > 760;
+const CATS_N = c => c === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.cat === c).length;
+const altOf = p => `${esc(p.title)}, ${esc(p.type.toLowerCase())}`;
+const capOf = (p, big) => `<div class="w-cap"><span class="w-no">${p.no}</span><span class="w-t"><b>${esc(p.title)}</b><span>${esc(p.type)} · ${city(p) ? esc(city(p)) + ' · ' : ''}${p.year}</span>${big ? `<em>${esc(p.head)}</em>` : ''}</span></div>`;
+let ctx = PROJECTS; // the list the project viewer steps through
 
-function renderFilters(){
-  filters.innerHTML = ['All', ...CATS].map(c => {
-    const n = c === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.cat === c).length;
-    return `<button type="button" data-cat="${esc(c)}" aria-pressed="${c === cur}">${esc(c)}<sup>${n}</sup></button>`;
-  }).join('<span aria-hidden="true">, </span>');
-}
-function renderTrack(){
-  list = cur === 'All' ? PROJECTS : PROJECTS.filter(p => p.cat === cur);
-  const ys = list.map(p => p.year), lo = Math.min(...ys), hi = Math.max(...ys);
-  const lede = cur === 'All'
-    ? `${list.length} projects: homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju.`
-    : `${list.length} ${cur} project${list.length > 1 ? 's' : ''}, newest first.`;
-  let html = `<div class="w-blk w-intro"><p class="w-lbl">Index of work, ${lo}${hi > lo ? '–' + hi : ''}</p><p class="w-lede">${esc(lede)}</p><p class="w-lbl">Newest first</p></div>`;
-  let year = null, k = 0;
+if (HOME) {
+  const track = $('#track'), view = $('#w-view'), prog = $('#w-prog'), count = $('#w-count');
+  const bPrev = $('#w-prev'), bNext = $('#w-next');
+  // five layouts that repeat: image height (share of the strip), vertical position, gap before (vw)
+  const V = [
+    { h: .9,  al: 'top',    gap: 5, big: true },
+    { h: .46, al: 'bottom', gap: 5, capTop: true },
+    { h: .68, al: 'mid',    gap: 4, portrait: true },
+    { h: .52, al: 'top',    gap: 6 },
+    { h: .74, al: 'bottom', gap: 3 },
+  ];
+  const picked = SELECTED.map(s => PROJECTS.find(p => p.slug === s)).filter(Boolean);
+  const list = picked.length ? picked : PROJECTS.slice(0, 8);
+  ctx = list;
+  $('#w-all-n').textContent = PROJECTS.length;
+  const ys = PROJECTS.map(p => p.year), lo = Math.min(...ys), hi = Math.max(...ys);
+  let html = `<div class="w-blk w-intro"><p class="w-lbl">Selected projects, ${lo}–${hi}</p><p class="w-lede">${list.length} of our ${PROJECTS.length} projects: homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju.</p><p class="w-lbl">Drag sideways or use the arrows</p></div>`;
   list.forEach((p, i) => {
-    if (p.year !== year) {
-      year = p.year; const n = list.filter(q => q.year === year).length;
-      html += `<div class="w-blk w-yr"><span class="w-lbl">Completed in ${year} — ${n} project${n > 1 ? 's' : ''}</span><b>${year}</b></div>`;
-      k = 0;
-    }
-    const vi = k % V.length, v = V[vi]; k++;
+    const vi = i % V.length, v = V[vi];
     const ar = v.portrait ? .78 : clamp(p.ar, .75, 1.75);
-    html += `<a class="w-it v${vi}${v.capTop ? ' cap-top' : ''}" href="#${p.slug}" data-i="${i}" data-v="${vi}">
-      <figure class="w-fig" style="--ar:${ar}"><img src="${src(p, p.photos[0])}" alt="${esc(p.title)}, ${esc(p.type.toLowerCase())}" loading="${i < 4 ? 'eager' : 'lazy'}" decoding="async"></figure>
-      <div class="w-cap"><span class="w-no">${p.no}</span><span class="w-t"><b>${esc(p.title)}</b><span>${esc(p.type)} · ${city(p) ? esc(city(p)) + ' · ' : ''}${p.year}</span>${v.big ? `<em>${esc(p.head)}</em>` : ''}</span></div>
-    </a>`;
+    html += `<a class="w-it v${vi}${v.capTop ? ' cap-top' : ''}" href="#${p.slug}" data-i="${i}" data-v="${vi}" draggable="false">
+      <figure class="w-fig" style="--ar:${ar}"><img src="${src(p, p.photos[0])}" alt="${altOf(p)}" loading="${i < 3 ? 'eager' : 'lazy'}" decoding="async" draggable="false"></figure>${capOf(p, v.big)}</a>`;
   });
-  html += `<div class="w-blk w-end"><p class="w-lbl">End of index</p><div><p class="w-lede">Planning a home, a shop or a salon of your own?</p><a class="ul" href="#contact">Tell us about your space →</a></div></div>`;
+  html += `<div class="w-blk w-end"><p class="w-lbl">${list.length} of ${PROJECTS.length}</p><div><p class="w-lede">Every project, from ${lo} to today.</p><a class="ul" href="work.html">All ${PROJECTS.length} projects →</a></div></div>`;
   track.innerHTML = html;
-}
-
-function layout(){
   const items = $$('.w-it', track);
-  if (!desk()) {
-    track.style.transform = ''; work.style.height = ''; maxX = 0; pos = [];
-    items.forEach(el => { el.removeAttribute('style'); const f = $('.w-fig', el); f.style.width = f.style.height = ''; $('img', el).style.transform = ''; });
-    return;
+
+  let pos = [], maxX = 0, lastIdx = -1;
+  function layout(){
+    if (!desk()) {
+      items.forEach(el => { el.removeAttribute('style'); const f = $('.w-fig', el); f.style.width = f.style.height = ''; $('img', el).style.transform = ''; el._w = 0; });
+    } else {
+      const cs = getComputedStyle(view);
+      const H = view.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      items.forEach(el => {
+        const v = V[+el.dataset.v], p = list[+el.dataset.i], fig = $('.w-fig', el);
+        const capH = v.big ? 124 : 74;
+        const ar = v.portrait ? .78 : clamp(p.ar, .75, 1.75);
+        const ih = Math.round((H - capH) * v.h), iw = Math.round(ih * ar);
+        fig.style.width = iw + 'px'; fig.style.height = ih + 'px';
+        el.style.width = Math.max(iw, 240) + 'px';
+        const free = Math.max(0, H - ih - capH);
+        el.style.paddingTop = (v.al === 'top' ? 0 : v.al === 'bottom' ? free : free / 2) + 'px';
+        el.style.marginLeft = v.gap + 'vw';
+        el._w = iw;
+      });
+    }
+    maxX = Math.max(0, view.scrollWidth - view.clientWidth);
+    pos = items.map(el => ({ img: $('img', el), w: el._w, c: el.offsetLeft + el.offsetWidth / 2 }));
+    moveWork();
   }
-  const cs = getComputedStyle(view);
-  const H = view.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-  items.forEach(el => {
-    const v = V[+el.dataset.v], p = list[+el.dataset.i], fig = $('.w-fig', el);
-    const capH = v.big ? 124 : 74;
-    const ar = v.portrait ? .78 : clamp(p.ar, .75, 1.75);
-    const ih = Math.round((H - capH) * v.h), iw = Math.round(ih * ar);
-    fig.style.width = iw + 'px'; fig.style.height = ih + 'px';
-    el.style.width = Math.max(iw, 240) + 'px';
-    const free = Math.max(0, H - ih - capH);
-    el.style.paddingTop = (v.al === 'top' ? 0 : v.al === 'bottom' ? free : free / 2) + 'px';
-    el.style.marginLeft = v.gap + 'vw';
-    el._w = iw;
+  function moveWork(){
+    const x = view.scrollLeft, w = view.clientWidth, pr = maxX ? clamp(x / maxX, 0, 1) : 0;
+    prog.style.transform = `scaleX(${pr.toFixed(4)})`;
+    const mid = x + w / 2; let best = 0, bd = Infinity;
+    pos.forEach((o, j) => {
+      const d = o.c - mid, ad = Math.abs(d);
+      if (ad < bd) { bd = ad; best = j; }
+      if (o.w && !RM && ad < w * 1.1) o.img.style.transform = `translate3d(${(clamp(-d / w, -1, 1) * o.w * .05).toFixed(1)}px,0,0) scale(1.12)`;
+    });
+    if (x < 8) best = 0;
+    if (best !== lastIdx && list[best]) { lastIdx = best; count.textContent = `No. ${list[best].no} — ${pad2(best + 1)} / ${pad2(list.length)}`; }
+    bPrev.disabled = x < 4; bNext.disabled = x > maxX - 4;
+  }
+  let wRaf = 0;
+  view.addEventListener('scroll', () => { if (!wRaf) wRaf = requestAnimationFrame(() => { wRaf = 0; moveWork(); }); }, { passive: true });
+  let wRz; addEventListener('resize', () => { clearTimeout(wRz); wRz = setTimeout(layout, 120); });
+  const step = dir => view.scrollBy({ left: dir * view.clientWidth * .72, behavior: RM ? 'auto' : 'smooth' });
+  bPrev.addEventListener('click', () => step(-1)); bNext.addEventListener('click', () => step(1));
+
+  // drag with a mouse (touch and trackpads scroll natively)
+  let drag = null, moved = false;
+  view.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, s: view.scrollLeft }; moved = false;
   });
-  maxX = Math.max(0, track.scrollWidth - innerWidth);
-  work.style.height = (maxX / SPEED + innerHeight) + 'px';
-  wTop = work.getBoundingClientRect().top + scrollY;
-  pos = items.map(el => ({ el, img: $('img', el), w: el._w, c: el.offsetLeft + el.offsetWidth / 2 }));
-  moveWork();
+  addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!moved && Math.abs(dx) > 6) { moved = true; view.classList.add('dragging'); }
+    if (moved) view.scrollLeft = drag.s - dx;
+  });
+  addEventListener('pointerup', () => { if (!drag) return; drag = null; view.classList.remove('dragging'); });
+  track.addEventListener('click', e => {
+    const a = e.target.closest('.w-it'); if (!a) return;
+    e.preventDefault();
+    if (moved) { moved = false; return; }
+    ctx = list; openProject(+a.dataset.i);
+  });
+  layout();
+  addEventListener('load', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 }
 
-let lastIdx = -1;
-function moveWork(){
-  if (!desk()) return;
-  const p = maxX ? clamp((scrollY - wTop) / (maxX / SPEED), 0, 1) : 0, x = p * maxX;
-  track.style.transform = `translate3d(${-x.toFixed(1)}px,0,0)`;
-  prog.style.transform = `scaleX(${p.toFixed(4)})`;
-  const mid = x + innerWidth / 2; let best = -1, bd = Infinity;
-  pos.forEach((o, j) => {
-    const d = o.c - mid, ad = Math.abs(d);
-    if (ad < bd) { bd = ad; best = j; }
-    if (!RM && ad < innerWidth * 1.1) o.img.style.transform = `translate3d(${(clamp(-d / innerWidth, -1, 1) * o.w * .05).toFixed(1)}px,0,0) scale(1.12)`;
+if (PAGE === 'work') {
+  const filters = $('#filters'), out = $('#aw-list'), lede = $('#aw-lede');
+  const ys = PROJECTS.map(p => p.year), lo = Math.min(...ys), hi = Math.max(...ys);
+  let cur = 'All';
+  const renderFilters = () => {
+    filters.innerHTML = ['All', ...CATS].map(c => `<button type="button" data-cat="${esc(c)}" aria-pressed="${c === cur}">${esc(c)}<sup>${CATS_N(c)}</sup></button>`).join('<span aria-hidden="true">, </span>');
+  };
+  const render = () => {
+    const list = cur === 'All' ? PROJECTS : PROJECTS.filter(p => p.cat === cur);
+    ctx = list;
+    lede.textContent = cur === 'All'
+      ? `${list.length} projects, ${lo}–${hi}: homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju. Newest first.`
+      : `${list.length} ${cur} project${list.length > 1 ? 's' : ''}, newest first.`;
+    let html = '', year = null;
+    list.forEach((p, i) => {
+      if (p.year !== year) {
+        if (year !== null) html += '</div>';
+        year = p.year; const n = list.filter(q => q.year === year).length;
+        html += `<div class="aw-yr"><b>${year}</b><span>${n} project${n > 1 ? 's' : ''}</span></div><div class="aw-grid">`;
+      }
+      html += `<a class="aw-it" href="#${p.slug}" data-i="${i}"><figure class="aw-fig"><img src="${src(p, p.photos[0])}" alt="${altOf(p)}" loading="${i < 6 ? 'eager' : 'lazy'}" decoding="async"></figure>${capOf(p)}</a>`;
+    });
+    if (year !== null) html += '</div>';
+    out.innerHTML = html;
+  };
+  filters.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b || b.dataset.cat === cur) return;
+    cur = b.dataset.cat; renderFilters(); render();
   });
-  if (best !== lastIdx && pos[best]) {
-    lastIdx = best; const pr = list[+pos[best].el.dataset.i];
-    count.textContent = `No. ${pr.no} — ${pad2(best + 1)} / ${pad2(list.length)}`;
-  }
+  out.addEventListener('click', e => {
+    const a = e.target.closest('.aw-it'); if (!a) return;
+    e.preventDefault(); openProject(+a.dataset.i);
+  });
+  renderFilters(); render();
 }
-let wRaf = 0;
-addEventListener('scroll', () => { if (!wRaf) wRaf = requestAnimationFrame(() => { wRaf = 0; moveWork(); }); }, { passive: true });
-let wRz; addEventListener('resize', () => { clearTimeout(wRz); wRz = setTimeout(layout, 120); });
-
-// keyboard: bring a focused project into view instead of letting the strip jump
-track.addEventListener('focusin', e => {
-  view.scrollLeft = 0; pin.scrollLeft = 0;
-  const it = e.target.closest('.w-it'); if (!it || !desk() || !maxX) return;
-  const want = clamp((it.offsetLeft + it.offsetWidth / 2 - innerWidth / 2) / maxX, 0, 1);
-  scrollTo({ top: wTop + want * maxX / SPEED, behavior: RM ? 'auto' : 'smooth' });
-});
-filters.addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b || b.dataset.cat === cur) return;
-  cur = b.dataset.cat; lastIdx = -1; renderFilters(); renderTrack(); layout();
-  const t = work.getBoundingClientRect().top + scrollY;
-  if (scrollY > t) scrollTo({ top: t, behavior: 'auto' });
-});
-track.addEventListener('click', e => {
-  const a = e.target.closest('.w-it'); if (!a) return;
-  e.preventDefault(); openProject(+a.dataset.i);
-});
-renderFilters(); renderTrack(); layout();
-addEventListener('load', layout);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 
 /* =========================================================
    PROJECT DETAIL
@@ -907,7 +971,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
 const pd = $('#pd'), gal = $('#pd-gal');
 let pi = -1, lastFocus = null;
 function openProject(i){
-  const p = list[i]; if (!p) return; pi = i;
+  const p = ctx[i]; if (!p) return; pi = i;
   $('#pd-no').textContent = `No. ${p.no} — ${p.cat}`;
   $('#pd-cat').textContent = `${p.type}${p.loc ? ' · ' + p.loc.split(', ').pop() : ''}`;
   $('#pd-title').textContent = p.title;
@@ -936,8 +1000,8 @@ function closeProject(){
   if (lastFocus) lastFocus.focus({ preventScroll: true });
 }
 $('#pd-close').addEventListener('click', closeProject);
-$('#pd-prev').addEventListener('click', () => openProject((pi - 1 + list.length) % list.length));
-$('#pd-next').addEventListener('click', () => openProject((pi + 1) % list.length));
+$('#pd-prev').addEventListener('click', () => openProject((pi - 1 + ctx.length) % ctx.length));
+$('#pd-next').addEventListener('click', () => openProject((pi + 1) % ctx.length));
 addEventListener('keydown', e => {
   if (pd.hidden) return;
   if (e.key === 'Escape') closeProject();
@@ -951,14 +1015,18 @@ addEventListener('keydown', e => {
   }
 });
 // open a project straight from a link such as …/#dear-hair
-const deep = PROJECTS.findIndex(p => '#' + p.slug === location.hash);
-if (deep > -1) setTimeout(() => openProject(deep), RM ? 0 : 2600);
+if (location.hash.length > 1) {
+  let deep = ctx.findIndex(p => '#' + p.slug === location.hash);
+  if (deep < 0) { deep = PROJECTS.findIndex(p => '#' + p.slug === location.hash); if (deep > -1) ctx = PROJECTS; }
+  if (deep > -1) setTimeout(() => openProject(deep), RM || !HOME ? 0 : 2600);
+}
 
 /* =========================================================
    CONSULTATION MESSAGE BUILDER & KAKAO
    ========================================================= */
 const form = $('#est'), preview = $('#f-preview'), m2 = $('#f-m2');
 function buildMessage(){
+  if (!form) return '';
   const fd = new FormData(form), lines = ['[THE PILOTI 상담 문의]'];
   const add = (k, v) => { if (v) lines.push(`· ${k}: ${v}`); };
   const val = k => (fd.get(k) || '').toString().trim();
@@ -972,9 +1040,11 @@ function buildMessage(){
   return lines.join('\n');
 }
 function updateForm(){ preview.textContent = buildMessage(); const a = parseFloat($('#f-area').value); m2.textContent = a > 0 ? `약 ${(a * PYEONG).toFixed(1)}㎡` : '약 0㎡'; }
-form.addEventListener('input', updateForm); form.addEventListener('change', updateForm); form.addEventListener('submit', e => e.preventDefault());
-updateForm();
-$('#f-copy').addEventListener('click', () => copyText(buildMessage(), '메시지를 복사했어요.'));
+if (form) {
+  form.addEventListener('input', updateForm); form.addEventListener('change', updateForm); form.addEventListener('submit', e => e.preventDefault());
+  updateForm();
+  $('#f-copy').addEventListener('click', () => copyText(buildMessage(), '메시지를 복사했어요.'));
+}
 document.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copyText(b.dataset.copy, `복사했어요 · ${b.dataset.copy}`); });
 
 const KAKAO_READY = !/_xxxxxx/.test(KAKAO_URL);
