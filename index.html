@@ -49,10 +49,12 @@ section{scroll-margin-top:56px}
 #intro.gone{display:none}
 
 /* ---------- header ---------- */
-.hdr{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:calc(var(--pad)*.75) var(--pad);transition:background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:calc(var(--pad)*.75) var(--pad);transition:background-color .35s ease,color .35s ease,padding .5s var(--eo)}
 .js .hdr{opacity:0}
-.lit .hdr{opacity:1;transition:opacity .9s ease .25s,background-color .35s ease,box-shadow .35s ease,padding .5s var(--eo)}
-.hdr.small{background:#fff;box-shadow:0 1px 0 var(--rule);padding-top:14px;padding-bottom:14px}
+.lit .hdr{opacity:1;transition:opacity .9s ease .25s,background-color .35s ease,color .35s ease,padding .5s var(--eo)}
+.hdr.small{background:rgba(255,255,255,.66);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);padding-top:14px;padding-bottom:14px}
+.hdr.small.dark{background:rgba(12,12,12,.55);color:#f2f2f2}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.hdr.small{background:rgba(255,255,255,.94)}.hdr.small.dark{background:rgba(12,12,12,.94)}}
 .brand{display:flex;align-items:flex-end;gap:11px}
 .brand svg{flex:none;transition:height .45s var(--eo),width .45s var(--eo)}
 .brand .b-mark{height:32px;width:calc(32px*168/206)}
@@ -153,6 +155,7 @@ section{scroll-margin-top:56px}
 .w-t b{display:inline;font-weight:400;font-size:15px;line-height:1.2;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--eo)}
 .w-it:hover .w-t b,.w-it:focus-visible .w-t b,.aw-it:hover .w-t b,.aw-it:focus-visible .w-t b{background-size:100% 1px}
 .w-t>span{display:block;font-size:12px;color:var(--mute);margin-top:3px}
+.w-t>span i{font-style:normal}
 .w-t em{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-style:normal;font-size:14px;line-height:1.35;color:#3a3a3a;margin-top:10px;max-width:32em}
 .w-lbl{font-size:12px;color:var(--mute)}
 .w-lede{font-size:clamp(20px,1.9vw,28px);line-height:1.18;letter-spacing:-.02em}
@@ -191,27 +194,64 @@ section{scroll-margin-top:56px}
 
 /* ---------- all work (work.html) ---------- */
 .aw{padding:calc(var(--pad)*.75 + 104px) var(--pad) 0}
-.aw-head{display:grid;gap:18px;padding-bottom:6px}
+.aw-head{display:grid;gap:20px}
 .aw-back{justify-self:start;font-size:13px;color:var(--mute)}
-.aw-head .sec-title{font-size:clamp(46px,7.4vw,118px);letter-spacing:-.045em}
-.aw-lede{font-size:clamp(18px,1.7vw,24px);line-height:1.25;letter-spacing:-.015em;max-width:34em}
-.aw-yr{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:clamp(52px,6.4vw,96px);padding-top:12px;border-top:1px solid var(--rule)}
-.aw-yr b{font-size:clamp(56px,7vw,110px);font-weight:300;line-height:.8;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
-.aw-yr span{font-size:12px;color:var(--mute)}
-.aw-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(36px,4vw,60px) clamp(14px,1.6vw,24px);margin-top:clamp(22px,2.4vw,34px)}
+.aw-head .sec-title{font-size:clamp(60px,10vw,168px);letter-spacing:-.055em;line-height:.86;margin-left:-.04em}
+.aw-head .sec-title sup{font-size:.2em;font-weight:400;letter-spacing:0;vertical-align:3.1em;line-height:0;margin-left:.2em}
+.aw-lede{font-size:clamp(17px,1.5vw,22px);line-height:1.3;letter-spacing:-.01em;max-width:30em;color:#3a3a3a}
+#aw-list{transition:opacity .26s ease}
+#aw-list.fade{opacity:0}
+.aw-y{margin-top:clamp(96px,11vw,180px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(14px,1.8vw,28px);align-items:start}
+.aw-yr{grid-column:1/span 3;position:sticky;top:96px;display:flex;flex-direction:column;align-items:flex-start;gap:18px;font-weight:300}
+.aw-yr b{font-size:clamp(84px,9.4vw,160px);font-weight:300;line-height:.74;letter-spacing:-.075em;font-variant-numeric:tabular-nums;margin-left:-.065em}
+.aw-yr span{font-size:13px;font-style:italic;color:var(--mute);padding-top:.15em;letter-spacing:0}
+.aw-flow{grid-column:4/span 9;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));column-gap:inherit;row-gap:clamp(70px,7.5vw,130px);align-items:start}
 .aw-it{display:block;min-width:0}
-.aw-fig{aspect-ratio:4/3;overflow:hidden;background:var(--ph);margin:0}
-.aw-fig img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--eo)}
-.aw-it:hover .aw-fig img{transform:scale(1.035)}
+.aw-fig{position:relative;overflow:hidden;background:var(--ph);margin:0;aspect-ratio:3/2}
+.aw-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.aw-fig .alt{opacity:0;transition:opacity .8s ease}
+@media (hover:hover){ .aw-it:hover .aw-fig .alt{opacity:1} }
+.aw-cap{display:grid;gap:5px;margin-top:14px}
+.aw-meta{display:flex;gap:12px;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aw-meta i{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+.aw-cap b{justify-self:start;font-weight:400;font-size:clamp(18px,1.6vw,24px);line-height:1.15;letter-spacing:-.02em;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--eo)}
+.aw-it:hover .aw-cap b,.aw-it:focus-visible .aw-cap b{background-size:100% 1px}
+/* placements */
+.s0{grid-column:1/span 6}
+.s1{grid-column:7/span 3;margin-top:clamp(70px,9vw,160px)}
+.s1 .aw-fig{aspect-ratio:4/5}
+.s2{grid-column:1/span 3}
+.s2 .aw-fig{aspect-ratio:3/4}
+.s3{grid-column:5/span 5;margin-top:clamp(90px,11vw,200px)}
+.s3 .aw-fig{aspect-ratio:4/3}
+.s4{grid-column:2/span 5}
+.s4 .aw-fig{aspect-ratio:16/10}
+/* reveal: the photo opens upward as it arrives */
+.js .aw-fig{clip-path:inset(100% 0 0 0);transition:clip-path 1.3s var(--eo)}
+.js .aw-fig img:first-child{transform:scale(1.18);transition:transform 1.9s var(--eo)}
+.js .aw-cap{opacity:0;transform:translateY(12px);transition:opacity .8s ease .35s,transform 1s var(--eo) .35s}
+.js .aw-it.in .aw-fig{clip-path:inset(0 0 0 0)}
+.js .aw-it.in .aw-fig img:first-child{transform:none}
+.js .aw-it.in .aw-cap{opacity:1;transform:none}
 .aw-ct-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-@media (max-width:1000px){ .aw-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){
-  .aw{padding-top:96px}
-  .aw-grid{gap:28px 12px}
-  .aw-it .w-cap{gap:7px;margin-top:8px}
-  .aw-it .w-no{font-size:18px}
-  .aw-it .w-t b{font-size:14px}
-  .aw-it .w-t>span{font-size:11px}
+  .aw{padding-top:100px}
+  .aw-y{margin-top:110px;display:block}
+  .aw-yr{position:static;flex-direction:row;gap:12px;margin-bottom:34px}
+  .aw-yr b{font-size:104px}
+  .aw-flow{display:block}
+  .aw-it+.aw-it{margin-top:66px}
+  .aw-cap{margin-top:11px}
+  .aw-cap b{font-size:19px}
+  .s0{margin-left:calc(-1*var(--pad));margin-right:calc(-1*var(--pad))}
+  .s0 .aw-fig{aspect-ratio:5/4}
+  .s0 .aw-cap{padding:0 var(--pad)}
+  .s1{width:66%;margin-left:auto}
+  .s2{width:52%;margin-left:7%}
+  .s3{width:86%}
+  .s3 .aw-fig{aspect-ratio:3/2}
+  .s4{width:74%;margin-left:auto}
+  .s4 .aw-fig{aspect-ratio:4/3}
 }
 
 /* ---------- about ---------- */
@@ -630,33 +670,33 @@ textarea.inp{resize:vertical;min-height:74px;line-height:1.45}
    ========================================================= */
 const KAKAO_URL = 'https://pf.kakao.com/_xxxxxx/chat';
 const PROJECTS = [
-  {"no": "027", "slug": "yeomchang-apartment", "title": "염창동 아파트", "cat": "Residential", "type": "Apartment", "year": 2026, "loc": "Yeomchang-dong, Seoul", "ar": 1.333, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A Seoul apartment in warm whites, with sunlit rooms and a calm, built-in kitchen", "desc": "Warm whites and soft beige throughout, with a built-in kitchen and island, flush storage and quiet, stone-toned bathrooms."},
-  {"no": "026", "slug": "koinu", "title": "Koinu Puppy School", "cat": "Retail & Venues", "type": "Puppy kindergarten", "year": 2024, "loc": "Munheung-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut panelling, school-house lamps and low steps for a puppy kindergarten", "desc": "Walnut panelling, curved blinds and school-house pendants, with low steps and planters built in for the dogs."},
-  {"no": "025", "slug": "urban-brook", "title": "어반브룩", "cat": "Retail & Venues", "type": "Small wedding venue", "year": 2024, "loc": "Imam-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Arched windows, timber trusses and greenery for small weddings", "desc": "A wedding hall of arched windows, timber trusses and chandeliers, with a bridal room and heavy timber doors."},
-  {"no": "024", "slug": "sodam-maru", "title": "소담마루", "cat": "Retail & Venues", "type": "Side-dish shop", "year": 2024, "loc": "Suwan-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Brick shelving and a sculpted timber ceiling for a premium side-dish shop", "desc": "Brick-clad shelving, timber walls and a layered, softly lit ceiling frame the display tables of a premium banchan shop."},
-  {"no": "023", "slug": "masterz", "title": "Masterz", "cat": "Retail & Venues", "type": "Car tinting shop", "year": 2024, "loc": "Yuchon-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "A tinting shop in concrete grey, lit low and opened wide with folding glass doors", "desc": "A grey, workshop-like interior with a dark reception, low linear lighting and a wide bay that opens fully to the street."},
-  {"no": "022", "slug": "bonito", "title": "Bonito Aesthetic", "cat": "Beauty & Wellness", "type": "Aesthetic salon", "year": 2024, "loc": "Chipyeong-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "Soft curves and black joinery for a quiet aesthetic salon", "desc": "Rounded walls and white surfaces are punctuated by black joinery, from the reception to each private treatment room."},
-  {"no": "021", "slug": "sindae-apartment", "title": "신대중흥 아파트", "cat": "Residential", "type": "Apartment", "year": 2024, "loc": "Sindae, Suncheon", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "An apartment kept pale and uncluttered, with an island kitchen at its centre", "desc": "Pale stone-toned surfaces, full-height storage and an island kitchen keep the home quiet and open."},
-  {"no": "020", "slug": "early-dawn", "title": "Early Dawn", "cat": "Retail & Venues", "type": "Select shop", "year": 2023, "loc": "Gwangsan-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Steel frames, concrete and moss for a contemporary select shop", "desc": "Black steel frames, brushed metal and raw concrete set out the shop, with patches of moss running along the floor."},
-  {"no": "019", "slug": "bagel-bazel", "title": "베이즐베이글", "cat": "Food & Drink", "type": "Bagel café", "year": 2023, "loc": "Dong-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Green banquettes, dark timber windows and old plaster for a bagel café", "desc": "Dark timber windows, raw plaster ceilings and deep green banquettes give the café a lived-in character."},
-  {"no": "018", "slug": "yookjihyang", "title": "육지향", "cat": "Food & Drink", "type": "Restaurant", "year": 2023, "loc": "Ungcheon, Yeosu", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Red brick, leather banquettes and warm sconces for a dry-aged pork restaurant", "desc": "A brick shopfront opens into a long dining hall of leather banquettes, timber tables and warm wall sconces."},
-  {"no": "017", "slug": "dear-hair", "title": "디어헤어살롱", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Nam-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Light frames floating over a pale salon, with niches of warm light along the walls", "desc": "Square light frames hang over each styling zone, while curved walls hold warmly lit shelving and a calm shampoo room."},
-  {"no": "016", "slug": "hwajeong-salon", "title": "화정동 미용실", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Hwajeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A street-front salon opened up behind a wall of glass", "desc": "Linear lights run the length of a bright, glazed salon, with a separate, softly lit shampoo room at the back."},
-  {"no": "015", "slug": "dream-clinic", "title": "드림마취통증의학과", "cat": "Beauty & Wellness", "type": "Clinic", "year": 2023, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A red-brick clinic building with calm, plaster-white rooms inside", "desc": "Behind a sculpted red-brick facade, the clinic is finished in soft plaster, built-in benches and quiet treatment rooms."},
-  {"no": "014", "slug": "bitgaram-building", "title": "빛가람동 건물", "cat": "Residential", "type": "Building", "year": 2022, "loc": "Bitgaram-dong, Naju", "ar": 1.43, "photos": [2, 1, 3, 4, 5, 6, 7, 8, 9], "head": "A building raised on columns over a glazed, planted ground floor", "desc": "A multi-storey building whose glazed ground floor sits under the floors above, with planted edges outside and pale, bright rooms upstairs."},
-  {"no": "013", "slug": "gokseong-house", "title": "곡성 주택", "cat": "Residential", "type": "House", "year": 2022, "loc": "Gokseong", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A single-storey house below the hills of Gokseong, refitted in timber and soft white", "desc": "A single-storey country house finished in soft white with timber doors, a rounded kitchen opening and windows onto the hills."},
-  {"no": "012", "slug": "gaum-hair", "title": "Gaum Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.579, "photos": [2, 1, 3, 4, 5, 6, 7], "head": "Arches cut into a bright salon, framing the shampoo room like a stage", "desc": "A bright, tree-lined styling floor with large arched openings that lead into a warmly lit shampoo room."},
-  {"no": "011", "slug": "teresa", "title": "Teresa", "cat": "Food & Drink", "type": "Bar", "year": 2022, "loc": "Dongmyeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Dark timber, a coffered ceiling and pools of lamplight for a bar in Dongmyeong-dong", "desc": "Dark timber walls, a deep coffered ceiling and table lamps turn the room into a series of small, low-lit corners."},
-  {"no": "010", "slug": "ugong", "title": "우공", "cat": "Food & Drink", "type": "Restaurant", "year": 2022, "loc": "Gusicheong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Stainless steel and a band of burnt orange for a grill restaurant", "desc": "Stainless tables and stools, grey walls and a single band of burnt orange give the grill room a clean, graphic look."},
-  {"no": "009", "slug": "grid-hair", "title": "Grid Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Sangmu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Warm timber tones and a lounge-like shampoo room for Grid Hair", "desc": "A reception lounge, an open styling floor and a dimmed shampoo room, all in one warm, sand-coloured palette."},
-  {"no": "008", "slug": "kitchen-kiyeon", "title": "Kitchen Kiyeon", "cat": "Food & Drink", "type": "Pasta restaurant", "year": 2022, "ar": 1.0, "photos": [1, 2, 3, 4, 5, 6], "head": "A small pasta kitchen in cream and pale oak, with arched niches and globe lights", "desc": "A narrow restaurant planned around a long bar counter, with oak window frames, arched niches and globe pendants."},
-  {"no": "007", "slug": "wetmans-hair", "title": "웻맨즈헤어", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Textured black volumes set against white walls in a long, light-filled salon", "desc": "Rough black volumes hold the reception and storage, set against white walls and a long run of styling stations."},
-  {"no": "006", "slug": "aube", "title": "Aube", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Gwangsan-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "An all-white salon softened with curves, plaster and dried branches", "desc": "A white salon of rounded counters, arched openings and lit product niches, kept soft rather than clinical."},
-  {"no": "005", "slug": "arean-hair", "title": "Arean Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Oak panelling and warm niche lighting give Arean Hair a calm, residential feel", "desc": "Timber-lined niches, planted alcoves and indirect light bring a homely warmth to the styling floor and shampoo rooms."},
-  {"no": "004", "slug": "molito", "title": "Molito", "cat": "Retail & Venues", "type": "Rental studio", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A bright rental studio furnished like a home, with arches and mid-century pieces", "desc": "An open-plan studio divided by soft arches and shelving, so one floor can be shot as a dining room, a living room or a study."},
-  {"no": "003", "slug": "monello", "title": "Monello", "cat": "Retail & Venues", "type": "Clothing store", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A clothing store in sunlit cream, with arched alcoves and slim steel rails", "desc": "Cream walls, arched alcoves and minimal steel rails let the clothes and the afternoon light do the work."},
-  {"no": "002", "slug": "essential-house", "title": "The Essential House", "cat": "Food & Drink", "type": "Café & wine shop", "year": 2022, "loc": "Dong-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A tiled-roof house turned into a place for coffee, brunch and natural wine", "desc": "Behind the tiled-roof frontage, dark wine shelving and a counter with DJ decks sit beside a pale, sunlit dining room."},
-  {"no": "001", "slug": "omot", "title": "OMOT", "cat": "Food & Drink", "type": "Café", "year": 2021, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut, cream plaster and glazed timber partitions for OMOT, a café with its own business room", "desc": "A long, bright café arranged as a sequence of rooms: an open counter, walnut banquettes along the windows and a glazed business room for quieter meetings."}
+  {"no": "027", "slug": "yeomchang-apartment", "title": "염창동 아파트", "cat": "Residential", "type": "Apartment", "year": 2026, "loc": "Yeomchang-dong, Seoul", "ar": 1.333, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A Seoul apartment in warm whites, with sunlit rooms and a calm, built-in kitchen", "desc": "Warm whites and soft beige throughout, with a built-in kitchen and island, flush storage and quiet, stone-toned bathrooms.", "pt": 4, "ls": 1},
+  {"no": "026", "slug": "koinu", "title": "Koinu Puppy School", "cat": "Retail & Venues", "type": "Puppy kindergarten", "year": 2024, "loc": "Munheung-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut panelling, school-house lamps and low steps for a puppy kindergarten", "desc": "Walnut panelling, curved blinds and school-house pendants, with low steps and planters built in for the dogs.", "pt": 2, "ls": 1},
+  {"no": "025", "slug": "urban-brook", "title": "어반브룩", "cat": "Retail & Venues", "type": "Small wedding venue", "year": 2024, "loc": "Imam-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Arched windows, timber trusses and greenery for small weddings", "desc": "A wedding hall of arched windows, timber trusses and chandeliers, with a bridal room and heavy timber doors.", "pt": 3, "ls": 1},
+  {"no": "024", "slug": "sodam-maru", "title": "소담마루", "cat": "Retail & Venues", "type": "Side-dish shop", "year": 2024, "loc": "Suwan-dong, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Brick shelving and a sculpted timber ceiling for a premium side-dish shop", "desc": "Brick-clad shelving, timber walls and a layered, softly lit ceiling frame the display tables of a premium banchan shop.", "pt": 2, "ls": 1},
+  {"no": "023", "slug": "masterz", "title": "Masterz", "cat": "Retail & Venues", "type": "Car tinting shop", "year": 2024, "loc": "Yuchon-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "A tinting shop in concrete grey, lit low and opened wide with folding glass doors", "desc": "A grey, workshop-like interior with a dark reception, low linear lighting and a wide bay that opens fully to the street.", "pt": 2, "ls": 1},
+  {"no": "022", "slug": "bonito", "title": "Bonito Aesthetic", "cat": "Beauty & Wellness", "type": "Aesthetic salon", "year": 2024, "loc": "Chipyeong-dong, Gwangju", "ar": 1.4, "photos": [1, 2, 3, 4, 5, 6], "head": "Soft curves and black joinery for a quiet aesthetic salon", "desc": "Rounded walls and white surfaces are punctuated by black joinery, from the reception to each private treatment room.", "pt": 2, "ls": 1},
+  {"no": "021", "slug": "sindae-apartment", "title": "신대중흥 아파트", "cat": "Residential", "type": "Apartment", "year": 2024, "loc": "Sindae, Suncheon", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "An apartment kept pale and uncluttered, with an island kitchen at its centre", "desc": "Pale stone-toned surfaces, full-height storage and an island kitchen keep the home quiet and open.", "pt": 5, "ls": 1},
+  {"no": "020", "slug": "early-dawn", "title": "Early Dawn", "cat": "Retail & Venues", "type": "Select shop", "year": 2023, "loc": "Gwangsan-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Steel frames, concrete and moss for a contemporary select shop", "desc": "Black steel frames, brushed metal and raw concrete set out the shop, with patches of moss running along the floor.", "pt": 5, "ls": 1},
+  {"no": "019", "slug": "bagel-bazel", "title": "베이즐베이글", "cat": "Food & Drink", "type": "Bagel café", "year": 2023, "loc": "Dong-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Green banquettes, dark timber windows and old plaster for a bagel café", "desc": "Dark timber windows, raw plaster ceilings and deep green banquettes give the café a lived-in character.", "pt": 4, "ls": 1},
+  {"no": "018", "slug": "yookjihyang", "title": "육지향", "cat": "Food & Drink", "type": "Restaurant", "year": 2023, "loc": "Ungcheon, Yeosu", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Red brick, leather banquettes and warm sconces for a dry-aged pork restaurant", "desc": "A brick shopfront opens into a long dining hall of leather banquettes, timber tables and warm wall sconces.", "pt": 5, "ls": 1},
+  {"no": "017", "slug": "dear-hair", "title": "디어헤어살롱", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Nam-gu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Light frames floating over a pale salon, with niches of warm light along the walls", "desc": "Square light frames hang over each styling zone, while curved walls hold warmly lit shelving and a calm shampoo room.", "pt": 6, "ls": 1},
+  {"no": "016", "slug": "hwajeong-salon", "title": "화정동 미용실", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2023, "loc": "Hwajeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A street-front salon opened up behind a wall of glass", "desc": "Linear lights run the length of a bright, glazed salon, with a separate, softly lit shampoo room at the back.", "pt": 5, "ls": 1},
+  {"no": "015", "slug": "dream-clinic", "title": "드림마취통증의학과", "cat": "Beauty & Wellness", "type": "Clinic", "year": 2023, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A red-brick clinic building with calm, plaster-white rooms inside", "desc": "Behind a sculpted red-brick facade, the clinic is finished in soft plaster, built-in benches and quiet treatment rooms.", "pt": 2, "ls": 1},
+  {"no": "014", "slug": "bitgaram-building", "title": "빛가람동 건물", "cat": "Residential", "type": "Building", "year": 2022, "loc": "Bitgaram-dong, Naju", "ar": 1.43, "photos": [2, 1, 3, 4, 5, 6, 7, 8, 9], "head": "A building raised on columns over a glazed, planted ground floor", "desc": "A multi-storey building whose glazed ground floor sits under the floors above, with planted edges outside and pale, bright rooms upstairs.", "pt": 1, "ls": 2},
+  {"no": "013", "slug": "gokseong-house", "title": "곡성 주택", "cat": "Residential", "type": "House", "year": 2022, "loc": "Gokseong", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A single-storey house below the hills of Gokseong, refitted in timber and soft white", "desc": "A single-storey country house finished in soft white with timber doors, a rounded kitchen opening and windows onto the hills.", "pt": 4, "ls": 1},
+  {"no": "012", "slug": "gaum-hair", "title": "Gaum Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.579, "photos": [2, 1, 3, 4, 5, 6, 7], "head": "Arches cut into a bright salon, framing the shampoo room like a stage", "desc": "A bright, tree-lined styling floor with large arched openings that lead into a warmly lit shampoo room.", "pt": 1, "ls": 2},
+  {"no": "011", "slug": "teresa", "title": "Teresa", "cat": "Food & Drink", "type": "Bar", "year": 2022, "loc": "Dongmyeong-dong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Dark timber, a coffered ceiling and pools of lamplight for a bar in Dongmyeong-dong", "desc": "Dark timber walls, a deep coffered ceiling and table lamps turn the room into a series of small, low-lit corners.", "pt": 4, "ls": 1},
+  {"no": "010", "slug": "ugong", "title": "우공", "cat": "Food & Drink", "type": "Restaurant", "year": 2022, "loc": "Gusicheong, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6], "head": "Stainless steel and a band of burnt orange for a grill restaurant", "desc": "Stainless tables and stools, grey walls and a single band of burnt orange give the grill room a clean, graphic look.", "pt": 2, "ls": 1},
+  {"no": "009", "slug": "grid-hair", "title": "Grid Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Sangmu, Gwangju", "ar": 1.579, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "Warm timber tones and a lounge-like shampoo room for Grid Hair", "desc": "A reception lounge, an open styling floor and a dimmed shampoo room, all in one warm, sand-coloured palette.", "pt": 7, "ls": 1},
+  {"no": "008", "slug": "kitchen-kiyeon", "title": "Kitchen Kiyeon", "cat": "Food & Drink", "type": "Pasta restaurant", "year": 2022, "ar": 1.0, "photos": [1, 2, 3, 4, 5, 6], "head": "A small pasta kitchen in cream and pale oak, with arched niches and globe lights", "desc": "A narrow restaurant planned around a long bar counter, with oak window frames, arched niches and globe pendants.", "pt": 2, "ls": 3},
+  {"no": "007", "slug": "wetmans-hair", "title": "웻맨즈헤어", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Textured black volumes set against white walls in a long, light-filled salon", "desc": "Rough black volumes hold the reception and storage, set against white walls and a long run of styling stations.", "pt": 4, "ls": 1},
+  {"no": "006", "slug": "aube", "title": "Aube", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "loc": "Gwangsan-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "An all-white salon softened with curves, plaster and dried branches", "desc": "A white salon of rounded counters, arched openings and lit product niches, kept soft rather than clinical.", "pt": 4, "ls": 1},
+  {"no": "005", "slug": "arean-hair", "title": "Arean Hair", "cat": "Beauty & Wellness", "type": "Hair salon", "year": 2022, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Oak panelling and warm niche lighting give Arean Hair a calm, residential feel", "desc": "Timber-lined niches, planted alcoves and indirect light bring a homely warmth to the styling floor and shampoo rooms.", "pt": 2, "ls": 1},
+  {"no": "004", "slug": "molito", "title": "Molito", "cat": "Retail & Venues", "type": "Rental studio", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A bright rental studio furnished like a home, with arches and mid-century pieces", "desc": "An open-plan studio divided by soft arches and shelving, so one floor can be shot as a dining room, a living room or a study.", "ls": 1},
+  {"no": "003", "slug": "monello", "title": "Monello", "cat": "Retail & Venues", "type": "Clothing store", "year": 2022, "loc": "Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "A clothing store in sunlit cream, with arched alcoves and slim steel rails", "desc": "Cream walls, arched alcoves and minimal steel rails let the clothes and the afternoon light do the work.", "pt": 5, "ls": 1},
+  {"no": "002", "slug": "essential-house", "title": "The Essential House", "cat": "Food & Drink", "type": "Café & wine shop", "year": 2022, "loc": "Dong-gu, Gwangju", "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6, 7], "head": "A tiled-roof house turned into a place for coffee, brunch and natural wine", "desc": "Behind the tiled-roof frontage, dark wine shelving and a counter with DJ decks sit beside a pale, sunlit dining room.", "pt": 4, "ls": 1},
+  {"no": "001", "slug": "omot", "title": "OMOT", "cat": "Food & Drink", "type": "Café", "year": 2021, "ar": 1.5, "photos": [1, 2, 3, 4, 5, 6], "head": "Walnut, cream plaster and glazed timber partitions for OMOT, a café with its own business room", "desc": "A long, bright café arranged as a sequence of rooms: an open counter, walnut banquettes along the windows and a glazed business room for quieter meetings.", "pt": 6, "ls": 1}
 ];
 const SELECTED = ['yeomchang-apartment', 'urban-brook', 'early-dawn', 'bagel-bazel', 'dear-hair', 'dream-clinic', 'gokseong-house', 'teresa'];
 const PYEONG = 3.3058; // 1 pyeong = 3.3058 m²
@@ -832,7 +872,7 @@ const city = p => p.loc ? p.loc.split(', ').pop() : '';
 const desk = () => innerWidth > 760;
 const CATS_N = c => c === 'All' ? PROJECTS.length : PROJECTS.filter(p => p.cat === c).length;
 const altOf = p => `${esc(p.title)}, ${esc(p.type.toLowerCase())}`;
-const capOf = (p, big) => `<div class="w-cap"><span class="w-no">${p.no}</span><span class="w-t"><b>${esc(p.title)}</b><span>${esc(p.type)} · ${city(p) ? esc(city(p)) + ' · ' : ''}${p.year}</span>${big ? `<em>${esc(p.head)}</em>` : ''}</span></div>`;
+const capOf = (p, big) => `<div class="w-cap"><span class="w-no">${p.no}</span><span class="w-t"><b>${esc(p.title)}</b><span>${esc(p.type)}${city(p) ? `<i class="m-loc"> · ${esc(city(p))}</i>` : ''}<i class="m-yr"> · ${p.year}</i></span>${big ? `<em>${esc(p.head)}</em>` : ''}</span></div>`;
 let ctx = PROJECTS; // the list the project viewer steps through
 
 if (HOME) {
@@ -932,6 +972,13 @@ if (HOME) {
 if (PAGE === 'work') {
   const filters = $('#filters'), out = $('#aw-list'), lede = $('#aw-lede');
   const ys = PROJECTS.map(p => p.year), lo = Math.min(...ys), hi = Math.max(...ys);
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  // five placements that repeat inside each year (size and position live in the CSS: .s0–.s4)
+  const SHAPE = ['l', 'p', 'p', 'l', 'l'];
+  const pick = (p, shape) => shape === 'p' ? (p.pt || p.photos[0]) : (p.ls || p.photos[0]);
+  const rio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; e.target.classList.add('in'); rio.unobserve(e.target);
+  }), { rootMargin: '0px 0px -6% 0px', threshold: .06 });
   let cur = 'All';
   const renderFilters = () => {
     filters.innerHTML = ['All', ...CATS].map(c => `<button type="button" data-cat="${esc(c)}" aria-pressed="${c === cur}">${esc(c)}<sup>${CATS_N(c)}</sup></button>`).join('<span aria-hidden="true">, </span>');
@@ -940,28 +987,42 @@ if (PAGE === 'work') {
     const list = cur === 'All' ? PROJECTS : PROJECTS.filter(p => p.cat === cur);
     ctx = list;
     lede.textContent = cur === 'All'
-      ? `${list.length} projects, ${lo}–${hi}: homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju. Newest first.`
+      ? `Homes, salons, cafés, restaurants, shops and clinics across Seoul and Gwangju, ${lo}–${hi}. Newest first.`
       : `${list.length} ${cur} project${list.length > 1 ? 's' : ''}, newest first.`;
-    let html = '', year = null;
+    let html = '', year = null, j = 0;
     list.forEach((p, i) => {
       if (p.year !== year) {
-        if (year !== null) html += '</div>';
-        year = p.year; const n = list.filter(q => q.year === year).length;
-        html += `<div class="aw-yr"><b>${year}</b><span>${n} project${n > 1 ? 's' : ''}</span></div><div class="aw-grid">`;
+        if (year !== null) html += '</div></section>';
+        year = p.year; j = 0; const n = list.filter(q => q.year === year).length;
+        html += `<section class="aw-y"><h2 class="aw-yr"><b>${year}</b><span>${n} project${n > 1 ? 's' : ''}</span></h2><div class="aw-flow">`;
       }
-      html += `<a class="aw-it" href="#${p.slug}" data-i="${i}"><figure class="aw-fig"><img src="${src(p, p.photos[0])}" alt="${altOf(p)}" loading="${i < 6 ? 'eager' : 'lazy'}" decoding="async"></figure>${capOf(p)}</a>`;
+      const s = j++ % SHAPE.length, n1 = pick(p, SHAPE[s]), n2 = p.photos.find(k => k !== n1);
+      html += `<a class="aw-it s${s}" href="#${p.slug}" data-i="${i}"><figure class="aw-fig"><img src="${src(p, n1)}" alt="${altOf(p)}" loading="${i < 3 ? 'eager' : 'lazy'}" decoding="async">${fine && n2 ? `<img class="alt" data-src="${src(p, n2)}" alt="" aria-hidden="true">` : ''}</figure><div class="aw-cap"><span class="aw-meta"><i>${p.no}</i>${esc(p.type)}${city(p) ? ` · ${esc(city(p))}` : ''}</span><b>${esc(p.title)}</b></div></a>`;
     });
-    if (year !== null) html += '</div>';
+    if (year !== null) html += '</div></section>';
     out.innerHTML = html;
+    $$('.aw-it', out).forEach(el => RM ? el.classList.add('in') : rio.observe(el));
   };
   filters.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.dataset.cat === cur) return;
-    cur = b.dataset.cat; renderFilters(); render();
+    cur = b.dataset.cat; renderFilters();
+    out.classList.add('fade');
+    setTimeout(() => {
+      render(); out.classList.remove('fade');
+      const top = out.getBoundingClientRect().top + scrollY - 120;
+      if (scrollY > top) scrollTo({ top, behavior: 'auto' });
+    }, RM ? 0 : 260);
+  });
+  // a second photo fades in on hover (loaded the first time the pointer arrives)
+  out.addEventListener('pointerover', e => {
+    const im = e.target.closest('.aw-it')?.querySelector('img.alt[data-src]');
+    if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); }
   });
   out.addEventListener('click', e => {
     const a = e.target.closest('.aw-it'); if (!a) return;
     e.preventDefault(); openProject(+a.dataset.i);
   });
+  $('#aw-n').textContent = PROJECTS.length;
   renderFilters(); render();
 }
 
@@ -1069,6 +1130,7 @@ let inContact = false;
 function onScroll(){
   const y = scrollY;
   hdr.classList.toggle('small', y > 30);
+  hdr.classList.toggle('dark', inContact && contact.getBoundingClientRect().top < hdr.offsetHeight / 2);
   fab.classList.toggle('show', y > innerHeight * .6 && !inContact);
 }
 new IntersectionObserver(es => { inContact = es[0].isIntersecting; onScroll(); }, { threshold: .08 }).observe(contact);
